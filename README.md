@@ -42,7 +42,7 @@
 
 ### Guia para contribuição ###
 1. Clone o repositório e crie um branch local com o nome de sua preferencia, mas que indique que é um branch de desenvolvimento;
-2. `git checkout 'nome-do-branch'`;
+2. `git checkout -b 'nome-do-branch'`;
 3. Utilize **SEMPRE** o branch de desenvolvimento para alterar o codigo para evitar conflitos nos commits;
 4. Após as alterações efetue o commit local;
   1. No branch de desenvolvimento execute `git add ...` e depois `git commit -m "mensagem-do-commit"`
