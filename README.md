@@ -1,6 +1,4 @@
-# README #
-
-## ALOIS README ##
+# ALOIS README #
 
 ### What is this repository for? ###
 
