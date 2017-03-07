@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <string name="app_name">Alois</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="sign_in">Sign In</string>
+    <string name="no_account">No account?</string>
+    <string name="register">Register</string>
+    <string name="not_member_yet">Not a member yet?</string>
+    <string name="know_more">Know More</string>
+    <string name="dont_know_service_yet">Don\'t know the service yet?</string>
+
+    <string name="siging_in">Signing in</string>
+    <string name="sign_up_to_alois">Sign Up to Alois</string>
+    <string name="name">Name</string>
+    <string name="all_fields_are_required">All fields are required</string>
+    <string name="email">Email</string>
+    <string name="invalid_email">Invalid Email</string>
+    <string name="wrong_username_or_password">Wrong username or password</string>
+    <string name="username">Username</string>
+    <string name="name_is_required_field">Name is a required field</string>
+    <string name="email_is_required_field">Email is a required field</string>
+    <string name="username_is_required_field">Username is a required field</string>
+    <string name="password_is_required_field">Password is a required field and has to be at least 6 characters long</string>
+    <string name="need_internet_connection">You need an active internet connection to do this</string>
+    <string name="creating_account">Creating account</string>
+    <string name="please_wait">Please wait...</string>
+    <string name="registration_successful">Registration Successful</string>
+    <string name="registration_error">Registration failed due some error, contact the system administrator.</string>
+    <string name="logout">Logout</string>
+</resources>
