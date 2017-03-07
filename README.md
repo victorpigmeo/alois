@@ -40,6 +40,22 @@
 ### Guia para alterações ###
 * Depois de toda alteração no projeto alois-common é necessário que seja feito o "Maven install" para que o .jar do repositório local seja atualizado;
 
+### Guia para contribuição ###
+1. Clone o repositório e crie um branch local com o nome de sua preferencia, mas que indique que é um branch de desenvolvimento;
+2. `git checkout 'nome-do-branch'`;
+3. Utilize **SEMPRE** o branch de desenvolvimento para alterar o codigo para evitar conflitos nos commits;
+4. Após as alterações efetue o commit local;
+  4.1. No branch de desenvolvimento execute `git add ...` e depois `git commit -m "mensagem-do-commit"`
+5. Mude para o branch master e realize um `git pull`;
+6. Depois mude para o branch de desenvolvimento e execute um `git rebase master`;
+7. Se na saida não constar nenhum conflito, alterne para o branch master e execute `git merge nome-do-branch-desenv`;
+8. Depois execute o  git push`;
+9. Caso seja apresentado algum conflito no passo 6, resolva os conflitos, e execute `git rebase continue`;
+10. Caso ainda existam conflitos resolva-os e execute novamente o passo 9;
+11. Caso contrário execute os passos 7 e 8.
+
+##### Dessa forma não haverão conflitos no branch master que é o branch que sempre estará com o codigo mais atualizado. #####
+
 ### Em caso de dúvidas: ###
 
 #### Victor Carvalho (victor.blq@gmail.com) ####
