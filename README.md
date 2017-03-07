@@ -49,7 +49,7 @@
 5. Mude para o branch master e realize um `git pull`;
 6. Depois mude para o branch de desenvolvimento e execute um `git rebase master`;
 7. Se na saida não constar nenhum conflito, alterne para o branch master e execute `git merge nome-do-branch-desenv`;
-8. Depois execute o  git push`;
+8. Depois execute o `git push`;
 9. Caso seja apresentado algum conflito no passo 6, resolva os conflitos, e execute `git rebase continue`;
 10. Caso ainda existam conflitos resolva-os e execute novamente o passo 9;
 11. Caso contrário execute os passos 7 e 8.
