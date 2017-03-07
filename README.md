@@ -45,7 +45,7 @@
 2. `git checkout 'nome-do-branch'`;
 3. Utilize **SEMPRE** o branch de desenvolvimento para alterar o codigo para evitar conflitos nos commits;
 4. Após as alterações efetue o commit local;
-  4.1. No branch de desenvolvimento execute `git add ...` e depois `git commit -m "mensagem-do-commit"`
+  1. No branch de desenvolvimento execute `git add ...` e depois `git commit -m "mensagem-do-commit"`
 5. Mude para o branch master e realize um `git pull`;
 6. Depois mude para o branch de desenvolvimento e execute um `git rebase master`;
 7. Se na saida não constar nenhum conflito, alterne para o branch master e execute `git merge nome-do-branch-desenv`;
