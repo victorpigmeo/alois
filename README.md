@@ -1,14 +1,12 @@
 # ALOIS README #
 
-### What is this repository for? ###
-
-##### Quick Summary #####
+##### Resumo Rapido #####
 ###### Repositório criado para versionar o codigo da fase de desenvolvimento do aplicativo Alois ######
-##### Version #####
+##### Versão #####
 ###### 0.0.1-SNAPSHOT ######
 
-### How do I get set up? ###
-#### Configuration ####
+### Como eu faço para rodar o alois? ###
+#### Configuração ####
 * Clonar o repositório;
 * Haverão 3 pastas no repositorio sendo:
   - alois-mobile : Projeto do Android Studio contendo o codigo do app
@@ -27,10 +25,11 @@
 * Aguarde para que o maven resolva as dependencias, esse processo pode demorar;
 * Depois abra o android studio e abra o projeto alois-mobile;
 * Aguarde até que o gradle resolva as dependencias, esse processo pode demorar;
-* Para o banco de dados apenas crie uma role chamada 'alois' com senha 'alois' com permissões de superusuario e permitido login;
+* Para o banco de dados crie uma role chamada 'alois' com senha 'alois' com permissões de superusuario e permitido login;
+* Depois apenas crie uma database de nome 'alois';
   * A criação da estrutura do banco é feita pelo Hibernate portanto não precisamos nos preocupar com isso.
   
-#### Run ####
+#### Rodar ####
 * No eclipse clique com o botão direito sobre o projeto alois-solution;
 * Selecione a opção 'Run As' e depois a opção "Spring Boot App";
 * Aguarde até que uma mensagem "Application Started in..." seja exibida;
@@ -38,11 +37,9 @@
 * No Android Studio apenas clique no botão 'Run' e selecione o dispositivo no qual rodar o app;
   * É altamente recomendado o uso de um dispositivo fisico para testes para que o teste fique mais proximo da experiencia final.
 
-
-### Contribution guidelines ###
-
+### Guia para alterações ###
 * Depois de toda alteração no projeto alois-common é necessário que seja feito o "Maven install" para que o .jar do repositório local seja atualizado;
 
-### Who do I talk to? ###
+### Em caso de dúvidas: ###
 
 #### Victor Carvalho (victor.blq@gmail.com) ####
