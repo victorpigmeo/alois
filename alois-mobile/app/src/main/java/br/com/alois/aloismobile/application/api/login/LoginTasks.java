@@ -54,19 +54,20 @@ public class LoginTasks
 
         try
         {
-            loginSuccess(loginClient.doLogin(params, basicAuthToken));
+            loginHandleResponseSuccess(loginClient.doLogin(params, basicAuthToken));
         }
         catch(FeignException e)
         {
             e.printStackTrace();
-            loginFail(e.getMessage());
+            loginHandleResponseFail(e.getMessage());
         }
     }
 
     @UiThread
-    void loginSuccess(User user)
+    public void loginHandleResponseSuccess(User user)
     {
         this.loginActivity.progressDialog.dismiss();
+
         if(user != null)
         {
             this.generalPreferences
@@ -83,21 +84,19 @@ public class LoginTasks
         }
         else
         {
-            Toast.makeText(
-                    this.loginActivity,
-                    this.loginActivity.getResources().getString(R.string.wrong_username_or_password),
-                    Toast.LENGTH_SHORT)
-                    .show();
+            loginHandleResponseFail(this.loginActivity.getResources().getString(R.string.wrong_username_or_password));
         }
-
 
     }
 
     @UiThread
-    void loginFail(String errorMessage)
+    public void loginHandleResponseFail(String message)
     {
-        this.loginActivity.progressDialog.dismiss();
-        System.out.println(errorMessage);
+        Toast.makeText(
+                this.loginActivity,
+                message,
+                Toast.LENGTH_SHORT)
+                .show();
     }
 
 }

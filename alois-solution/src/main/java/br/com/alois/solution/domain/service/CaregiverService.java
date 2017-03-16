@@ -30,6 +30,13 @@ public class CaregiverService
 		
 		caregiver.setUserType(UserType.CAREGIVER);
 		
-		return this.caregiverRepository.save(caregiver);
+		if(this.caregiverRepository.findByUsername(caregiver.getUsername()))
+		{
+			return null;
+		}
+		else
+		{
+			return this.caregiverRepository.save(caregiver);
+		}
 	}
 }

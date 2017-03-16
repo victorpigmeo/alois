@@ -72,7 +72,7 @@ public class HomeActivity extends AppCompatActivity
         {
             //FAZER UM CONFIRM DIALOG AQUI PRA VER SE O CARA REALMENTE QUER DESLOGAR
             final Intent returnIntent = new Intent();
-            returnIntent.putExtra("action", "logoff");
+            returnIntent.putExtra("action", "quit");
             this.setResult(Activity.RESULT_OK, returnIntent);
             finish();
         }

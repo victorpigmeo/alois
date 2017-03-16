@@ -30,4 +30,9 @@
     <string name="registration_successful">Registration Successful</string>
     <string name="registration_error">Registration failed due some error, contact the system administrator.</string>
     <string name="logout">Logout</string>
+    <string name="gender">Gender</string>
+    <string name="gender_is_required">Gender is a required field</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="username_already_exists">Username already exists.</string>
 </resources>

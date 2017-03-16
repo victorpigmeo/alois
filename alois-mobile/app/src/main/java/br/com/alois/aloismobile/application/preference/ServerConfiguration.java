@@ -9,7 +9,7 @@ public class ServerConfiguration {
     /**
      * Server address
      */
-    public static final String SERVER_ADDRESS = "192.168.25.12:8080";
+    public static final String SERVER_ADDRESS = "192.168.11.87:8080";
     /**
      *
      */

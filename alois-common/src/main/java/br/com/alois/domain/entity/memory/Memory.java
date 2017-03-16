@@ -1,7 +1,6 @@
-package br.com.alois.domain.entity.route;
+package br.com.alois.domain.entity.memory;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.envers.Audited;
@@ -20,11 +18,11 @@ import br.com.alois.domain.entity.user.Patient;
 
 @Entity
 @Audited
-@Table(name="route")
-public class Route implements Serializable
-{
+@Table(name="memory")
+public class Memory implements Serializable{
+
 	//=====================================ATTRIBUTES=======================================
-	private static final long serialVersionUID = -8580815217803600937L;
+	private static final long serialVersionUID = -8234737950767286626L;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -32,19 +30,16 @@ public class Route implements Serializable
 	
 	@NotEmpty
 	@Column(nullable=false)
-	private String name;
-	
+	private String title;
+
 	private String description;
 	
-	@OneToMany(orphanRemoval = true, fetch=FetchType.LAZY, mappedBy="route")
-	private List<Step> steps;
+	@NotEmpty
+	@Column(nullable=false)
+	private String file;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	private Patient patient;
-	//======================================================================================
-	
-	//=====================================INJECTIONS=======================================
-
 	//======================================================================================
 	
 	//====================================CONSTRUCTORS======================================
@@ -52,45 +47,46 @@ public class Route implements Serializable
 	//======================================================================================
 	
 	//==================================GETTERS/SETTERS=====================================
-	public Long getId() 
-	{
+	public Long getId() {
 		return id;
 	}
-	
-	public void setId(Long id) 
-	{
+
+	public void setId(Long id) {
 		this.id = id;
 	}
-	
-	public String getName() 
-	{
-		return name;
+
+	public String getTitle() {
+		return title;
 	}
-	
-	public void setName(String name) 
-	{
-		this.name = name;
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
-	
-	public String getDescription() 
-	{
+
+	public String getDescription() {
 		return description;
 	}
-	
-	public void setDescription(String description) 
-	{
+
+	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	public List<Step> getSteps() 
-	{
-		return steps;
+
+	public String getFile() {
+		return file;
+	}
+
+	public void setFile(String file) {
+		this.file = file;
 	}
 	
-	public void setSteps(List<Step> steps) 
-	{
-		this.steps = steps;
+	public Patient getPatient() {
+		return patient;
 	}
+	
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
+	
 	//======================================================================================
 
 	//=====================================BEHAVIOUR========================================
@@ -99,9 +95,9 @@ public class Route implements Serializable
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
+		result = prime * result + ((file == null) ? 0 : file.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((steps == null) ? 0 : steps.hashCode());
+		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		return result;
 	}
 
@@ -113,30 +109,30 @@ public class Route implements Serializable
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Route other = (Route) obj;
+		Memory other = (Memory) obj;
 		if (description == null) {
 			if (other.description != null)
 				return false;
 		} else if (!description.equals(other.description))
+			return false;
+		if (file == null) {
+			if (other.file != null)
+				return false;
+		} else if (!file.equals(other.file))
 			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (name == null) {
-			if (other.name != null)
+		if (title == null) {
+			if (other.title != null)
 				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		if (steps == null) {
-			if (other.steps != null)
-				return false;
-		} else if (!steps.equals(other.steps))
+		} else if (!title.equals(other.title))
 			return false;
 		return true;
 	}
-	
+
 	//======================================================================================
-	
+
 }

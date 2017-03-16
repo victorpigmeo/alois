@@ -45,9 +45,38 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="@string/gender"
+        android:id="@+id/labelGender"
+        android:layout_below="@+id/editEmail"/>
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/labelGender"
+        android:id="@+id/radioGender"
+        android:orientation="horizontal">
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/male"
+                android:tag="MALE"
+                android:id="@+id/radioMale"
+                android:layout_weight="1"/>
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/female"
+                android:tag="FEMALE"
+                android:id="@+id/radioFemale"
+                android:layout_weight="1"/>
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="@string/username"
         android:id="@+id/labelUsername"
-        android:layout_below="@+id/editEmail"/>
+        android:layout_below="@+id/radioGender"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

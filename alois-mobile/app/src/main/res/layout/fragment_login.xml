@@ -51,14 +51,6 @@
         android:layout_below="@+id/editPassword"
         style="@style/Widget.AppCompat.Button.Borderless"/>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="EXPORT DB"
-        android:id="@+id/exportDb"
-        android:layout_below="@+id/buttonSignIn"
-        style="@style/Widget.AppCompat.Button.Borderless"/>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -27,29 +27,44 @@ public class SignupTasks {
     LoginActivity loginActivity;
 
     @Background
-    public void signupAsyncTask(Caregiver caregiver){
+    public void signupAsyncTask(Caregiver caregiver)
+    {
         SignupClient signupClient = Feign.builder()
                 .encoder(new JacksonEncoder())
                 .decoder(new JacksonDecoder())
                 .target(SignupClient.class, ServerConfiguration.API_ENDPOINT);
 
-        try {
-            signupHandleResponse(signupClient.signup(caregiver));
-        }catch(FeignException e){
-            e.printStackTrace();
+        try
+        {
+            signupHandleResponseSuccess(signupClient.signup(caregiver));
+        }
+        catch(FeignException e)
+        {
+            if(e.getMessage().contains("ConstraintViolationException"))
+            {
+                this.signupHandleResponseFail( this.loginActivity.getResources().getString(R.string.username_already_exists));
+            }
+            else
+            {
+                e.printStackTrace();
+                this.signupHandleResponseFail(e.getMessage());
+            }
         }
     }
 
     @UiThread
-    public void signupHandleResponse(Caregiver caregiver){
+    public void signupHandleResponseSuccess(Caregiver caregiver)
+    {
         this.loginActivity.progressDialog.dismiss();
 
-        if(caregiver != null && caregiver.getId() != null) {
-            Toast.makeText(this.loginActivity, this.loginActivity.getResources().getString(R.string.registration_successful), Toast.LENGTH_SHORT).show();
-            this.loginActivity.getSupportFragmentManager().popBackStack();
-        }else{
-            Toast.makeText(this.loginActivity, this.loginActivity.getResources().getString(R.string.registration_error), Toast.LENGTH_SHORT).show();
-        }
+        Toast.makeText(this.loginActivity, this.loginActivity.getResources().getString(R.string.registration_successful), Toast.LENGTH_SHORT).show();
+        this.loginActivity.getSupportFragmentManager().popBackStack();
+    }
 
+    @UiThread
+    public void signupHandleResponseFail(String message)
+    {
+        this.loginActivity.progressDialog.dismiss();
+        Toast.makeText(this.loginActivity, message, Toast.LENGTH_SHORT).show();
     }
 }

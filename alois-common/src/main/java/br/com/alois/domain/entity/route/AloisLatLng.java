@@ -2,6 +2,7 @@ package br.com.alois.domain.entity.route;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,9 +26,11 @@ public class AloisLatLng implements Serializable
 	private Long id;
 	
 	@JsonProperty("latitude")
+	@Column(nullable=false)
 	private double latitude;
 	
 	@JsonProperty("longitude")
+	@Column(nullable=false)
 	private double longitude;
 	//======================================================================================
 	
@@ -75,8 +78,41 @@ public class AloisLatLng implements Serializable
 		this.longitude = longitude;
 	}
 	//======================================================================================
-	
+
 	//=====================================BEHAVIOUR========================================
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(latitude);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(longitude);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AloisLatLng other = (AloisLatLng) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (Double.doubleToLongBits(latitude) != Double.doubleToLongBits(other.latitude))
+			return false;
+		if (Double.doubleToLongBits(longitude) != Double.doubleToLongBits(other.longitude))
+			return false;
+		return true;
+	}
 	
 	//======================================================================================
 }
