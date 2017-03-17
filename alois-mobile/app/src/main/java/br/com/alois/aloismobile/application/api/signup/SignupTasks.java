@@ -21,7 +21,8 @@ import feign.FeignException;
  */
 
 @EBean
-public class SignupTasks {
+public class SignupTasks
+{
 
     @RootContext
     LoginActivity loginActivity;
@@ -67,4 +68,5 @@ public class SignupTasks {
         this.loginActivity.progressDialog.dismiss();
         Toast.makeText(this.loginActivity, message, Toast.LENGTH_SHORT).show();
     }
+
 }

@@ -80,6 +80,8 @@ public class LoginTasks
                     .put(user.getUserType().ordinal())
                     .apply();
 
+
+            //ALTERAR A HOME QUE ESTIVER DESENVOLVENDO AQUI
             this.loginActivity.startActivityForResult(HomeActivity_.intent(this.loginActivity.getApplicationContext()).get(), 1);
         }
         else

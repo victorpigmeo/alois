@@ -5,7 +5,8 @@ package br.com.alois.aloismobile.application.preference;
  * Class containing the server configurations
  */
 
-public class ServerConfiguration {
+public class ServerConfiguration
+{
     /**
      * Server address
      */
@@ -18,7 +19,6 @@ public class ServerConfiguration {
      *
      */
     private static final String API_CONTEXT = "/api";
-
     /**
      *
      */
