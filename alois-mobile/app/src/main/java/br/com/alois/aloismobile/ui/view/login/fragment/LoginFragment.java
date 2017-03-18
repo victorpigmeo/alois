@@ -1,7 +1,6 @@
 package br.com.alois.aloismobile.ui.view.login.fragment;
 
 import android.net.ConnectivityManager;
-import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.EditText;
@@ -18,15 +17,11 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.SystemService;
 import org.androidannotations.annotations.ViewById;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.nio.channels.FileChannel;
 import java.util.List;
 
 import br.com.alois.aloismobile.R;
-import br.com.alois.aloismobile.application.util.AloisUtils;
 import br.com.alois.aloismobile.ui.view.login.LoginActivity;
+import br.com.alois.domain.entity.user.User;
 
 @EFragment(R.layout.fragment_login)
 public class LoginFragment extends Fragment implements Validator.ValidationListener {
@@ -84,7 +79,7 @@ public class LoginFragment extends Fragment implements Validator.ValidationListe
     @Override
     public void onValidationSucceeded() {
         String username = this.editUsername.getText().toString();
-        String password = AloisUtils.encryptPassword(this.editPassword.getText().toString());
+        String password = User.encryptPassword(this.editPassword.getText().toString());
 
         ((LoginActivity) this.getActivity()).login(username, password);
     }

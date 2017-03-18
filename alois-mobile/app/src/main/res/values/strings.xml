@@ -35,4 +35,9 @@
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="username_already_exists">Username already exists.</string>
+    <string name="my_patients">My Patients</string>
+    <string name="cannot_connect">Cannot conect, try again later</string>
+    <string name="loading_patients">Loading patients</string>
+    <string name="edit_patient">Edit Patient</string>
+    <string name="delete_patient">Delete Patient</string>
 </resources>

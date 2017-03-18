@@ -3,12 +3,9 @@ package br.com.alois.aloismobile.ui.view.login.fragment;
 import android.net.ConnectivityManager;
 import android.support.v4.app.Fragment;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mobsandgeeks.saripaar.ValidationError;
@@ -16,7 +13,6 @@ import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Checked;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Password;
-import com.mobsandgeeks.saripaar.annotation.Select;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
@@ -28,11 +24,11 @@ import org.androidannotations.annotations.ViewById;
 import java.util.List;
 
 import br.com.alois.aloismobile.R;
-import br.com.alois.aloismobile.application.util.AloisUtils;
 import br.com.alois.aloismobile.ui.view.login.LoginActivity;
 import br.com.alois.aloismobile.ui.view.login.adapter.GenderSpinnerAdapter;
 import br.com.alois.domain.entity.user.Caregiver;
 import br.com.alois.domain.entity.user.Gender;
+import br.com.alois.domain.entity.user.User;
 
 @EFragment(R.layout.fragment_signup)
 public class SignupFragment extends Fragment implements Validator.ValidationListener
@@ -106,7 +102,7 @@ public class SignupFragment extends Fragment implements Validator.ValidationList
                 this.editEmail.getText().toString(),
                 Gender.valueOf(radioButton.getTag().toString()),
                 this.editUserName.getText().toString(),
-                AloisUtils.encryptPassword(this.editPassword.getText().toString())
+                User.encryptPassword(this.editPassword.getText().toString())
         );
 
         ((LoginActivity) this.getActivity()).signup(caregiver);

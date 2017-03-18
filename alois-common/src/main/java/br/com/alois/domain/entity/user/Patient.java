@@ -15,7 +15,11 @@ import javax.persistence.TemporalType;
 import org.hibernate.envers.Audited;
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import br.com.alois.domain.entity.memory.Memory;
 import br.com.alois.domain.entity.reminder.Reminder;
@@ -25,6 +29,10 @@ import br.com.alois.domain.entity.route.Route;
 @Audited
 @Table(name = "patient")
 @JsonTypeName("patient")
+@JsonIdentityInfo(
+		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+		  scope = Patient.class,
+		  property = "id")
 public class Patient extends User
 {
 	//=====================================ATTRIBUTES=======================================
@@ -46,14 +54,18 @@ public class Patient extends User
 	private String note;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
+	@JsonBackReference
 	private Caregiver caregiver;
 	
+	@JsonManagedReference
 	@OneToMany(orphanRemoval=true, fetch=FetchType.LAZY, mappedBy="patient")
 	private List<Reminder> reminders;
 	
+	@JsonManagedReference
 	@OneToMany(orphanRemoval=true, fetch=FetchType.LAZY, mappedBy="patient")
 	private List<Memory> memories;
 	
+	@JsonManagedReference
 	@OneToMany(orphanRemoval=true, fetch=FetchType.LAZY, mappedBy="patient")
 	private List<Route> routes;
 

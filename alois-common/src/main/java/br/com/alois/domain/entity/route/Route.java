@@ -16,11 +16,19 @@ import javax.persistence.Table;
 import org.hibernate.envers.Audited;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import br.com.alois.domain.entity.user.Patient;
 
 @Entity
 @Audited
 @Table(name="route")
+@JsonIdentityInfo(
+		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+		  scope = Route.class,
+		  property = "id")
 public class Route implements Serializable
 {
 	//=====================================ATTRIBUTES=======================================
@@ -40,6 +48,7 @@ public class Route implements Serializable
 	private List<Step> steps;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
+	@JsonBackReference
 	private Patient patient;
 	//======================================================================================
 	

@@ -16,6 +16,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import org.apache.commons.codec.binary.Hex;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.hibernate.envers.Audited;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -204,6 +206,11 @@ public abstract class User implements Serializable
 			return false;
 		return true;
 	}
+	
+	public static String encryptPassword(String password)
+    {
+         return new String(Hex.encodeHex(DigestUtils.sha1(password)));
+    }
 	
 	//======================================================================================
 }

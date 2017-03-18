@@ -1,5 +1,6 @@
 package br.com.alois.aloismobile.application.api.login;
 
+import android.content.Intent;
 import android.util.Base64;
 import android.widget.Toast;
 
@@ -17,11 +18,12 @@ import br.com.alois.aloismobile.application.preference.GeneralPreferences_;
 import br.com.alois.aloismobile.application.preference.ServerConfiguration;
 import br.com.alois.aloismobile.application.util.jackson.JacksonDecoder;
 import br.com.alois.aloismobile.application.util.jackson.JacksonEncoder;
-import br.com.alois.aloismobile.ui.view.home.HomeActivity_;
+import br.com.alois.aloismobile.ui.view.home.CaregiverHomeActivity_;
 import br.com.alois.aloismobile.ui.view.login.LoginActivity;
 import br.com.alois.domain.entity.user.User;
 import feign.Feign;
 import feign.FeignException;
+import feign.Request;
 
 /**
  * Created by victor on 2/27/17.
@@ -54,7 +56,7 @@ public class LoginTasks
 
         try
         {
-            loginHandleResponseSuccess(loginClient.doLogin(params, basicAuthToken));
+            loginHandleResponseSuccess(loginClient.doLogin(params, basicAuthToken), basicAuthToken);
         }
         catch(FeignException e)
         {
@@ -64,7 +66,7 @@ public class LoginTasks
     }
 
     @UiThread
-    public void loginHandleResponseSuccess(User user)
+    public void loginHandleResponseSuccess(User user, String authToken)
     {
         this.loginActivity.progressDialog.dismiss();
 
@@ -72,17 +74,34 @@ public class LoginTasks
         {
             this.generalPreferences
                     .edit()
+                    .loggedUserId()
+                    .put(user.getId())
                     .loggedUsername()
                     .put(user.getUsername())
                     .loggedPassword()
                     .put(user.getPassword())
                     .loggedUserType()
                     .put(user.getUserType().ordinal())
+                    .loggedUserAuthToken()
+                    .put(authToken)
                     .apply();
 
 
-            //ALTERAR A HOME QUE ESTIVER DESENVOLVENDO AQUI
-            this.loginActivity.startActivityForResult(HomeActivity_.intent(this.loginActivity.getApplicationContext()).get(), 1);
+            Intent homeIntent = null;
+            switch(user.getUserType())
+            {
+                case ADMINISTRATOR:
+                    homeIntent = null;//TODO change to caregiver home activity
+                    break;
+                case CAREGIVER:
+                    homeIntent = CaregiverHomeActivity_.intent(this.loginActivity.getApplicationContext()).get();
+                    break;
+                case PATIENT:
+                    homeIntent = null;//TODO change to patient home activity
+                    break;
+            }
+
+            this.loginActivity.startActivityForResult(homeIntent, 1);
         }
         else
         {
@@ -94,9 +113,10 @@ public class LoginTasks
     @UiThread
     public void loginHandleResponseFail(String message)
     {
+        this.loginActivity.progressDialog.dismiss();
         Toast.makeText(
                 this.loginActivity,
-                message,
+                this.loginActivity.getResources().getString(R.string.cannot_connect),
                 Toast.LENGTH_SHORT)
                 .show();
     }

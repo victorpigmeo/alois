@@ -14,11 +14,19 @@ import javax.persistence.Table;
 import org.hibernate.envers.Audited;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import br.com.alois.domain.entity.user.Patient;
 
 @Entity
 @Audited
 @Table(name="memory")
+@JsonIdentityInfo(
+		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+		  scope = Memory.class,
+		  property = "id")
 public class Memory implements Serializable{
 
 	//=====================================ATTRIBUTES=======================================
@@ -39,6 +47,7 @@ public class Memory implements Serializable{
 	private String file;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
+	@JsonBackReference
 	private Patient patient;
 	//======================================================================================
 	

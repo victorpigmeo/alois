@@ -3,22 +3,24 @@ package br.com.alois.aloismobile.ui.view.login;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
+import android.view.inputmethod.InputMethodManager;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.NonConfigurationInstance;
+import org.androidannotations.annotations.SystemService;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import br.com.alois.aloismobile.R;
 import br.com.alois.aloismobile.application.api.login.LoginTasks;
 import br.com.alois.aloismobile.application.api.signup.SignupTasks;
 import br.com.alois.aloismobile.application.preference.GeneralPreferences_;
-import br.com.alois.aloismobile.ui.view.home.HomeActivity;
-import br.com.alois.aloismobile.ui.view.home.HomeActivity_;
+import br.com.alois.aloismobile.ui.view.home.CaregiverHomeActivity_;
 import br.com.alois.aloismobile.ui.view.login.fragment.LoginFragment;
 import br.com.alois.aloismobile.ui.view.login.fragment.LoginFragment_;
 import br.com.alois.domain.entity.user.Caregiver;
+import br.com.alois.domain.entity.user.UserType;
 
 @EActivity(R.layout.activity_login)
 public class LoginActivity extends AppCompatActivity
@@ -37,7 +39,10 @@ public class LoginActivity extends AppCompatActivity
     SignupTasks signupTasks;
 
     @Pref
-    GeneralPreferences_ generalPreferences;
+    static GeneralPreferences_ generalPreferences;
+
+    @SystemService
+    InputMethodManager inputMethodManager;
 
     //======================================================================================
 
@@ -54,8 +59,22 @@ public class LoginActivity extends AppCompatActivity
                     .addToBackStack("loginFragment")
                     .commit();
         }else{
-            Intent homeActivity = HomeActivity_.intent(this.getApplicationContext()).get();
-            this.startActivityForResult(homeActivity, 0);
+            Intent homeIntent = null;
+            int userType = this.generalPreferences.loggedUserType().get().intValue();
+            switch(UserType.values()[userType])
+            {
+                case ADMINISTRATOR:
+                    homeIntent = null;//TODO change to caregiver home activity
+                    break;
+                case CAREGIVER:
+                    homeIntent = CaregiverHomeActivity_.intent(this.getApplicationContext()).get();
+                    break;
+                case PATIENT:
+                    homeIntent = null;//TODO change to patient home activity
+                    break;
+            }
+
+            this.startActivityForResult(homeIntent, 1);
         }
     }
 
@@ -94,6 +113,9 @@ public class LoginActivity extends AppCompatActivity
     }
 
     public void login(String username, String password){
+        //force hide keyboard
+        this.inputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
+
         this.progressDialog = ProgressDialog.show(this,
                 this.getResources().getString(R.string.siging_in),
                 this.getResources().getString(R.string.please_wait),
@@ -117,6 +139,20 @@ public class LoginActivity extends AppCompatActivity
         {
             finish();
         }
+    }
+
+    public static void clearUserData()
+    {
+        generalPreferences.edit()
+                .loggedUsername()
+                .remove()
+                .loggedPassword()
+                .remove()
+                .loggedUserType()
+                .remove()
+                .loggedUserAuthToken()
+                .remove()
+                .apply();
     }
 
     //======================================================================================

@@ -19,11 +19,19 @@ import javax.persistence.TemporalType;
 import org.hibernate.envers.Audited;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import br.com.alois.domain.entity.user.Patient;
 
 @Entity
 @Audited
 @Table(name="reminder")
+@JsonIdentityInfo(
+		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+		  scope = Reminder.class,
+		  property = "id")
 public class Reminder implements Serializable{
 
 	//=====================================ATTRIBUTES=======================================
@@ -48,6 +56,7 @@ public class Reminder implements Serializable{
 	private Frequency frequency;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
+	@JsonBackReference
 	private Patient patient;
 	//======================================================================================
 

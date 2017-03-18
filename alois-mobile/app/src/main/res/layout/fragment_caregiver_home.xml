@@ -1,0 +1,37 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                tools:context="br.com.alois.aloismobile.ui.view.home.fragment.CaregiverHomeFragment_">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/my_patients"
+        android:textSize="25dp"
+        android:id="@+id/patient_list_title"
+        android:layout_margin="@dimen/title_margin"/>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/patient_list"
+        android:layout_below="@+id/patient_list_title">
+    </ListView>
+
+    <com.github.clans.fab.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fab_add_patient"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/ic_add_white_24dp"
+        app:menu_colorNormal="@color/colorPrimary"
+        app:menu_colorRipple="@color/colorPrimaryDark"
+        app:menu_colorPressed="@color/colorPrimaryDark"
+        android:layout_marginEnd="13dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="13dp">
+    </com.github.clans.fab.FloatingActionButton>
+</RelativeLayout>

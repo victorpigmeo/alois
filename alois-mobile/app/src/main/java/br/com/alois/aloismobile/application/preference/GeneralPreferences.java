@@ -12,6 +12,13 @@ public interface GeneralPreferences
     //User Info
 
     //Authentication info, this is used to construct the basic authentication token in every request
+
+    /**
+     * Stores the logged user id
+     * @return
+     */
+    long loggedUserId();
+
     /**
      * Stores the username of the logged user
      * @return
@@ -23,9 +30,20 @@ public interface GeneralPreferences
      * @return
      */
     String loggedPassword();
+
     //End authentication info
 
+    /**
+     * Stores the logged usertype
+     * @return
+     */
     int loggedUserType();
+
+    /**
+     * Stores the authtoken to basic auth
+     * @return
+     */
+    String loggedUserAuthToken();
 
     //End User Info
 }
