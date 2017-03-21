@@ -72,6 +72,7 @@ dependencies {
     compile 'com.github.clans:fab:1.6.4'
     testCompile 'junit:junit:4.12'
     apt 'org.androidannotations:androidannotations:4.2.0'
+    compile 'com.wdullaer:materialdatetimepicker:2.5.0'
 }
 
 apt {

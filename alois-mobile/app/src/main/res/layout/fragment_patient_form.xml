@@ -1,0 +1,175 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                 xmlns:tools="http://schemas.android.com/tools"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 tools:context="br.com.alois.aloismobile.ui.view.patient.fragment.PatientFormFragment">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/patientFormTitle"
+            android:text="@string/add_patient"
+            android:textSize="@dimen/title_text_size"
+            android:layout_margin="@dimen/title_margin"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/patientFormNameLabel"
+            android:layout_below="@+id/patientFormTitle"
+            android:text="@string/name"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/patientFormEditName"
+            android:layout_below="@+id/patientFormNameLabel"
+            android:inputType="textPersonName"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/patientFormPhoneLabel"
+            android:layout_below="@+id/patientFormEditName"
+            android:text="@string/phone"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/patientFormEditPhone"
+            android:layout_below="@+id/patientFormPhoneLabel"
+            android:inputType="phone"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/patientFormGenderLabel"
+            android:layout_below="@+id/patientFormEditPhone"
+            android:text="@string/gender"/>
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/patientFormGenderLabel"
+            android:id="@+id/patientFormRadioGender"
+            android:orientation="horizontal">
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/male"
+                android:tag="MALE"
+                android:id="@+id/patientFormRadioMale"
+                android:layout_weight="1"/>
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/female"
+                android:tag="FEMALE"
+                android:id="@+id/patientFormRadioFemale"
+                android:layout_weight="1"/>
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/patientFormDateOfBirthLabel"
+            android:layout_below="@+id/patientFormRadioGender"
+            android:text="@string/date_of_birth"
+            android:layout_margin="10dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/patientFormDateView"
+            android:layout_toRightOf="@+id/patientFormDateOfBirthLabel"
+            android:layout_below="@+id/patientFormRadioGender"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            android:textColor="@android:color/black"/>
+        <ImageButton
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="5dp"
+            android:id="@+id/patientFormButtonSelectDate"
+            android:layout_toRightOf="@+id/patientFormDateView"
+            android:layout_below="@+id/patientFormRadioGender"
+            style="@style/Base.Widget.AppCompat.Button.Borderless"
+            android:src="@drawable/ic_date_range_black_24dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/patientFormAddressLabel"
+            android:layout_below="@+id/patientFormButtonSelectDate"
+            android:text="@string/address"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/patientFormEditAddress"
+            android:layout_below="@+id/patientFormAddressLabel"
+            android:inputType="textPostalAddress"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/patientFormEmergencyPhoneLabel"
+            android:layout_below="@+id/patientFormEditAddress"
+            android:text="@string/emergency_phone"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/patientFormEditEmergencyPhone"
+            android:layout_below="@+id/patientFormEmergencyPhoneLabel"
+            android:inputType="phone"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/patientFormNotesLabel"
+            android:layout_below="@+id/patientFormEditEmergencyPhone"
+            android:text="@string/notes"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/patientFormEditNotes"
+            android:layout_below="@+id/patientFormNotesLabel"
+            android:inputType="textMultiLine"/>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/patientFormEditNotes">
+            <TableRow>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/patientFormLoginLabel"
+                    android:text="@string/login"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/patientFormPasswordLabel"
+                    android:text="@string/password"
+                    android:layout_weight="1"/>
+            </TableRow>
+
+            <TableRow>
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/patientFormEditLogin"
+                    android:layout_weight="1"/>
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/patientFormEditPassword"
+                    android:layout_weight="1"/>
+            </TableRow>
+        </TableLayout>
+    </RelativeLayout>
+</ScrollView>

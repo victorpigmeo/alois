@@ -15,6 +15,8 @@ import java.util.List;
 
 import br.com.alois.aloismobile.R;
 import br.com.alois.aloismobile.ui.view.home.adapter.PatientListAdapter;
+import br.com.alois.aloismobile.ui.view.patient.fragment.PatientFormFragment;
+import br.com.alois.aloismobile.ui.view.patient.fragment.PatientFormFragment_;
 import br.com.alois.domain.entity.user.Patient;
 
 /**
@@ -63,7 +65,13 @@ public class CaregiverHomeFragment extends Fragment
     @Click(R.id.fab_add_patient)
     public void onFabAddPatientClick()
     {
-        Toast.makeText(this.getContext(), "Add patient", Toast.LENGTH_SHORT).show();
+        PatientFormFragment patientFormFragment = PatientFormFragment_.builder().build();
+
+        this.getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.caregiver_home_frame_layout, patientFormFragment)
+                .addToBackStack("patient_form_fragment")
+                .commit();
     }
     //======================================================================================
 

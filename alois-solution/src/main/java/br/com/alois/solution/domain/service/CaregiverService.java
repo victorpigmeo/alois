@@ -30,7 +30,7 @@ public class CaregiverService
 		
 		caregiver.setUserType(UserType.CAREGIVER);
 		
-		if(this.caregiverRepository.findByUsername(caregiver.getUsername()))
+		if(this.caregiverRepository.findByUsername(caregiver.getUsername()).size() != 0)
 		{
 			return null;
 		}

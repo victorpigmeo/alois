@@ -22,7 +22,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.view.home.HomeActivity_"/>
-        <activity android:name=".ui.view.home.CaregiverHomeActivity_"/>
+        <activity android:name=".ui.view.home.CaregiverHomeActivity_"
+                  android:windowSoftInputMode="adjustResize"/>
         
     </application>
 

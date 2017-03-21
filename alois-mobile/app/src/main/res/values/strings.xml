@@ -40,4 +40,13 @@
     <string name="loading_patients">Loading patients</string>
     <string name="edit_patient">Edit Patient</string>
     <string name="delete_patient">Delete Patient</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_patient">Add Patient</string>
+    <string name="phone">Phone</string>
+    <string name="date_of_birth">Date of birth</string>
+    <string name="address">Address</string>
+    <string name="emergency_phone">Emergency Phone</string>
+    <string name="notes">Notes</string>
 </resources>

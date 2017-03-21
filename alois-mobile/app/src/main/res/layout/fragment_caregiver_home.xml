@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/my_patients"
-        android:textSize="25dp"
+        android:textSize="@dimen/title_text_size"
         android:id="@+id/patient_list_title"
         android:layout_margin="@dimen/title_margin"/>
 
