@@ -73,6 +73,11 @@ public class CaregiverHomeFragment extends Fragment
                 .addToBackStack("patient_form_fragment")
                 .commit();
     }
+
+    public void onInsertPatient(Patient patient)
+    {
+        this.patientListAdapter.onInsertPatient(patient);
+    }
     //======================================================================================
 
 }

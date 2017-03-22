@@ -91,12 +91,14 @@ public class LoginTasks
             switch(user.getUserType())
             {
                 case ADMINISTRATOR:
+                    System.out.println("Logged as Administrator");
                     homeIntent = null;//TODO change to caregiver home activity
                     break;
                 case CAREGIVER:
                     homeIntent = CaregiverHomeActivity_.intent(this.loginActivity.getApplicationContext()).get();
                     break;
                 case PATIENT:
+                    System.out.println("Logged as Patient");
                     homeIntent = null;//TODO change to patient home activity
                     break;
             }

@@ -12,5 +12,4 @@ public interface IPatientRepository extends JpaRepository<Patient, Long>{
 
 	@Query(value = "FROM Patient p WHERE p.caregiver.id = :caregiverId")
 	List<Patient> listPatientsByCaregiverId(@Param("caregiverId") Long caregiverId);
-
 }

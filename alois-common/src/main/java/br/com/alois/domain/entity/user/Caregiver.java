@@ -36,6 +36,11 @@ public class Caregiver extends User
 	//====================================CONSTRUCTORS======================================
 	public Caregiver(){};
 	
+	public Caregiver(Long id)
+	{
+		this.setId(id);
+	}
+	
 	public Caregiver(String name, String email, Gender gender, String username, String password){
 		this.setName(name);
 		this.setEmail(email);

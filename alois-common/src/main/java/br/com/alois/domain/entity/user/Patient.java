@@ -38,14 +38,14 @@ public class Patient extends User
 	//=====================================ATTRIBUTES=======================================
 	private static final long serialVersionUID = -742729100418082281L;
 	
-	@NotBlank
+	@NotBlank(message = "Name is required")
 	@Column(nullable=false)
 	private String phone;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar birthDate;
 	
-	@NotBlank
+	@NotBlank(message = "Address is required")
 	@Column(nullable=false)
 	private String address;
 	
@@ -72,7 +72,32 @@ public class Patient extends User
 	//======================================================================================
 	
 	//====================================CONSTRUCTORS======================================
+	public Patient(){}
 	
+	public Patient(
+			String name,
+			String phone,
+			Gender gender,
+			Calendar dateOfBirth,
+			String address,
+			String emergencyPhone,
+			String note,
+			String username,
+			String password,
+			Caregiver caregiver
+	)
+	{
+		this.setName(name);
+		this.phone = phone;
+		this.setGender(gender);
+		this.birthDate = dateOfBirth;
+		this.address = address;
+		this.emergencyPhone = emergencyPhone;
+		this.note = note;
+		this.setUsername(username);
+		this.setPassword(password);
+		this.caregiver = caregiver;
+	}
 	//======================================================================================
 	
 	//==================================GETTERS/SETTERS=====================================

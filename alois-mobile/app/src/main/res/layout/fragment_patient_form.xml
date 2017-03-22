@@ -77,26 +77,24 @@
             android:id="@+id/patientFormDateOfBirthLabel"
             android:layout_below="@+id/patientFormRadioGender"
             android:text="@string/date_of_birth"
-            android:layout_margin="10dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/patientFormDateView"
-            android:layout_toRightOf="@+id/patientFormDateOfBirthLabel"
-            android:layout_below="@+id/patientFormRadioGender"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="5dp"
-            android:textColor="@android:color/black"/>
+            android:layout_marginTop="10dp"/>
         <ImageButton
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginTop="2dp"
             android:layout_marginLeft="5dp"
             android:id="@+id/patientFormButtonSelectDate"
-            android:layout_toRightOf="@+id/patientFormDateView"
-            android:layout_below="@+id/patientFormRadioGender"
+            android:layout_below="@+id/patientFormDateOfBirthLabel"
             style="@style/Base.Widget.AppCompat.Button.Borderless"
             android:src="@drawable/ic_date_range_black_24dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/patientFormDateView"
+            android:layout_toRightOf="@+id/patientFormButtonSelectDate"
+            android:layout_below="@+id/patientFormDateOfBirthLabel"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="10dp"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -140,13 +138,14 @@
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/patientFormEditLoginTable"
             android:layout_below="@+id/patientFormEditNotes">
             <TableRow>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/patientFormLoginLabel"
-                    android:text="@string/login"
+                    android:text="@string/username"
                     android:layout_weight="1"/>
 
                 <TextView
@@ -161,7 +160,7 @@
                 <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/patientFormEditLogin"
+                    android:id="@+id/patientFormEditUsername"
                     android:layout_weight="1"/>
 
                 <EditText
@@ -171,5 +170,30 @@
                     android:layout_weight="1"/>
             </TableRow>
         </TableLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/patientFormEditLoginTable">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/patientFormButtonCancel"
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                android:text="@string/cancel"
+                android:layout_toLeftOf="@+id/patientFormButtonSave"
+                android:layout_marginRight="10dp"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/patientFormButtonSave"
+                android:layout_alignParentEnd="true"
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                android:text="@string/save"/>
+        </RelativeLayout>
     </RelativeLayout>
 </ScrollView>

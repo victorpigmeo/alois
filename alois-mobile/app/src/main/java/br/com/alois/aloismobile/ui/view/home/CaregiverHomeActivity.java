@@ -100,6 +100,23 @@ public class CaregiverHomeActivity extends AppCompatActivity
         this.finish();
     }
 
+    public void addPatient(Patient patient)
+    {
+        this.progressDialog = ProgressDialog.show(this,
+                super.getString(R.string.loading_patients),
+                super.getString(R.string.please_wait),
+                true,//is indeterminate
+                false//is cancelable
+        );
+
+        this.patientTasks.addPatient(patient);
+    }
+
+    public void onInsertPatient(Patient patient)
+    {
+        this.caregiverHomeFragment.onInsertPatient(patient);
+    }
+
     @Override
     public void onBackPressed()
     {

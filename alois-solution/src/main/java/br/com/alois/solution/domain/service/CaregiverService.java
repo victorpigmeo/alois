@@ -7,6 +7,7 @@ import org.springframework.util.Assert;
 import br.com.alois.domain.entity.user.Caregiver;
 import br.com.alois.domain.entity.user.UserType;
 import br.com.alois.solution.domain.repository.ICaregiverRepository;
+import br.com.alois.solution.domain.repository.IUserRepository;
 
 @Service
 public class CaregiverService
@@ -19,6 +20,8 @@ public class CaregiverService
 	@Autowired
 	ICaregiverRepository caregiverRepository;
 
+	@Autowired
+	IUserRepository userRepository;
 	//======================================================================================
 
 	//=====================================BEHAVIOUR========================================
@@ -30,13 +33,13 @@ public class CaregiverService
 		
 		caregiver.setUserType(UserType.CAREGIVER);
 		
-		if(this.caregiverRepository.findByUsername(caregiver.getUsername()).size() != 0)
+		if(this.userRepository.findByUsername(caregiver.getUsername()) == null)
 		{
-			return null;
+			return this.caregiverRepository.save(caregiver);
 		}
 		else
 		{
-			return this.caregiverRepository.save(caregiver);
+			return null;
 		}
 	}
 }

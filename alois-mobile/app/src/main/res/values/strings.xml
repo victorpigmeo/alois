@@ -41,12 +41,16 @@
     <string name="edit_patient">Edit Patient</string>
     <string name="delete_patient">Delete Patient</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="add_patient">Add Patient</string>
     <string name="phone">Phone</string>
     <string name="date_of_birth">Date of birth</string>
     <string name="address">Address</string>
     <string name="emergency_phone">Emergency Phone</string>
     <string name="notes">Notes</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="phone_is_required_field">Phone is a required field</string>
+    <string name="date_of_birth_is_required">Date of birth is required</string>
+    <string name="patient_insert_error">Insert failed due some error, contact the system administrator</string>
+    <string name="address_is_required">Address is required</string>
 </resources>

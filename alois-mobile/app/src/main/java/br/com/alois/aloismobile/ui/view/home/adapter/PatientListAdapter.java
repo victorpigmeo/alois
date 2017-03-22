@@ -77,6 +77,12 @@ public class PatientListAdapter extends BaseAdapter
 
         return patientListRow;
     }
+
+    public void onInsertPatient(Patient patient)
+    {
+        this.patients.add(patient);
+        this.notifyDataSetChanged();
+    }
     //======================================================================================
 
 }
