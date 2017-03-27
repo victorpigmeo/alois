@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/routeListMenuEditButton"
+          android:title="@string/edit_route"/>
+
+    <item android:id="@+id/routeListMenuDeleteButton"
+          android:title="@string/delete_route"/>
+</menu>

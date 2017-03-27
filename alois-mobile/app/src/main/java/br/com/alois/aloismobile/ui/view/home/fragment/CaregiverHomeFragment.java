@@ -1,5 +1,6 @@
 package br.com.alois.aloismobile.ui.view.home.fragment;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -15,6 +16,10 @@ import java.util.List;
 
 import br.com.alois.aloismobile.R;
 import br.com.alois.aloismobile.ui.view.home.adapter.PatientListAdapter;
+import br.com.alois.aloismobile.ui.view.patient.PatientDetailActivity;
+import br.com.alois.aloismobile.ui.view.patient.PatientDetailActivity_;
+import br.com.alois.aloismobile.ui.view.patient.fragment.PatientDetailFragment;
+import br.com.alois.aloismobile.ui.view.patient.fragment.PatientDetailFragment_;
 import br.com.alois.aloismobile.ui.view.patient.fragment.PatientFormFragment;
 import br.com.alois.aloismobile.ui.view.patient.fragment.PatientFormFragment_;
 import br.com.alois.domain.entity.user.Patient;
@@ -26,7 +31,7 @@ import br.com.alois.domain.entity.user.Patient;
 public class CaregiverHomeFragment extends Fragment
 {
     //=====================================ATTRIBUTES=======================================
-    @ViewById(R.id.patient_list)
+    @ViewById(R.id.patientList)
     ListView patientList;
 
     //======================================================================================
@@ -56,10 +61,15 @@ public class CaregiverHomeFragment extends Fragment
         this.patientList.setAdapter(this.patientListAdapter);
     }
 
-    @ItemClick(R.id.patient_list)
+    @ItemClick(R.id.patientList)
     public void onPatientListItemClick(Patient patient)
     {
-        Toast.makeText(this.getContext(), patient.getName().toString(), Toast.LENGTH_SHORT).show();
+        Intent patientDetailActivity = PatientDetailActivity_
+                .intent(this.getActivity().getApplicationContext())
+                .patient(patient)
+                .get();
+
+        this.getActivity().startActivity(patientDetailActivity);
     }
 
     @Click(R.id.fab_add_patient)

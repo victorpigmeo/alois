@@ -3,7 +3,6 @@ package br.com.alois.aloismobile.ui.view.patient.fragment;
 
 import android.support.v4.app.Fragment;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -20,10 +19,8 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.SystemService;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
-import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -73,7 +70,7 @@ public class PatientFormFragment extends Fragment implements
     TextView patientFormDateView;
 
     @ViewById(R.id.patientFormEditAddress)
-//    @NotEmpty(messageResId = R.string.address_is_required)
+    @NotEmpty(messageResId = R.string.address_is_required)
     EditText patientFormEditAddress;
 
     @ViewById(R.id.patientFormEditEmergencyPhone)

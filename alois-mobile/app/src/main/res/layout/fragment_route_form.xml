@@ -1,0 +1,75 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context="br.com.alois.aloismobile.ui.view.route.fragment.RouteFormFragment">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:id="@+id/routeAddForm"
+            android:padding="@dimen/pad_10">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/routeFormNameLabel"
+                android:text="@string/route_name"
+                android:layout_alignParentStart="true"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/routeFormNameLabel"
+                android:id="@+id/routeFormEditName"
+                android:inputType="textPersonName"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/routeFormDescriptionLabel"
+                android:layout_below="@+id/routeFormEditName"
+                android:text="@string/route_description"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/routeFormEditDescription"
+                android:layout_below="@+id/routeFormDescriptionLabel"
+                android:inputType="textLongMessage"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/routeFormEditDescription"
+                android:text="@string/route_path_with_hint"/>
+        </RelativeLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/routeAddFrame"
+            android:layout_above="@+id/routeFormActionButtons"
+            android:layout_below="@+id/routeAddForm"></FrameLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/routeFormActionButtons"
+            android:layout_alignParentBottom="true">
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/routeFormSaveButton"
+                    android:layout_alignParentEnd="true"
+                    android:text="@string/save"
+                    style="@style/Base.Widget.AppCompat.Button.Borderless"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/routeFormCancelButton"
+                    android:layout_toLeftOf="@+id/routeFormSaveButton"
+                    android:text="@string/cancel"
+                    style="@style/Base.Widget.AppCompat.Button.Borderless"/>
+
+        </RelativeLayout>
+
+</RelativeLayout>

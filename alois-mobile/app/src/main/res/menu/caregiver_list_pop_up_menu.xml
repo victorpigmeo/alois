@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/caregiverListMenuEditButton"
+          android:title="@string/edit_caregiver"/>
+
+    <item android:id="@+id/caregiverListMenuDeleteButton"
+          android:title="@string/delete_caregiver"/>
+
+</menu>

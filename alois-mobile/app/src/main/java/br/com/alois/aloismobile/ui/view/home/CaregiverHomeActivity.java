@@ -58,7 +58,7 @@ public class CaregiverHomeActivity extends AppCompatActivity
         this.getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.caregiver_home_frame_layout, caregiverHomeFragment)
-                .addToBackStack("caregiver_home_fragment")
+                .addToBackStack("caregiverHomeFragment")
                 .commit();
 
         this.getPatientListByCaregiverId(this.generalPreferences.loggedUserId().get());

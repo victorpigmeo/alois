@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <application
         android:allowBackup="true"
@@ -11,6 +12,10 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key"/>
+
         <activity
             android:name=".ui.view.login.LoginActivity_"
             android:screenOrientation="portrait"
@@ -21,10 +26,20 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <!-- verify this -->
         <activity android:name=".ui.view.home.HomeActivity_"/>
-        <activity android:name=".ui.view.home.CaregiverHomeActivity_"
-                  android:windowSoftInputMode="adjustResize"/>
-        
+
+        <activity
+            android:name=".ui.view.home.CaregiverHomeActivity_"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity
+            android:name=".ui.view.home.AdministratorHomeActivity_"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.view.patient.PatientDetailActivity_"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

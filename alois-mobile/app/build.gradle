@@ -62,6 +62,8 @@ dependencies {
         exclude group: 'commons-logging', module: 'commons-logging'
         exclude group: 'org.hibernate', module: 'hibernate-validator'
     }
+
+
     compile 'com.android.support:appcompat-v7:25.2.0'
     compile 'com.android.support:support-v4:25.2.0'
     compile 'org.androidannotations:androidannotations-api:4.2.0'
@@ -70,9 +72,12 @@ dependencies {
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.github.clans:fab:1.6.4'
+    compile 'com.wdullaer:materialdatetimepicker:2.5.0'
+    compile 'com.google.android.gms:play-services-maps:10.2.0'
+    compile 'com.google.android.gms:play-services-location:10.2.0'
+    compile 'com.google.maps.android:android-maps-utils:0.4.+'
     testCompile 'junit:junit:4.12'
     apt 'org.androidannotations:androidannotations:4.2.0'
-    compile 'com.wdullaer:materialdatetimepicker:2.5.0'
 }
 
 apt {

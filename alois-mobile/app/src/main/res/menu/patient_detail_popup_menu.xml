@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/patientDetailRoutesMenuButton"
+          android:title="@string/patient_routes"/>
+
+    <item android:id="@+id/patientDetailRemindersMenuButton"
+          android:title="@string/patient_reminders"/>
+
+    <item android:id="@+id/patientDetailRequestsMenuButton"
+          android:title="@string/patient_requests"/>
+
+</menu>

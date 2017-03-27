@@ -32,6 +32,8 @@ public class Step implements Serializable
 	@OneToOne(cascade = CascadeType.ALL)
 	private AloisLatLng endPoint;
 	
+	private int sequence;
+
 	@ManyToOne(fetch=FetchType.LAZY)
 	private Route route;
 	//======================================================================================
@@ -41,7 +43,14 @@ public class Step implements Serializable
 	//======================================================================================
 	
 	//====================================CONSTRUCTORS======================================
+	public Step(){}
 	
+	public Step(AloisLatLng startPoint, AloisLatLng endPoint, int sequence)
+	{
+		this.startPoint = startPoint;
+		this.endPoint = endPoint;
+		this.sequence = sequence;
+	}
 	//======================================================================================
 	
 	//==================================GETTERS/SETTERS=====================================
@@ -78,6 +87,14 @@ public class Step implements Serializable
 	public Route getRoute() 
 	{
 		return route;
+	}
+
+	public int getSequence() {
+		return sequence;
+	}
+
+	public void setSequence(int sequence) {
+		this.sequence = sequence;
 	}
 
 	public void setRoute(Route route) 

@@ -18,6 +18,8 @@ import br.com.alois.aloismobile.application.preference.GeneralPreferences_;
 import br.com.alois.aloismobile.application.preference.ServerConfiguration;
 import br.com.alois.aloismobile.application.util.jackson.JacksonDecoder;
 import br.com.alois.aloismobile.application.util.jackson.JacksonEncoder;
+import br.com.alois.aloismobile.ui.view.home.AdministratorHomeActivity;
+import br.com.alois.aloismobile.ui.view.home.AdministratorHomeActivity_;
 import br.com.alois.aloismobile.ui.view.home.CaregiverHomeActivity_;
 import br.com.alois.aloismobile.ui.view.login.LoginActivity;
 import br.com.alois.domain.entity.user.User;
@@ -91,8 +93,7 @@ public class LoginTasks
             switch(user.getUserType())
             {
                 case ADMINISTRATOR:
-                    System.out.println("Logged as Administrator");
-                    homeIntent = null;//TODO change to caregiver home activity
+                    homeIntent = AdministratorHomeActivity_.intent(this.loginActivity.getApplicationContext()).get();
                     break;
                 case CAREGIVER:
                     homeIntent = CaregiverHomeActivity_.intent(this.loginActivity.getApplicationContext()).get();

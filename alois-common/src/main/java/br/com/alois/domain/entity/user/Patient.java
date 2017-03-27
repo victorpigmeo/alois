@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -23,6 +24,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import br.com.alois.domain.entity.memory.Memory;
 import br.com.alois.domain.entity.reminder.Reminder;
+import br.com.alois.domain.entity.route.AloisLatLng;
 import br.com.alois.domain.entity.route.Route;
 
 @Entity
@@ -56,6 +58,9 @@ public class Patient extends User
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JsonBackReference
 	private Caregiver caregiver;
+	
+	@OneToOne
+	private AloisLatLng lastLocation;
 	
 	@JsonManagedReference
 	@OneToMany(orphanRemoval=true, fetch=FetchType.LAZY, mappedBy="patient")
@@ -147,6 +152,14 @@ public class Patient extends User
 
 	public void setCaregiver(Caregiver caregiver) {
 		this.caregiver = caregiver;
+	}
+	
+	public AloisLatLng getLastLocation(){
+		return lastLocation;
+	}
+	
+	public void setLastLocation(AloisLatLng lastLocation){
+		this.lastLocation = lastLocation;
 	}
 	
 	public List<Reminder> getReminders() {

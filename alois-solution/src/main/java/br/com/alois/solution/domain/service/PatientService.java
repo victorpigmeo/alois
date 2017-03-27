@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import br.com.alois.domain.entity.route.AloisLatLng;
 import br.com.alois.domain.entity.user.Patient;
 import br.com.alois.solution.domain.repository.IPatientRepository;
 import br.com.alois.solution.domain.repository.IUserRepository;
@@ -52,6 +53,10 @@ public class PatientService {
 		{
 			return null;
 		}
+	}
+
+	public AloisLatLng updateLastLocation(AloisLatLng lastLocation, Long patientId) {
+		return this.patientRepository.updateLastLocation(lastLocation, patientId);
 	}
 
 	//======================================================================================

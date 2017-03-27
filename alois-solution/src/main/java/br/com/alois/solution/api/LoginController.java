@@ -37,5 +37,6 @@ public class LoginController
 	public Caregiver signup(@RequestBody Caregiver caregiver){
 		return this.caregiverService.signup(caregiver);
 	}
+
 	//======================================================================================
 }

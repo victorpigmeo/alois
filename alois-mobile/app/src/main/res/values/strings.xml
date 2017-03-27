@@ -53,4 +53,34 @@
     <string name="date_of_birth_is_required">Date of birth is required</string>
     <string name="patient_insert_error">Insert failed due some error, contact the system administrator</string>
     <string name="address_is_required">Address is required</string>
+
+    <string name="nameDot">Name:</string>
+    <string name="phoneDot">Phone:</string>
+    <string name="genderDot">Gender:</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="date_of_birth_dot">Date of birth:</string>
+    <string name="address_dot">Address:</string>
+    <string name="emergency_phone_dot">Emergency Phone:</string>
+    <string name="note_dot">Note:</string>
+    <string name="patient_without_last_location">This patient doesn\'t have a last location yet</string>
+    <string name="last_location">Last location</string>
+    <string name="caregiver_list">Caregiver List</string>
+    <string name="edit_caregiver">Edit Caregiver</string>
+    <string name="delete_caregiver">Delete Caregiver</string>
+    <string name="patient_routes">Patient routes</string>
+    <string name="patient_reminders">Patient reminders</string>
+    <string name="patient_requests">Patient requests</string>
+    <string name="safe_routes_of_patient">Safe routes of:</string>
+    <string name="edit_route">Edit route</string>
+    <string name="delete_route">Delete route</string>
+    <string name="patient_does_not_have_routes">This patient does not have any route</string>
+    <string name="route_name">Route Name</string>
+    <string name="route_description">Route description</string>
+    <string name="route_name_is_required">Route name is required</string>
+    <string name="route_path_with_hint">Path (Click and hold to add a point)</string>
+    <string name="select_2_or_more_points">Select 2 or more points to create a route</string>
+    <string name="clear">Clear</string>
+    <string name="loading_route">Loading route</string>
 </resources>

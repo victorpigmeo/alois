@@ -52,6 +52,7 @@ public class LoginFragment extends Fragment implements Validator.ValidationListe
     
     @Click(R.id.buttonSignIn)
     public void onClickSignIn(){
+        //Verifica se existe conexão com a internet
         if(this.connectivityManager.getActiveNetworkInfo() != null &&
                 this.connectivityManager.getActiveNetworkInfo().isConnected())
         {

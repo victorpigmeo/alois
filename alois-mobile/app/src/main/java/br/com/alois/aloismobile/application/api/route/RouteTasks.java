@@ -1,0 +1,177 @@
+package br.com.alois.aloismobile.application.api.route;
+
+import android.widget.Toast;
+
+import com.google.android.gms.maps.model.LatLng;
+
+import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.EBean;
+import org.androidannotations.annotations.RootContext;
+import org.androidannotations.annotations.UiThread;
+import org.androidannotations.annotations.sharedpreferences.Pref;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import br.com.alois.aloismobile.R;
+import br.com.alois.aloismobile.application.preference.GeneralPreferences_;
+import br.com.alois.aloismobile.application.preference.ServerConfiguration;
+import br.com.alois.aloismobile.application.util.jackson.JacksonDecoder;
+import br.com.alois.aloismobile.application.util.jackson.JacksonEncoder;
+import br.com.alois.aloismobile.ui.view.patient.PatientDetailActivity;
+import br.com.alois.domain.entity.route.Route;
+import feign.Feign;
+import feign.FeignException;
+
+/**
+ * Created by victor on 3/24/17.
+ */
+@EBean
+public class RouteTasks
+{
+    //=====================================ATTRIBUTES=======================================
+
+    //======================================================================================
+
+    //=====================================INJECTIONS=======================================
+    @Pref
+    GeneralPreferences_ generalPreferences;
+
+    @RootContext
+    PatientDetailActivity patientDetailActivity;
+    //======================================================================================
+
+    //=====================================BEHAVIOUR========================================
+    @Background
+    public void listRoutesByPatientId(Long patientId)
+    {
+        RouteClient routeClient = Feign.builder()
+                .encoder(new JacksonEncoder())
+                .decoder(new JacksonDecoder())
+                .target(RouteClient.class, ServerConfiguration.API_ENDPOINT);
+
+        try
+        {
+            listRoutesByPatientIdHandleSuccess(routeClient.listRoutesByPatientId(patientId, this.generalPreferences.loggedUserAuthToken().get()));
+        }
+        catch (FeignException e)
+        {
+            listRoutesByPatientIdHandleFail(e.getMessage());
+        }
+    }
+
+    @UiThread
+    public void listRoutesByPatientIdHandleSuccess(List<Route> routes)
+    {
+        if (routes.size() != 0)
+        {
+            this.patientDetailActivity.setPatientRouteList(routes);
+        }else{
+            Toast.makeText(this.patientDetailActivity, this.patientDetailActivity.getResources().getString(R.string.patient_does_not_have_routes), Toast.LENGTH_SHORT).show();
+        }
+        this.patientDetailActivity.progressDialog.dismiss();
+    }
+
+    @UiThread
+    public void listRoutesByPatientIdHandleFail(String message)
+    {
+        System.out.println(message);
+    }
+
+    @Background
+    public void generateGoogleRoute(List<LatLng> _points)
+    {
+        List<LatLng> points = new ArrayList<>(_points);
+        String googleRouteBaseUrl = "https://maps.googleapis.com/maps/api/directions/";
+        Map<String, String> routeParams = new HashMap<String, String>();
+
+        //general config of route
+        routeParams.put("key", this.patientDetailActivity.getResources().getString(R.string.google_maps_key));
+        routeParams.put("mode", "walking");
+
+        //put origin in routeParams
+        routeParams.put("origin", points.get(0).latitude+","+points.get(0).longitude);
+        points.remove(0);
+
+        //put destination in routeParams
+        routeParams.put("destination", points.get(points.size() - 1).latitude+","+points.get(points.size() - 1).longitude);
+        points.remove(points.size() - 1);
+
+        if(points.size() != 0)
+        {
+            String waypoints = "";
+            for (LatLng latLng : points) {
+                waypoints += "via:"+latLng.latitude+ "," + latLng.longitude;
+                if(points.indexOf(latLng) != (points.size() - 1)){
+                    waypoints+= "|";
+                }
+            }
+            routeParams.put("waypoints", waypoints);
+        }
+
+        try
+        {
+            RouteClient routeClient = Feign.builder()
+                    .target(RouteClient.class, googleRouteBaseUrl);
+
+            generateGoogleRouteHandleSuccess(routeClient.generateGoogleRoute(routeParams));
+        }
+        catch(FeignException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    @UiThread
+    public void generateGoogleRouteHandleSuccess(String route)
+    {
+        try
+        {
+            JSONObject responseObject = new JSONObject(route);
+            JSONArray routesArray = responseObject.getJSONArray("routes");
+            JSONObject routeObject = routesArray.getJSONObject(0);
+            JSONArray legs = routeObject.getJSONArray("legs");
+            JSONObject legsObject = legs.getJSONObject(0);
+            JSONArray steps = legsObject.getJSONArray("steps");
+
+            List<LatLng> line = new ArrayList<LatLng>();
+            int i = 0;
+
+            for(i = 0; i < steps.length(); i++){
+                JSONObject startLocation = steps.getJSONObject(i).getJSONObject("start_location");
+                JSONObject endLocation = steps.getJSONObject(i).getJSONObject("end_location");
+
+                LatLng stepLineStart = new LatLng(
+                        Double.parseDouble(startLocation.getString("lat")),
+                        Double.parseDouble(startLocation.getString("lng"))
+                );
+
+                line.add(stepLineStart);
+
+                LatLng stepLineEnd = new LatLng(
+                        Double.parseDouble(endLocation.getString("lat")),
+                        Double.parseDouble(endLocation.getString("lng"))
+                );
+
+                line.add(stepLineEnd);
+                //TODO Criar os objetos steps e colocar na rota
+//essa porra que ve a distancia -> Toast.makeText(this, String.valueOf(PolyUtil.distanceToLine(this.mMyLocation, stepLineStart, stepLineEnd)), Toast.LENGTH_SHORT).show();
+            }
+            //TODO Colocar os objetos steps logo acima do desenhar polyline (AQUI)
+            this.patientDetailActivity.drawRouteFormPolyline(line);
+
+            this.patientDetailActivity.progressDialog.dismiss();
+        }
+        catch (JSONException e)
+        {
+
+        }
+    }
+    //======================================================================================
+
+}
