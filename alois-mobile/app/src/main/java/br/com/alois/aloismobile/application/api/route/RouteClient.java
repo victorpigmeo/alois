@@ -22,4 +22,8 @@ public interface RouteClient
     @RequestLine("GET /json?")
     @Headers({"Content-Type: application/json"})
     String generateGoogleRoute(@QueryMap Map<String, String> queryMap);
+
+    @RequestLine("POST /route/addRoute")
+    @Headers({"Content-Type: application/json", "Authorization: Basic {basicAuthToken}"})
+    Route addRoute(Route route, @Param("basicAuthToken") String basicAuthToken);
 }

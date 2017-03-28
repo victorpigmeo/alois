@@ -20,6 +20,7 @@ import br.com.alois.aloismobile.R;
 import br.com.alois.aloismobile.ui.view.patient.PatientDetailActivity;
 import br.com.alois.aloismobile.ui.view.route.adapter.RouteListAdapter;
 import br.com.alois.domain.entity.route.Route;
+import br.com.alois.domain.entity.route.Step;
 import br.com.alois.domain.entity.user.Patient;
 
 /**
@@ -73,7 +74,9 @@ public class RouteListFragment extends Fragment
     @Click(R.id.fab_add_route)
     public void onFabAddRouteClick()
     {
-        this.routeFormFragment = RouteFormFragment_.builder().build();
+        this.routeFormFragment = RouteFormFragment_.builder()
+                .patient(this.patient)
+                .build();
 
         this.getActivity().getSupportFragmentManager()
                 .beginTransaction()
@@ -90,6 +93,11 @@ public class RouteListFragment extends Fragment
     public void drawRouteFormPolyline(List<LatLng> line)
     {
         this.routeFormFragment.drawRouteFormPolyline(line);
+    }
+
+    public void setRouteSteps(List<Step> routeSteps)
+    {
+        this.routeFormFragment.setRouteSteps(routeSteps);
     }
     //======================================================================================
 

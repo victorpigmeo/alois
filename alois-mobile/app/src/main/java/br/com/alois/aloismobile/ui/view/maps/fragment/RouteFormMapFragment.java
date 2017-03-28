@@ -42,6 +42,8 @@ public class RouteFormMapFragment extends Fragment implements
 
     List<LatLng> points = new ArrayList<LatLng>();
 
+    List<Step> steps = new ArrayList<Step>();
+
     Polyline polyline;
     //======================================================================================
 
@@ -79,6 +81,7 @@ public class RouteFormMapFragment extends Fragment implements
     public void onRouteFormClearButtonClick()
     {
         this.points = new ArrayList<LatLng>();
+        this.steps = new ArrayList<Step>();
         this.map.clear();
 //        this.polyline.remove();
     }
@@ -112,52 +115,30 @@ public class RouteFormMapFragment extends Fragment implements
         this.map.addMarker(new MarkerOptions().position(latLng));
         this.points.add(latLng);
 
-        List<LatLng> pointsToGenerate = this.points;
-
         if(this.points.size() > 1)
         {
-            ((PatientDetailActivity) this.getActivity()).generateGoogleRoute(pointsToGenerate);
+            ((PatientDetailActivity) this.getActivity()).generateGoogleRoute(this.points);
         }
-    }
-
-    public List<Step> getSteps()
-    {
-
-        if(this.points.size() < 2)
-        {
-            Toast.makeText(this.getContext(), this.getActivity().getResources().getString(R.string.select_2_or_more_points), Toast.LENGTH_SHORT).show();
-            return null;
-        }
-        else
-        {
-            List<Step> steps = new ArrayList<Step>();
-
-            Step step = new Step();
-            for(LatLng point: this.points)
-            {
-                if(step.getStartPoint() == null)
-                {
-                    step.setStartPoint(new AloisLatLng(point.latitude, point.longitude));
-                }
-                else
-                {
-                    if(step.getEndPoint() == null)
-                    {
-                        step.setEndPoint(new AloisLatLng(point.latitude, point.longitude));
-                        steps.add(step);
-                        step = new Step();
-                        step.setStartPoint(new AloisLatLng(point.latitude, point.longitude));
-                    }
-                }
-            }
-            return steps;
-        }
-
     }
 
     public void drawRouteFormPolyline(List<LatLng> line)
     {
-        this.map.addPolyline(new PolylineOptions().addAll(line));
+        if(this.polyline != null)
+        {
+            this.polyline.remove();
+        }
+
+        this.polyline = this.map.addPolyline(new PolylineOptions().addAll(line));
+    }
+
+    public void setSteps(List<Step> steps)
+    {
+        this.steps = steps;
+    }
+
+    public List<Step> getSteps()
+    {
+        return this.steps;
     }
 
     //======================================================================================

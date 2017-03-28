@@ -24,7 +24,9 @@ import br.com.alois.aloismobile.application.preference.ServerConfiguration;
 import br.com.alois.aloismobile.application.util.jackson.JacksonDecoder;
 import br.com.alois.aloismobile.application.util.jackson.JacksonEncoder;
 import br.com.alois.aloismobile.ui.view.patient.PatientDetailActivity;
+import br.com.alois.domain.entity.route.AloisLatLng;
 import br.com.alois.domain.entity.route.Route;
+import br.com.alois.domain.entity.route.Step;
 import feign.Feign;
 import feign.FeignException;
 
@@ -86,9 +88,10 @@ public class RouteTasks
     @Background
     public void generateGoogleRoute(List<LatLng> _points)
     {
-        List<LatLng> points = new ArrayList<>(_points);
-        String googleRouteBaseUrl = "https://maps.googleapis.com/maps/api/directions/";
-        Map<String, String> routeParams = new HashMap<String, String>();
+        final List<LatLng> points = new ArrayList<>(_points);
+
+        final String googleRouteBaseUrl = "https://maps.googleapis.com/maps/api/directions/";
+        final Map<String, String> routeParams = new HashMap<String, String>();
 
         //general config of route
         routeParams.put("key", this.patientDetailActivity.getResources().getString(R.string.google_maps_key));
@@ -132,14 +135,15 @@ public class RouteTasks
     {
         try
         {
-            JSONObject responseObject = new JSONObject(route);
-            JSONArray routesArray = responseObject.getJSONArray("routes");
-            JSONObject routeObject = routesArray.getJSONObject(0);
-            JSONArray legs = routeObject.getJSONArray("legs");
-            JSONObject legsObject = legs.getJSONObject(0);
-            JSONArray steps = legsObject.getJSONArray("steps");
+            final JSONObject responseObject = new JSONObject(route);
+            final JSONArray routesArray = responseObject.getJSONArray("routes");
+            final JSONObject routeObject = routesArray.getJSONObject(0);
+            final JSONArray legs = routeObject.getJSONArray("legs");
+            final JSONObject legsObject = legs.getJSONObject(0);
+            final JSONArray steps = legsObject.getJSONArray("steps");
 
-            List<LatLng> line = new ArrayList<LatLng>();
+            final List<LatLng> line = new ArrayList<LatLng>();
+            final List<Step> routeSteps = new ArrayList<Step>();
             int i = 0;
 
             for(i = 0; i < steps.length(); i++){
@@ -159,18 +163,45 @@ public class RouteTasks
                 );
 
                 line.add(stepLineEnd);
-                //TODO Criar os objetos steps e colocar na rota
+
+                Step step = new Step(new AloisLatLng(stepLineStart.latitude, stepLineStart.longitude), new AloisLatLng(stepLineEnd.latitude, stepLineEnd.longitude), i);
+                routeSteps.add(step);
 //essa porra que ve a distancia -> Toast.makeText(this, String.valueOf(PolyUtil.distanceToLine(this.mMyLocation, stepLineStart, stepLineEnd)), Toast.LENGTH_SHORT).show();
             }
-            //TODO Colocar os objetos steps logo acima do desenhar polyline (AQUI)
+
+            this.patientDetailActivity.setRouteSteps(routeSteps);
             this.patientDetailActivity.drawRouteFormPolyline(line);
 
             this.patientDetailActivity.progressDialog.dismiss();
         }
         catch (JSONException e)
         {
-
+            e.printStackTrace();
         }
+    }
+
+    @Background
+    public void addRoute(Route route)
+    {
+        RouteClient routeClient = Feign.builder()
+                .encoder(new JacksonEncoder())
+                .decoder(new JacksonDecoder())
+                .target(RouteClient.class, ServerConfiguration.API_ENDPOINT);
+
+        try
+        {
+            addRouteHandleSuccess( routeClient.addRoute( route, this.generalPreferences.loggedUserAuthToken().get() ) );
+        }
+        catch (FeignException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    @UiThread
+    public void addRouteHandleSuccess(Route route)
+    {
+        System.out.println(route);
     }
     //======================================================================================
 

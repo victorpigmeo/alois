@@ -29,6 +29,7 @@ import br.com.alois.aloismobile.ui.view.patient.fragment.PatientDetailFragment_;
 import br.com.alois.aloismobile.ui.view.route.fragment.RouteListFragment;
 import br.com.alois.aloismobile.ui.view.route.fragment.RouteListFragment_;
 import br.com.alois.domain.entity.route.Route;
+import br.com.alois.domain.entity.route.Step;
 import br.com.alois.domain.entity.user.Patient;
 
 @EActivity(R.layout.activity_patient_detail)
@@ -51,6 +52,7 @@ public class PatientDetailActivity extends AppCompatActivity
     @NonConfigurationInstance
     @Bean
     RouteTasks routeTasks;
+    private List<Step> routeLo;
     //======================================================================================
 
     //====================================CONSTRUCTORS======================================
@@ -94,7 +96,7 @@ public class PatientDetailActivity extends AppCompatActivity
                 super.getString(R.string.loading_patients),
                 super.getString(R.string.please_wait),
                 true,//is indeterminate
-                false//is cancelable
+                true//is cancelable
         );
 
         this.routeTasks.listRoutesByPatientId(patientId);
@@ -135,6 +137,23 @@ public class PatientDetailActivity extends AppCompatActivity
     public void drawRouteFormPolyline(List<LatLng> line)
     {
         this.routeListFragment.drawRouteFormPolyline(line);
+    }
+
+    public void setRouteSteps(List<Step> routeSteps)
+    {
+        this.routeListFragment.setRouteSteps(routeSteps);
+    }
+
+    public void addRoute(Route route)
+    {
+        this.progressDialog = ProgressDialog.show(this,
+                super.getString(R.string.saving_route),
+                super.getString(R.string.please_wait),
+                true,//is indeterminate
+                true//is cancelable
+        );
+
+        this.routeTasks.addRoute(route);
     }
     //======================================================================================
 

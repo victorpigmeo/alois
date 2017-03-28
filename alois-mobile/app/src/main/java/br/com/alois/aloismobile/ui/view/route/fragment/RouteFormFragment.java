@@ -31,8 +31,10 @@ import java.util.List;
 import br.com.alois.aloismobile.R;
 import br.com.alois.aloismobile.ui.view.maps.fragment.RouteFormMapFragment;
 import br.com.alois.aloismobile.ui.view.maps.fragment.RouteFormMapFragment_;
+import br.com.alois.aloismobile.ui.view.patient.PatientDetailActivity;
 import br.com.alois.domain.entity.route.Route;
 import br.com.alois.domain.entity.route.Step;
+import br.com.alois.domain.entity.user.Patient;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -48,8 +50,6 @@ public class RouteFormFragment extends Fragment implements Validator.ValidationL
     @ViewById(R.id.routeFormEditDescription)
     EditText routeFormEditDescription;
 
-    List<Step> steps = new ArrayList<Step>();
-
     RouteFormMapFragment routeFormMapFragment;
 
     Validator validator = new Validator(this);
@@ -59,6 +59,8 @@ public class RouteFormFragment extends Fragment implements Validator.ValidationL
     @FragmentArg("route")
     Route route;
 
+    @FragmentArg("patient")
+    Patient patient;
     //======================================================================================
 
     //====================================CONSTRUCTORS======================================
@@ -90,32 +92,33 @@ public class RouteFormFragment extends Fragment implements Validator.ValidationL
     @Click(R.id.routeFormSaveButton)
     public void onRouteFormSaveButtonClick()
     {
-        List<Step> steps = this.routeFormMapFragment.getSteps();
+        List<Step> routeSteps = this.routeFormMapFragment.getSteps();
 
-        if(steps != null)
+        if(routeSteps.size() > 0)
         {
             if(this.route == null)
             {
                 this.route = new Route();
             }
 
-            this.route.setSteps(steps);
+            this.route.setSteps(routeSteps);
             this.validator.validate();
+        }
+        else
+        {
+            Toast.makeText(this.getContext(), this.getActivity().getResources().getString(R.string.select_2_or_more_points), Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
     public void onValidationSucceeded()
     {
-        ObjectMapper objectMapper = new ObjectMapper();
+        this.route.setName(this.routeFormEditName.getText().toString());
+        this.route.setDescription(this.routeFormEditDescription.getText().toString());
+        //TODO verificar porque o id do paciente nao está indo
+        this.route.setPatient( this.patient );
 
-        try
-        {
-            System.out.println(objectMapper.writeValueAsString(this.route));
-        }catch (Exception e)
-        {
-            e.printStackTrace();
-        }
+        ((PatientDetailActivity) this.getActivity()).addRoute(route);
     }
 
     @Override
@@ -141,6 +144,11 @@ public class RouteFormFragment extends Fragment implements Validator.ValidationL
     public void drawRouteFormPolyline(List<LatLng> line)
     {
         this.routeFormMapFragment.drawRouteFormPolyline(line);
+    }
+
+    public void setRouteSteps(List<Step> routeSteps)
+    {
+        this.routeFormMapFragment.setSteps(routeSteps);
     }
     //======================================================================================
 

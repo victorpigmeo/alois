@@ -100,7 +100,15 @@ public class Route implements Serializable
 	{
 		this.steps = steps;
 	}
+	public Patient getPatient() {
+		return patient;
+	}
+	
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
 	//======================================================================================
+
 
 	//=====================================BEHAVIOUR========================================
 	@Override

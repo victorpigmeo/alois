@@ -79,6 +79,11 @@ public class Patient extends User
 	//====================================CONSTRUCTORS======================================
 	public Patient(){}
 	
+	public Patient(Long id)
+	{
+		super.setId(id);
+	}
+	
 	public Patient(
 			String name,
 			String phone,
