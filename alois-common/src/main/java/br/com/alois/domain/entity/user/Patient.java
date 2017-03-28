@@ -16,7 +16,6 @@ import javax.persistence.TemporalType;
 import org.hibernate.envers.Audited;
 import org.hibernate.validator.constraints.NotBlank;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -55,8 +54,7 @@ public class Patient extends User
 	
 	private String note;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JsonBackReference
+	@ManyToOne
 	private Caregiver caregiver;
 	
 	@OneToOne
@@ -70,7 +68,6 @@ public class Patient extends User
 	@OneToMany(orphanRemoval=true, fetch=FetchType.LAZY, mappedBy="patient")
 	private List<Memory> memories;
 	
-	@JsonManagedReference
 	@OneToMany(orphanRemoval=true, fetch=FetchType.LAZY, mappedBy="patient")
 	private List<Route> routes;
 

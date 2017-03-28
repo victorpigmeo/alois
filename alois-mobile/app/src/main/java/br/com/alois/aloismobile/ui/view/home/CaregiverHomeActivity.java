@@ -103,7 +103,7 @@ public class CaregiverHomeActivity extends AppCompatActivity
     public void addPatient(Patient patient)
     {
         this.progressDialog = ProgressDialog.show(this,
-                super.getString(R.string.loading_patients),
+                super.getString(R.string.saving_patient),
                 super.getString(R.string.please_wait),
                 true,//is indeterminate
                 false//is cancelable
@@ -115,6 +115,17 @@ public class CaregiverHomeActivity extends AppCompatActivity
     public void onInsertPatient(Patient patient)
     {
         this.caregiverHomeFragment.onInsertPatient(patient);
+    }
+
+    public void updatePatient(Patient patient) {
+        this.progressDialog = ProgressDialog.show(this,
+                super.getString(R.string.saving_patient),
+                super.getString(R.string.please_wait),
+                true,//is indeterminate
+                false//is cancelable
+        );
+
+        this.patientTasks.updatePatient(patient);
     }
 
     @Override

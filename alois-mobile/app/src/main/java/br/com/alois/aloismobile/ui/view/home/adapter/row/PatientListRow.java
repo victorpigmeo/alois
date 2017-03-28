@@ -1,6 +1,7 @@
 package br.com.alois.aloismobile.ui.view.home.adapter.row;
 
 import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.view.MenuItem;
 import android.widget.ImageButton;
@@ -13,6 +14,9 @@ import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
 
 import br.com.alois.aloismobile.R;
+import br.com.alois.aloismobile.ui.view.home.CaregiverHomeActivity;
+import br.com.alois.aloismobile.ui.view.patient.fragment.PatientFormFragment;
+import br.com.alois.aloismobile.ui.view.patient.fragment.PatientFormFragment_;
 import br.com.alois.domain.entity.user.Patient;
 
 /**
@@ -33,6 +37,11 @@ public class PatientListRow extends LinearLayout
 
     //======================================================================================
 
+    //====================================INJECTIONS========================================
+    AppCompatActivity activity;
+
+    //======================================================================================
+
     //====================================CONSTRUCTORS======================================
     public PatientListRow(Context context)
     {
@@ -46,9 +55,10 @@ public class PatientListRow extends LinearLayout
     //======================================================================================
 
     //=====================================BEHAVIOUR========================================
-    public void bind(Patient patient) {
+    public void bind(Patient patient, AppCompatActivity activity) {
         this.patient = patient;
         this.textViewTest.setText(patient.getName().toString());
+        this.activity = activity;
     }
 
     @Click(R.id.popUpMenu)
@@ -66,7 +76,15 @@ public class PatientListRow extends LinearLayout
                 switch (id)
                 {
                     case R.id.caregiver_home_edit_patient_button:
-                        Toast.makeText(getContext(), "Edit patient: "+patient.getName(), Toast.LENGTH_SHORT).show();
+                        PatientFormFragment patientFormFragment = PatientFormFragment_.builder()
+                                .patient(patient)
+                                .build();
+
+                        activity.getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.caregiver_home_frame_layout, patientFormFragment)
+                                .addToBackStack("patientFormFragment")
+                                .commit();
                         break;
                     case R.id.caregiver_home_delete_patient_button:
                         Toast.makeText(getContext(), "Delete patient: "+patient.getName(), Toast.LENGTH_SHORT).show();

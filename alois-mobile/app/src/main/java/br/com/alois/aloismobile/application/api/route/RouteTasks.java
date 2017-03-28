@@ -127,6 +127,7 @@ public class RouteTasks
         catch(FeignException e)
         {
             e.printStackTrace();
+            generateGoogleRouteHandleFail(e.getMessage());
         }
     }
 
@@ -180,6 +181,14 @@ public class RouteTasks
         }
     }
 
+    @UiThread
+    public void generateGoogleRouteHandleFail(String message)
+    {
+        this.patientDetailActivity.progressDialog.dismiss();
+        System.out.println(message);
+        Toast.makeText(this.patientDetailActivity, this.patientDetailActivity.getResources().getString(R.string.error_default), Toast.LENGTH_SHORT).show();
+    }
+
     @Background
     public void addRoute(Route route)
     {
@@ -195,13 +204,29 @@ public class RouteTasks
         catch (FeignException e)
         {
             e.printStackTrace();
+            addRouteHandleFail(e.getMessage());
         }
     }
 
     @UiThread
     public void addRouteHandleSuccess(Route route)
     {
-        System.out.println(route);
+        if(route != null)
+        {
+            this.patientDetailActivity.progressDialog.dismiss();
+
+            this.patientDetailActivity.onAddRoute(route);
+            this.patientDetailActivity.getSupportFragmentManager()
+                    .popBackStack();
+        }
+    }
+
+    @UiThread
+    public void addRouteHandleFail(String message)
+    {
+        this.patientDetailActivity.progressDialog.dismiss();
+        System.out.println(message);
+        Toast.makeText(this.patientDetailActivity, this.patientDetailActivity.getResources().getString(R.string.error_default), Toast.LENGTH_SHORT).show();
     }
     //======================================================================================
 

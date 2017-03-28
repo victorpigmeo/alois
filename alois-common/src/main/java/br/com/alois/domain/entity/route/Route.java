@@ -16,7 +16,6 @@ import javax.persistence.Table;
 import org.hibernate.envers.Audited;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -47,8 +46,7 @@ public class Route implements Serializable
 	@OneToMany(orphanRemoval = true, fetch=FetchType.LAZY, mappedBy="route")
 	private List<Step> steps;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JsonBackReference
+	@ManyToOne
 	private Patient patient;
 	//======================================================================================
 	

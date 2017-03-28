@@ -82,6 +82,11 @@ public class RouteListAdapter extends BaseAdapter
 
         return routeListRow;
     }
+
+    public void onAddRoute(Route route) {
+        this.routeList.add(route);
+        this.notifyDataSetChanged();
+    }
     //======================================================================================
 
 }

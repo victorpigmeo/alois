@@ -59,6 +59,10 @@ public class PatientService {
 		return this.patientRepository.updateLastLocation(lastLocation, patientId);
 	}
 
+	public Patient updatePatient(Patient patient) {
+		return this.patientRepository.save(patient);
+	}
+
 	//======================================================================================
 
 }

@@ -1,6 +1,8 @@
 package br.com.alois.aloismobile.ui.view.home.adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -11,6 +13,7 @@ import org.androidannotations.annotations.RootContext;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.alois.aloismobile.ui.view.home.CaregiverHomeActivity;
 import br.com.alois.aloismobile.ui.view.home.adapter.row.PatientListRow;
 import br.com.alois.aloismobile.ui.view.home.adapter.row.PatientListRow_;
 import br.com.alois.domain.entity.user.Patient;
@@ -28,7 +31,7 @@ public class PatientListAdapter extends BaseAdapter
 
     //=====================================INJECTIONS=======================================
     @RootContext
-    Context context;
+    AppCompatActivity context;
 
     //======================================================================================
 
@@ -73,7 +76,7 @@ public class PatientListAdapter extends BaseAdapter
             patientListRow = (PatientListRow) convertView;
         }
 
-        patientListRow.bind(this.patients.get(position));
+        patientListRow.bind(this.patients.get(position), this.context);
 
         return patientListRow;
     }

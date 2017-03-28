@@ -78,11 +78,15 @@ public class PatientTasks
                 .decoder(new JacksonDecoder())
                 .target(PatientClient.class, ServerConfiguration.API_ENDPOINT);
 
+        ObjectMapper objectMapper = new ObjectMapper();
+
         try
         {
+            String jsonPatient = objectMapper.writeValueAsString(patient);
+            System.out.println(jsonPatient);
             this.addPatientHandleSuccess( patientClient.addPatient( patient, this.generalPreferences.loggedUserAuthToken().get() ) );
         }
-        catch(FeignException e)
+        catch(Exception e)
         {
             e.printStackTrace();
             this.addPatientHandleFail(e.getMessage());
@@ -111,5 +115,31 @@ public class PatientTasks
         this.caregiverHomeActivity.progressDialog.dismiss();
         Toast.makeText(this.caregiverHomeActivity, this.caregiverHomeActivity.getResources().getString(R.string.patient_insert_error), Toast.LENGTH_SHORT).show();
         System.out.println(message);
+    }
+
+    @Background
+    public void updatePatient(Patient patient) {
+        PatientClient patientClient = Feign.builder()
+                .encoder(new JacksonEncoder())
+                .decoder(new JacksonDecoder())
+                .target(PatientClient.class, ServerConfiguration.API_ENDPOINT);
+
+        try
+        {
+            updatePatientHandleSuccess(patientClient.updatePatient(patient, this.generalPreferences.loggedUserAuthToken().get()));
+        }
+        catch(FeignException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    @UiThread
+    public void updatePatientHandleSuccess(Patient patient) {
+        if(patient != null)
+        {
+            //TODO ATualizar paciente na view
+            System.out.println(patient);
+        }
     }
 }

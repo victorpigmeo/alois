@@ -70,7 +70,6 @@ dependencies {
     compile 'io.github.openfeign:feign-core:9.4.0'
     compile 'com.mobsandgeeks:android-saripaar:2.0.3'
     compile 'com.android.support:multidex:1.0.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.github.clans:fab:1.6.4'
     compile 'com.wdullaer:materialdatetimepicker:2.5.0'
     compile 'com.google.android.gms:play-services-maps:10.2.0'

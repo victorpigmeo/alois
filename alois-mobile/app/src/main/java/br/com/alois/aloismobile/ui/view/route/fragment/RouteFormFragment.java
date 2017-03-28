@@ -26,6 +26,8 @@ import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import br.com.alois.aloismobile.R;
@@ -87,6 +89,32 @@ public class RouteFormFragment extends Fragment implements Validator.ValidationL
                 .beginTransaction()
                 .replace(R.id.routeAddFrame, this.routeFormMapFragment)
                 .commit();
+
+        if(this.route != null){
+            this.routeFormEditName.setText(this.route.getName());
+            this.routeFormEditDescription.setText(this.route.getDescription());
+
+            List<LatLng> line = new ArrayList<LatLng>();
+
+            this.routeFormMapFragment.setSteps(this.route.getSteps());
+
+            Collections.sort(this.route.getSteps(), new Comparator<Step>() {
+                @Override
+                public int compare(Step step1, Step step2) {
+                    return ((Integer)step1.getSequence()).compareTo((Integer) step2.getSequence());
+                }
+            });
+
+            for(Step step :this.route.getSteps())
+            {
+                LatLng stepStart = new LatLng(step.getStartPoint().getLatitude(), step.getStartPoint().getLongitude());
+                LatLng stepEnd = new LatLng(step.getEndPoint().getLatitude(), step.getEndPoint().getLongitude());
+
+                line.add(stepStart);
+                line.add(stepEnd);
+            }
+            this.routeFormMapFragment.setPoints(line);
+        }
     }
 
     @Click(R.id.routeFormSaveButton)
@@ -115,10 +143,16 @@ public class RouteFormFragment extends Fragment implements Validator.ValidationL
     {
         this.route.setName(this.routeFormEditName.getText().toString());
         this.route.setDescription(this.routeFormEditDescription.getText().toString());
-        //TODO verificar porque o id do paciente nao está indo
         this.route.setPatient( this.patient );
 
-        ((PatientDetailActivity) this.getActivity()).addRoute(route);
+        if(this.route.getId() == null)
+        {
+            ((PatientDetailActivity) this.getActivity()).addRoute(route);
+        }
+        else
+        {
+            ((PatientDetailActivity) this.getActivity()).editRoute(route);
+        }
     }
 
     @Override

@@ -78,16 +78,24 @@ public class PatientDetailActivity extends AppCompatActivity
     @OptionsItem(R.id.patientDetailRoutesMenuButton)
     public void onPatientRoutesClick()
     {
-        this.routeListFragment = RouteListFragment_
-                .builder()
-                .patient(this.patient)
-                .build();
+        if(this.getSupportFragmentManager().getBackStackEntryCount() > 1 &&
+                this.getSupportFragmentManager().getBackStackEntryAt(this.getSupportFragmentManager().getBackStackEntryCount() - 1).getName().equals("routeListFragment"))
+        {
+            System.out.println("mesmo fragment");
+            return;
+        }
+        else {
+            this.routeListFragment = RouteListFragment_
+                    .builder()
+                    .patient(this.patient)
+                    .build();
 
-        this.getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.patientDetailFrame, routeListFragment)
-                .addToBackStack("routeListFragment")
-                .commit();
+            this.getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.patientDetailFrame, routeListFragment)
+                    .addToBackStack("routeListFragment")
+                    .commit();
+        }
     }
 
     public void listPatientroutes(Long patientId)
@@ -154,6 +162,15 @@ public class PatientDetailActivity extends AppCompatActivity
         );
 
         this.routeTasks.addRoute(route);
+    }
+
+    public void onAddRoute(Route route) {
+        this.routeListFragment.onAddRoute(route);
+    }
+
+    public void editRoute(Route route) {
+        //TODO Make the method stupid!!!
+        this.getSupportFragmentManager().popBackStack();
     }
     //======================================================================================
 

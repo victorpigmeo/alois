@@ -10,7 +10,6 @@ import javax.persistence.Table;
 import org.hibernate.envers.Audited;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -27,7 +26,6 @@ public class Caregiver extends User
 	//=====================================ATTRIBUTES=======================================
 	private static final long serialVersionUID = -52559064557703378L;
 	
-	@JsonManagedReference
 	@OneToMany(orphanRemoval = true, fetch=FetchType.LAZY, mappedBy="caregiver")
 	private List<Patient> patients;
 

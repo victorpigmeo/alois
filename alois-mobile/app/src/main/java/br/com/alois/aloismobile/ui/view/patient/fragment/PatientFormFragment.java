@@ -19,6 +19,7 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
@@ -57,11 +58,11 @@ public class PatientFormFragment extends Fragment implements
     @Checked(messageResId = R.string.gender_is_required)
     RadioGroup patientFormRadioGender;
 
-    /**
-     * Injected to show error
-     */
     @ViewById(R.id.patientFormRadioFemale)
     RadioButton patientFormRadioFemale;
+
+    @ViewById(R.id.patientFormRadioMale)
+    RadioButton patientFormRadioMale;
 
     Calendar patientDateOfBirth = Calendar.getInstance();
 
@@ -84,7 +85,6 @@ public class PatientFormFragment extends Fragment implements
     EditText patientFormEditUsername;
 
     @ViewById(R.id.patientFormEditPassword)
-    @Password(min = 6, messageResId = R.string.password_is_required_field)
     EditText patientFormEditPassword;
 
     Validator validator = new Validator(this);
@@ -93,6 +93,9 @@ public class PatientFormFragment extends Fragment implements
     //=====================================INJECTIONS=======================================
     @Pref
     GeneralPreferences_ generalPreferences;
+
+    @FragmentArg("patient")
+    Patient patient;
     //======================================================================================
 
     //====================================CONSTRUCTORS======================================
@@ -112,11 +115,43 @@ public class PatientFormFragment extends Fragment implements
     public void onAfterViews()
     {
         this.validator.setValidationListener(this);
+
+        if(this.patient != null && this.patient.getId() != null)
+        {
+            this.patientFormEditName.setText(this.patient.getName());
+            this.patientFormEditPhone.setText(this.patient.getPhone());
+
+            switch (this.patient.getGender())
+            {
+                case MALE:
+                    this.patientFormRadioMale.toggle();
+                    break;
+                case FEMALE:
+                    this.patientFormRadioFemale.toggle();
+                    break;
+            }
+
+            this.patientFormDateView.setText(this.simpleDateFormat.format(this.patient.getBirthDate().getTime()));
+            this.patientDateOfBirth = this.patient.getBirthDate();
+            this.patientFormEditAddress.setText(this.patient.getAddress());
+            this.patientFormEditEmergencyPhone.setText(this.patient.getEmergencyPhone());
+            this.patientFormEditNotes.setText(this.patient.getNote());
+            this.patientFormEditUsername.setText(this.patient.getUsername());
+        }
     }
 
     @Click(R.id.patientFormButtonSave)
     public void onClickSaveButton()
     {
+        if(this.patient == null)
+        {
+            if(this.patientFormEditPassword.getText().length() < 6)
+            {
+                this.patientFormEditPassword.setError(this.getActivity().getResources().getString(R.string.password_is_required_field));
+                return;
+            }
+        }
+
         this.validator.validate();
     }
 
@@ -157,20 +192,37 @@ public class PatientFormFragment extends Fragment implements
     {
         RadioButton radioGender = (RadioButton) this.getActivity().findViewById(this.patientFormRadioGender.getCheckedRadioButtonId());
 
-        Patient patient = new Patient(
-                this.patientFormEditName.getText().toString(),
-                this.patientFormEditPhone.getText().toString(),
-                Gender.valueOf(radioGender.getTag().toString()),
-                this.patientDateOfBirth,
-                this.patientFormEditAddress.getText().toString(),
-                this.patientFormEditEmergencyPhone.getText().toString(),
-                this.patientFormEditNotes.getText().toString(),
-                this.patientFormEditUsername.getText().toString(),
-                User.encryptPassword( this.patientFormEditPassword.getText().toString() ),
-                new Caregiver(this.generalPreferences.loggedUserId().get())
-        );
+        if(this.patient == null && this.patient.getId() == null)
+        {
+            this.patient = new Patient(
+                    this.patientFormEditName.getText().toString(),
+                    this.patientFormEditPhone.getText().toString(),
+                    Gender.valueOf(radioGender.getTag().toString()),
+                    this.patientDateOfBirth,
+                    this.patientFormEditAddress.getText().toString(),
+                    this.patientFormEditEmergencyPhone.getText().toString(),
+                    this.patientFormEditNotes.getText().toString(),
+                    this.patientFormEditUsername.getText().toString(),
+                    User.encryptPassword( this.patientFormEditPassword.getText().toString() ),
+                    new Caregiver(this.generalPreferences.loggedUserId().get())
+            );
+            ((CaregiverHomeActivity) this.getActivity()).addPatient(this.patient);
+        }
+        else
+        {
+            this.patient.setName(this.patientFormEditName.getText().toString());
+            this.patient.setPhone(this.patientFormEditPhone.getText().toString());
+            this.patient.setGender(Gender.valueOf(radioGender.getTag().toString()));
+            this.patient.setBirthDate(this.patientDateOfBirth);
+            this.patient.setAddress(this.patientFormEditAddress.getText().toString());
+            this.patient.setEmergencyPhone(this.patientFormEditEmergencyPhone.getText().toString());
+            this.patient.setNote(this.patientFormEditNotes.getText().toString());
+            this.patient.setUsername(this.patientFormEditUsername.getText().toString());
+            this.patient.setPassword(User.encryptPassword(this.patientFormEditPassword.getText().toString()));
 
-        ((CaregiverHomeActivity) this.getActivity()).addPatient(patient);
+            ((CaregiverHomeActivity) this.getActivity()).updatePatient(this.patient);
+        }
+
     }
 
     @Override

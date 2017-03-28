@@ -8,6 +8,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -101,6 +103,12 @@ public class RouteFormMapFragment extends Fragment implements
 
         this.map.setMyLocationEnabled(true);
         this.map.setOnMapLongClickListener(this);
+        if(this.steps != null && this.steps.size() != 0)
+        {
+            this.drawRouteFormPolyline(this.points);
+            LatLng initialPosition = new LatLng(this.steps.get(0).getStartPoint().getLatitude(), this.steps.get(0).getStartPoint().getLongitude());
+            this.map.moveCamera(CameraUpdateFactory.newLatLngZoom(initialPosition, 15));
+        }
     }
 
     @Override
@@ -139,6 +147,10 @@ public class RouteFormMapFragment extends Fragment implements
     public List<Step> getSteps()
     {
         return this.steps;
+    }
+
+    public void setPoints(List<LatLng> points) {
+        this.points = points;
     }
 
     //======================================================================================

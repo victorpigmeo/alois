@@ -12,6 +12,7 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
+import org.androidannotations.annotations.ItemClick;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.List;
@@ -85,6 +86,21 @@ public class RouteListFragment extends Fragment
                 .commit();
     }
 
+    @ItemClick(R.id.routeList)
+    public void onRouteListItemClick(Route route)
+    {
+        this.routeFormFragment = RouteFormFragment_.builder()
+                .patient(this.patient)
+                .route(route)
+                .build();
+
+        this.getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.patientDetailFrame, routeFormFragment)
+                .addToBackStack("routeFormFragment")
+                .commit();
+    }
+
     public void setPatientRouteList(List<Route> patientRouteList)
     {
         this.routeListAdapter.setRouteList(patientRouteList);
@@ -98,6 +114,10 @@ public class RouteListFragment extends Fragment
     public void setRouteSteps(List<Step> routeSteps)
     {
         this.routeFormFragment.setRouteSteps(routeSteps);
+    }
+
+    public void onAddRoute(Route route) {
+        this.routeListAdapter.onAddRoute(route);
     }
     //======================================================================================
 

@@ -40,6 +40,12 @@ public class PatientController {
 	{
 		return this.patientService.updateLastLocation(lastLocation, patientId);
 	}
+	
+	@RequestMapping(method=RequestMethod.PUT, value="/update")
+	public Patient updatePatient(@RequestBody Patient patient)
+	{
+		return this.patientService.updatePatient(patient);
+	}
 	//======================================================================================
 
 }

@@ -21,4 +21,8 @@ public interface PatientClient
     @RequestLine("POST /patient/insert")
     @Headers({"Content-Type: application/json", "Authorization: Basic {basicAuthToken}"})
     Patient addPatient(Patient patient, @Param("basicAuthToken") String basicAuthToken);
+
+    @RequestLine("PUT /patient/update")
+    @Headers({"Content-Type: application/json", "Authorization: Basic {basicAuthToken}"})
+    Patient updatePatient(Patient patient, @Param("basicAuthToken") String basicAuthToken);
 }
