@@ -28,10 +28,16 @@ public class RouteController {
 		return this.routeService.listRoutesByPatientId(patientId);
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, value="/addRoute", consumes = {"application/json"})
+	@RequestMapping(method = RequestMethod.POST, value="/addRoute")
 	public Route insertRoute(@RequestBody Route route)
 	{
 		return this.routeService.insertRoute(route);
+	}
+	
+	@RequestMapping(method = RequestMethod.PUT, value="/updateRoute")
+	public Route updateRoute(@RequestBody Route route)
+	{
+		return this.routeService.updateRoute(route);
 	}
 	//======================================================================================
 

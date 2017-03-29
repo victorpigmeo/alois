@@ -87,6 +87,17 @@ public class RouteListAdapter extends BaseAdapter
         this.routeList.add(route);
         this.notifyDataSetChanged();
     }
+
+    public void onUpdateRoute(Route route)
+    {
+        for(Route listRoute: this.routeList)
+        {
+            if(listRoute.getId().equals(route.getId()))
+            {
+                listRoute = route;
+            }
+        }
+    }
     //======================================================================================
 
 }

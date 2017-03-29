@@ -45,5 +45,9 @@ public class RouteService {
 		return this.routeRepository.save(route);
 	}
 
+	public Route updateRoute(Route route) {
+		return this.routeRepository.save(route);
+	}
+
 	//======================================================================================
 }

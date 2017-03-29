@@ -120,12 +120,18 @@ public class RouteFormMapFragment extends Fragment implements
     @Override
     public void onMapLongClick(LatLng latLng)
     {
-        this.map.addMarker(new MarkerOptions().position(latLng));
-        this.points.add(latLng);
-
-        if(this.points.size() > 1)
+        if(this.steps.size() > 0 && this.steps.get(0) != null && this.steps.get(0).getId() != null)
         {
-            ((PatientDetailActivity) this.getActivity()).generateGoogleRoute(this.points);
+            Toast.makeText(this.getContext(), R.string.you_must_clear_map_before_edit, Toast.LENGTH_SHORT).show();
+            return;
+        }else{
+            this.map.addMarker(new MarkerOptions().position(latLng));
+            this.points.add(latLng);
+
+            if(this.points.size() > 1)
+            {
+                ((PatientDetailActivity) this.getActivity()).generateGoogleRoute(this.points);
+            }
         }
     }
 

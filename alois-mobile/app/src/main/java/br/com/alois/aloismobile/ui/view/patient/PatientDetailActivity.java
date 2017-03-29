@@ -52,7 +52,6 @@ public class PatientDetailActivity extends AppCompatActivity
     @NonConfigurationInstance
     @Bean
     RouteTasks routeTasks;
-    private List<Step> routeLo;
     //======================================================================================
 
     //====================================CONSTRUCTORS======================================
@@ -115,21 +114,6 @@ public class PatientDetailActivity extends AppCompatActivity
         this.routeListFragment.setPatientRouteList(patientRouteList);
     }
 
-    @Override
-    public void onBackPressed()
-    {
-        int fragments = this.getSupportFragmentManager().getBackStackEntryCount();
-
-        if (fragments > 1)
-        {
-            getSupportFragmentManager().popBackStack();
-        }
-        else
-        {
-            finish();
-        }
-    }
-
     public void generateGoogleRoute(List<LatLng> points)
     {
         this.progressDialog = ProgressDialog.show(this,
@@ -169,9 +153,34 @@ public class PatientDetailActivity extends AppCompatActivity
     }
 
     public void editRoute(Route route) {
-        //TODO Make the method stupid!!!
-        this.getSupportFragmentManager().popBackStack();
+        this.progressDialog = ProgressDialog.show(this,
+                super.getString(R.string.saving_route),
+                super.getString(R.string.please_wait),
+                true,//is indeterminate
+                true//is cancelable
+        );
+
+        this.routeTasks.updateRoute(route);
+    }
+
+    public void onUpdateRoute(Route route)
+    {
+        this.routeListFragment.onUpdateRoute(route);
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        int fragments = this.getSupportFragmentManager().getBackStackEntryCount();
+
+        if (fragments > 1)
+        {
+            getSupportFragmentManager().popBackStack();
+        }
+        else
+        {
+            finish();
+        }
     }
     //======================================================================================
-
 }

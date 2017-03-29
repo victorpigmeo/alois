@@ -88,6 +88,15 @@ public class CaregiverHomeFragment extends Fragment
     {
         this.patientListAdapter.onInsertPatient(patient);
     }
+
+    public void onUpdatePatient(Patient patient) {
+        this.patientListAdapter.onUpdatePatient(patient);
+    }
+
+    public void onDeletePatient(Patient patient)
+    {
+        this.patientListAdapter.onDeletePatient(patient);
+    }
     //======================================================================================
 
 }

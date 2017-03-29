@@ -126,11 +126,12 @@ public class PatientTasks
 
         try
         {
-            updatePatientHandleSuccess(patientClient.updatePatient(patient, this.generalPreferences.loggedUserAuthToken().get()));
+            updatePatientHandleSuccess( patientClient.updatePatient( patient, this.generalPreferences.loggedUserAuthToken().get() ) );
         }
         catch(FeignException e)
         {
             e.printStackTrace();
+            updatePatientHandleFail(e.getMessage());
         }
     }
 
@@ -138,8 +139,54 @@ public class PatientTasks
     public void updatePatientHandleSuccess(Patient patient) {
         if(patient != null)
         {
-            //TODO ATualizar paciente na view
-            System.out.println(patient);
+            this.caregiverHomeActivity.progressDialog.dismiss();
+
+            this.caregiverHomeActivity.onUpdatePatient(patient);
+
+            this.caregiverHomeActivity.getSupportFragmentManager()
+                    .popBackStack();
         }
+    }
+
+    @UiThread
+    public void updatePatientHandleFail(String message)
+    {
+        this.caregiverHomeActivity.progressDialog.dismiss();
+        Toast.makeText(this.caregiverHomeActivity, this.caregiverHomeActivity.getResources().getString(R.string.patient_update_error), Toast.LENGTH_SHORT).show();
+        System.out.println(message);
+    }
+
+    @Background
+    public void deletePatient(Patient patient) {
+        PatientClient patientClient = Feign.builder()
+                .encoder(new JacksonEncoder())
+                .decoder(new JacksonDecoder())
+                .target(PatientClient.class, ServerConfiguration.API_ENDPOINT);
+
+        try
+        {
+            patientClient.deletePatient(patient, this.generalPreferences.loggedUserAuthToken().get());
+            deletePatientHandleSuccess(patient);
+        }
+        catch(FeignException e)
+        {
+            e.printStackTrace();
+            deletePatientHandleFail(e.getMessage());
+        }
+    }
+
+    @UiThread
+    public void deletePatientHandleSuccess(Patient patient)
+    {
+        this.caregiverHomeActivity.progressDialog.dismiss();
+        this.caregiverHomeActivity.onDeletePatient(patient);
+    }
+
+    @UiThread
+    public void deletePatientHandleFail(String message)
+    {
+        this.caregiverHomeActivity.progressDialog.dismiss();
+        Toast.makeText(this.caregiverHomeActivity, this.caregiverHomeActivity.getResources().getString(R.string.error_default), Toast.LENGTH_SHORT).show();
+        System.out.println(message);
     }
 }

@@ -84,4 +84,11 @@
     <string name="saving_route">Saving route</string>
     <string name="error_default">An error occurred, please contact an system administrator</string>
     <string name="saving_patient">Saving patient</string>
+    <string name="patient_update_error">Update failed due some error, contact the system administrator</string>
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="you_really_want_delete_patient">You really want to delete this patient?</string>
+    <string name="deleting_patient">Deleting patient</string>
+    <string name="you_must_clear_map_before_edit">You must clear the map before edit the route</string>
 </resources>

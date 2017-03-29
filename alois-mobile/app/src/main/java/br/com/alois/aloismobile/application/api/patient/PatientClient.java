@@ -25,4 +25,9 @@ public interface PatientClient
     @RequestLine("PUT /patient/update")
     @Headers({"Content-Type: application/json", "Authorization: Basic {basicAuthToken}"})
     Patient updatePatient(Patient patient, @Param("basicAuthToken") String basicAuthToken);
+
+
+    @RequestLine("POST /patient/delete")
+    @Headers({"Content-Type: application/json", "Authorization: Basic {basicAuthToken}"})
+    void deletePatient(Patient patient, @Param("basicAuthToken") String basicAuthToken);
 }

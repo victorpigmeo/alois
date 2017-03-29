@@ -128,6 +128,27 @@ public class CaregiverHomeActivity extends AppCompatActivity
         this.patientTasks.updatePatient(patient);
     }
 
+    public void onUpdatePatient(Patient patient) {
+        this.caregiverHomeFragment.onUpdatePatient(patient);
+    }
+
+    public void deletePatient(Patient patient)
+    {
+        this.progressDialog = ProgressDialog.show(this,
+                this.getResources().getString( R.string.deleting_patient ),
+                this.getResources().getString( R.string.please_wait ),
+                true,
+                false
+        );
+
+        this.patientTasks.deletePatient(patient);
+    }
+
+    public void onDeletePatient(Patient patient)
+    {
+        this.caregiverHomeFragment.onDeletePatient(patient);
+    }
+
     @Override
     public void onBackPressed()
     {

@@ -86,6 +86,24 @@ public class PatientListAdapter extends BaseAdapter
         this.patients.add(patient);
         this.notifyDataSetChanged();
     }
+
+    public void onUpdatePatient(Patient patient) {
+        for(Patient listPatient: this.patients)
+        {
+            if( listPatient.getId().equals( patient.getId() ) )
+            {
+                listPatient = patient;
+            }
+        }
+
+        this.notifyDataSetChanged();
+    }
+
+    public void onDeletePatient(Patient patient)
+    {
+        this.patients.remove(patient);
+        this.notifyDataSetChanged();
+    }
     //======================================================================================
 
 }

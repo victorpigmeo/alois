@@ -46,6 +46,12 @@ public class PatientController {
 	{
 		return this.patientService.updatePatient(patient);
 	}
+	
+	@RequestMapping(method=RequestMethod.POST, value="/delete")
+	public void deletePatient(@RequestBody Patient patient)
+	{
+		this.patientService.deletePatient(patient);
+	}
 	//======================================================================================
 
 }

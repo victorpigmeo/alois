@@ -55,14 +55,20 @@ public class PatientService {
 		}
 	}
 
-	public AloisLatLng updateLastLocation(AloisLatLng lastLocation, Long patientId) {
+	public AloisLatLng updateLastLocation(AloisLatLng lastLocation, Long patientId) 
+	{
 		return this.patientRepository.updateLastLocation(lastLocation, patientId);
 	}
 
-	public Patient updatePatient(Patient patient) {
+	public Patient updatePatient(Patient patient) 
+	{
 		return this.patientRepository.save(patient);
 	}
 
+	public void deletePatient(Patient patient)
+	{
+		this.patientRepository.delete(patient);
+	}
 	//======================================================================================
 
 }

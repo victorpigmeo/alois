@@ -138,6 +138,13 @@ public class RouteFormFragment extends Fragment implements Validator.ValidationL
         }
     }
 
+    @Click(R.id.routeFormCancelButton)
+    public void onRouteFormCancelButtonClick()
+    {
+        this.getActivity().getSupportFragmentManager()
+                .popBackStack();
+    }
+
     @Override
     public void onValidationSucceeded()
     {
@@ -151,6 +158,7 @@ public class RouteFormFragment extends Fragment implements Validator.ValidationL
         }
         else
         {
+            this.route.getPatient().setRoutes(null);
             ((PatientDetailActivity) this.getActivity()).editRoute(route);
         }
     }

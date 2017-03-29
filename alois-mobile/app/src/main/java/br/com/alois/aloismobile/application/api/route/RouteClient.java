@@ -26,4 +26,8 @@ public interface RouteClient
     @RequestLine("POST /route/addRoute")
     @Headers({"Content-Type: application/json", "Authorization: Basic {basicAuthToken}"})
     Route addRoute(Route route, @Param("basicAuthToken") String basicAuthToken);
+
+    @RequestLine("PUT /route/updateRoute")
+    @Headers({"Content-Type: application/json", "Authorization: Basic {basicAuthToken}"})
+    Route updateRoute(Route route, @Param("basicAuthToken") String basicAuthToken);
 }

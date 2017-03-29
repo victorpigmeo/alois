@@ -1,6 +1,8 @@
 package br.com.alois.aloismobile.ui.view.home.adapter.row;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.view.MenuItem;
@@ -87,7 +89,24 @@ public class PatientListRow extends LinearLayout
                                 .commit();
                         break;
                     case R.id.caregiver_home_delete_patient_button:
-                        Toast.makeText(getContext(), "Delete patient: "+patient.getName(), Toast.LENGTH_SHORT).show();
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity)
+                                .setTitle(R.string.are_you_sure)
+                                .setMessage(R.string.you_really_want_delete_patient)
+                                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                        ((CaregiverHomeActivity) activity).deletePatient(patient);
+                                    }
+                                })
+                                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                        AlertDialog alert = alertDialog.create();
+                        alert.show();
                         break;
                 }
                 return true;

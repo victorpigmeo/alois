@@ -119,6 +119,11 @@ public class RouteListFragment extends Fragment
     public void onAddRoute(Route route) {
         this.routeListAdapter.onAddRoute(route);
     }
+
+    public void onUpdateRoute(Route route)
+    {
+        this.routeListAdapter.onUpdateRoute(route);
+    }
     //======================================================================================
 
 }

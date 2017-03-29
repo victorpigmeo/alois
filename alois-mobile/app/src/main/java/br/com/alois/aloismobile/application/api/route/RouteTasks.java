@@ -2,6 +2,7 @@ package br.com.alois.aloismobile.application.api.route;
 
 import android.widget.Toast;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.gms.maps.model.LatLng;
 
 import org.androidannotations.annotations.Background;
@@ -227,6 +228,41 @@ public class RouteTasks
         this.patientDetailActivity.progressDialog.dismiss();
         System.out.println(message);
         Toast.makeText(this.patientDetailActivity, this.patientDetailActivity.getResources().getString(R.string.error_default), Toast.LENGTH_SHORT).show();
+    }
+
+    @Background
+    public void updateRoute(Route route)
+    {
+        RouteClient routeClient = Feign.builder()
+                .encoder(new JacksonEncoder())
+                .decoder(new JacksonDecoder())
+                .target(RouteClient.class, ServerConfiguration.API_ENDPOINT);
+
+        try
+        {
+            updateRouteHandleSuccess(routeClient.updateRoute(route, this.generalPreferences.loggedUserAuthToken().get()));
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            updateRouteHandleFail(e.getMessage());
+        }
+    }
+
+    @UiThread
+    public void updateRouteHandleSuccess(Route route)
+    {
+        this.patientDetailActivity.progressDialog.dismiss();
+        this.patientDetailActivity.onUpdateRoute(route);
+        this.patientDetailActivity.getSupportFragmentManager()
+                .popBackStack();
+    }
+
+    @UiThread
+    public void updateRouteHandleFail(String message)
+    {
+        this.patientDetailActivity.progressDialog.dismiss();
+        System.out.println(message);
     }
     //======================================================================================
 
