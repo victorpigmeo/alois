@@ -89,6 +89,7 @@ public class RouteListFragment extends Fragment
     @ItemClick(R.id.routeList)
     public void onRouteListItemClick(Route route)
     {
+        //TODO mudar esse click para o visualizar rota!!!!!!!!!!!!!!!!!!!!!
         this.routeFormFragment = RouteFormFragment_.builder()
                 .patient(this.patient)
                 .route(route)

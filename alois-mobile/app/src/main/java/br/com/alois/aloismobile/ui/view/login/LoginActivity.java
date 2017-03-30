@@ -16,6 +16,8 @@ import br.com.alois.aloismobile.R;
 import br.com.alois.aloismobile.application.api.login.LoginTasks;
 import br.com.alois.aloismobile.application.api.signup.SignupTasks;
 import br.com.alois.aloismobile.application.preference.GeneralPreferences_;
+import br.com.alois.aloismobile.ui.view.home.AdministratorHomeActivity;
+import br.com.alois.aloismobile.ui.view.home.AdministratorHomeActivity_;
 import br.com.alois.aloismobile.ui.view.home.CaregiverHomeActivity_;
 import br.com.alois.aloismobile.ui.view.login.fragment.LoginFragment;
 import br.com.alois.aloismobile.ui.view.login.fragment.LoginFragment_;
@@ -64,7 +66,7 @@ public class LoginActivity extends AppCompatActivity
             switch(UserType.values()[userType])
             {
                 case ADMINISTRATOR:
-                    homeIntent = null;//TODO change to caregiver home activity
+                    homeIntent = AdministratorHomeActivity_.intent(this.getApplicationContext()).get();
                     break;
                 case CAREGIVER:
                     homeIntent = CaregiverHomeActivity_.intent(this.getApplicationContext()).get();

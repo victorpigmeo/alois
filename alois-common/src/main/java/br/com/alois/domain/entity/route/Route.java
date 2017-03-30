@@ -44,7 +44,7 @@ public class Route implements Serializable
 	
 	private String description;
 	
-	@OneToMany(orphanRemoval = true, fetch=FetchType.LAZY, mappedBy="route")
+	@OneToMany(orphanRemoval = true, cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="route")
 	private List<Step> steps;
 	
 	@ManyToOne
