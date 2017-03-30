@@ -14,9 +14,17 @@ import javax.persistence.Table;
 
 import org.hibernate.envers.Audited;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
 @Audited
 @Table(name = "step")
+@JsonIdentityInfo(
+		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+		  scope = Step.class,
+		  property = "id")
 public class Step implements Serializable
 {
 	//=====================================ATTRIBUTES=======================================
@@ -35,6 +43,7 @@ public class Step implements Serializable
 	private int sequence;
 
 	@ManyToOne(fetch=FetchType.LAZY)
+	@JsonBackReference
 	private Route route;
 	//======================================================================================
 	

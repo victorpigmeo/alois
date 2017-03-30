@@ -35,17 +35,13 @@ public class RouteService {
 		Assert.notNull(route.getName());
 		Assert.notNull(route.getSteps());
 		
-		route = this.routeRepository.save(route);
-		
-		for(Step step: route.getSteps())
-		{
-			step.setRoute(route);
-			this.stepRepository.save(step);
-		}
 		return this.routeRepository.save(route);
 	}
 
 	public Route updateRoute(Route route) {
+		Assert.notNull(route);
+		Assert.notNull(route.getSteps());
+		
 		return this.routeRepository.save(route);
 	}
 

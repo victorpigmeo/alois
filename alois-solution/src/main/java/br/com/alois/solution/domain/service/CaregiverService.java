@@ -47,6 +47,6 @@ public class CaregiverService
 
 	public List<Caregiver> getCaregiverList() 
 	{
-		return this.caregiverRepository.listAll();
+		return this.caregiverRepository.findAll();
 	}
 }

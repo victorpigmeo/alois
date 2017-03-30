@@ -26,6 +26,7 @@ import br.com.alois.aloismobile.application.api.route.RouteTasks;
 import br.com.alois.aloismobile.ui.view.login.LoginActivity;
 import br.com.alois.aloismobile.ui.view.patient.fragment.PatientDetailFragment;
 import br.com.alois.aloismobile.ui.view.patient.fragment.PatientDetailFragment_;
+import br.com.alois.aloismobile.ui.view.route.fragment.RouteFormFragment;
 import br.com.alois.aloismobile.ui.view.route.fragment.RouteListFragment;
 import br.com.alois.aloismobile.ui.view.route.fragment.RouteListFragment_;
 import br.com.alois.domain.entity.route.Route;
@@ -52,6 +53,8 @@ public class PatientDetailActivity extends AppCompatActivity
     @NonConfigurationInstance
     @Bean
     RouteTasks routeTasks;
+
+    private RouteFormFragment routeFormFragment;
     //======================================================================================
 
     //====================================CONSTRUCTORS======================================
@@ -181,6 +184,11 @@ public class PatientDetailActivity extends AppCompatActivity
         {
             finish();
         }
+    }
+
+    public void setRouteFormFragment(RouteFormFragment routeFormFragment)
+    {
+        this.routeListFragment.setRouteFormFragment(routeFormFragment);
     }
     //======================================================================================
 }

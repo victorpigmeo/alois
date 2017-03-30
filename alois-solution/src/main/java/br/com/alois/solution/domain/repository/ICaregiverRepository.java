@@ -11,8 +11,6 @@ import br.com.alois.domain.entity.user.Caregiver;
 @Repository
 public interface ICaregiverRepository extends JpaRepository<Caregiver, Long>
 {
-
-	@Query("SELECT c.id, c.name, c.email, c.gender, c.username, c.password, c.lastLogin FROM Caregiver c")
-	List<Caregiver> listAll();
-
+	@Query("FROM Caregiver c")
+	public List<Caregiver> findAll();
 }

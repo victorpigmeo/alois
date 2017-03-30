@@ -18,6 +18,7 @@ import org.hibernate.envers.Audited;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import br.com.alois.domain.entity.user.Patient;
@@ -44,7 +45,8 @@ public class Route implements Serializable
 	
 	private String description;
 	
-	@OneToMany(orphanRemoval = true, cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="route")
+	@OneToMany(orphanRemoval = true, cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="route" )
+	@JsonManagedReference
 	private List<Step> steps;
 	
 	@ManyToOne
@@ -108,8 +110,10 @@ public class Route implements Serializable
 	}
 	//======================================================================================
 
-
 	//=====================================BEHAVIOUR========================================
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -117,10 +121,13 @@ public class Route implements Serializable
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((steps == null) ? 0 : steps.hashCode());
+		result = prime * result + ((patient == null) ? 0 : patient.hashCode());
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -145,13 +152,16 @@ public class Route implements Serializable
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
-		if (steps == null) {
-			if (other.steps != null)
+		if (patient == null) {
+			if (other.patient != null)
 				return false;
-		} else if (!steps.equals(other.steps))
+		} else if (!patient.equals(other.patient))
 			return false;
 		return true;
 	}
+
+
+	
 	
 	//======================================================================================
 	

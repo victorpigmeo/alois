@@ -187,7 +187,7 @@ public class Patient extends User
 	public void setRoutes(List<Route> routes) {
 		this.routes = routes;
 	}
-	
+
 	//======================================================================================
 
 	//=====================================BEHAVIOUR========================================
@@ -199,11 +199,12 @@ public class Patient extends User
 		result = prime * result + ((birthDate == null) ? 0 : birthDate.hashCode());
 		result = prime * result + ((caregiver == null) ? 0 : caregiver.hashCode());
 		result = prime * result + ((emergencyPhone == null) ? 0 : emergencyPhone.hashCode());
+		result = prime * result + ((lastLocation == null) ? 0 : lastLocation.hashCode());
 		result = prime * result + ((note == null) ? 0 : note.hashCode());
 		result = prime * result + ((phone == null) ? 0 : phone.hashCode());
 		return result;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -233,6 +234,11 @@ public class Patient extends User
 				return false;
 		} else if (!emergencyPhone.equals(other.emergencyPhone))
 			return false;
+		if (lastLocation == null) {
+			if (other.lastLocation != null)
+				return false;
+		} else if (!lastLocation.equals(other.lastLocation))
+			return false;
 		if (note == null) {
 			if (other.note != null)
 				return false;
@@ -245,7 +251,6 @@ public class Patient extends User
 			return false;
 		return true;
 	}
-	
 	//======================================================================================
 
 	

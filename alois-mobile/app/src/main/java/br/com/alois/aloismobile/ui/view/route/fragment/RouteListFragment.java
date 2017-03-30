@@ -89,17 +89,7 @@ public class RouteListFragment extends Fragment
     @ItemClick(R.id.routeList)
     public void onRouteListItemClick(Route route)
     {
-        //TODO mudar esse click para o visualizar rota!!!!!!!!!!!!!!!!!!!!!
-        this.routeFormFragment = RouteFormFragment_.builder()
-                .patient(this.patient)
-                .route(route)
-                .build();
 
-        this.getActivity().getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.patientDetailFrame, routeFormFragment)
-                .addToBackStack("routeFormFragment")
-                .commit();
     }
 
     public void setPatientRouteList(List<Route> patientRouteList)
@@ -124,6 +114,11 @@ public class RouteListFragment extends Fragment
     public void onUpdateRoute(Route route)
     {
         this.routeListAdapter.onUpdateRoute(route);
+    }
+
+    public void setRouteFormFragment(RouteFormFragment routeFormFragment)
+    {
+        this.routeFormFragment = routeFormFragment;
     }
     //======================================================================================
 

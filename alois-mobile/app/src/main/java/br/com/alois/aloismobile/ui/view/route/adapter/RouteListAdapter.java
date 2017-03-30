@@ -1,11 +1,13 @@
 package br.com.alois.aloismobile.ui.view.route.adapter;
 
 import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import org.androidannotations.annotations.EBean;
+import org.androidannotations.annotations.RootContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +27,9 @@ public class RouteListAdapter extends BaseAdapter
     List<Route> routeList = new ArrayList<Route>();
 
     Context context;
+
+    @RootContext
+    AppCompatActivity activity;
     //======================================================================================
 
     //=====================================INJECTIONS=======================================
@@ -78,7 +83,7 @@ public class RouteListAdapter extends BaseAdapter
             routeListRow = (RouteListRow) convertView;
         }
 
-        routeListRow.bind(this.routeList.get(position));
+        routeListRow.bind(this.routeList.get(position), activity);
 
         return routeListRow;
     }

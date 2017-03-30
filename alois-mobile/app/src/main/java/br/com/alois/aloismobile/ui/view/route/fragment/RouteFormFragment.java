@@ -115,6 +115,7 @@ public class RouteFormFragment extends Fragment implements Validator.ValidationL
             }
             this.routeFormMapFragment.setPoints(line);
         }
+
     }
 
     @Click(R.id.routeFormSaveButton)
@@ -151,6 +152,11 @@ public class RouteFormFragment extends Fragment implements Validator.ValidationL
         this.route.setName(this.routeFormEditName.getText().toString());
         this.route.setDescription(this.routeFormEditDescription.getText().toString());
         this.route.setPatient( this.patient );
+
+        for (Step step : route.getSteps() )
+        {
+            step.setRoute( this.route );
+        }
 
         if(this.route.getId() == null)
         {
@@ -193,7 +199,5 @@ public class RouteFormFragment extends Fragment implements Validator.ValidationL
         this.routeFormMapFragment.setSteps(routeSteps);
     }
     //======================================================================================
-
-
 
 }

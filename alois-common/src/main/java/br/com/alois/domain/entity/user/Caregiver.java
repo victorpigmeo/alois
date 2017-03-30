@@ -60,30 +60,9 @@ public class Caregiver extends User
 	//======================================================================================
 	
 	//=====================================BEHAVIOUR========================================
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + ((patients == null) ? 0 : patients.hashCode());
-		return result;
-	}
 	
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Caregiver other = (Caregiver) obj;
-		if (patients == null) {
-			if (other.patients != null)
-				return false;
-		} else if (!patients.equals(other.patients))
-			return false;
-		return true;
-	}
+	//Não precisamos de equals e hashCode pois não devemos fazer isso com listas e esse objeto tem apenas uma lista,
+	//Portanto utilizamos o equals e hashcode do User
 	
 	//======================================================================================
 
