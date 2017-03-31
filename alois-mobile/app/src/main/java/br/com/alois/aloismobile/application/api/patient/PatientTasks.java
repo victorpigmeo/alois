@@ -21,6 +21,7 @@ import br.com.alois.aloismobile.application.preference.ServerConfiguration;
 import br.com.alois.aloismobile.application.util.jackson.JacksonDecoder;
 import br.com.alois.aloismobile.application.util.jackson.JacksonEncoder;
 import br.com.alois.aloismobile.ui.view.home.CaregiverHomeActivity;
+import br.com.alois.aloismobile.ui.view.home.PatientHomeActivity;
 import br.com.alois.domain.entity.user.Patient;
 import feign.Feign;
 import feign.FeignException;
@@ -36,6 +37,9 @@ public class PatientTasks
 
     @RootContext
     CaregiverHomeActivity caregiverHomeActivity;
+
+    @RootContext
+    PatientHomeActivity patientHomeActivity;
 
     @Background
     public void listPatientsByCaregiverIdAsyncTask(Long caregiverId)
@@ -54,6 +58,40 @@ public class PatientTasks
             e.printStackTrace();
             this.listPatientsByCaregiverIdHandleFail(e.getMessage());
         }
+    }
+
+    @Background
+    public void findById(Long patientId)
+    {
+        PatientClient patientClient = Feign.builder()
+                .encoder(new JacksonEncoder())
+                .decoder(new JacksonDecoder())
+                .target(PatientClient.class, ServerConfiguration.API_ENDPOINT);
+
+        try
+        {
+            Patient pt = patientClient.findById(patientId, this.generalPreferences.loggedUserAuthToken().get());
+            this.findHandleSuccess(pt);
+        }
+        catch(FeignException e)
+        {
+            e.printStackTrace();
+            this.findHandleFail(e.getMessage());
+        }
+    }
+
+    @UiThread
+    public void findHandleSuccess(Patient patient)
+    {
+        this.patientHomeActivity.patientHomeFragment.setPatient(patient);
+        this.patientHomeActivity.progressDialog.dismiss();
+    }
+
+    @UiThread
+    public void findHandleFail(String message)
+    {
+        this.patientHomeActivity.progressDialog.dismiss();
+        System.out.println(message);
     }
 
     @UiThread

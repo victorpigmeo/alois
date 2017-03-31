@@ -21,6 +21,8 @@ import br.com.alois.aloismobile.application.util.jackson.JacksonEncoder;
 import br.com.alois.aloismobile.ui.view.home.AdministratorHomeActivity;
 import br.com.alois.aloismobile.ui.view.home.AdministratorHomeActivity_;
 import br.com.alois.aloismobile.ui.view.home.CaregiverHomeActivity_;
+import br.com.alois.aloismobile.ui.view.home.PatientHomeActivity;
+import br.com.alois.aloismobile.ui.view.home.PatientHomeActivity_;
 import br.com.alois.aloismobile.ui.view.login.LoginActivity;
 import br.com.alois.domain.entity.user.User;
 import feign.Feign;
@@ -99,8 +101,7 @@ public class LoginTasks
                     homeIntent = CaregiverHomeActivity_.intent(this.loginActivity.getApplicationContext()).get();
                     break;
                 case PATIENT:
-                    System.out.println("Logged as Patient");
-                    homeIntent = null;//TODO change to patient home activity
+                    homeIntent = PatientHomeActivity_.intent(this.loginActivity.getApplicationContext()).get();
                     break;
             }
 

@@ -18,6 +18,10 @@ public interface PatientClient
     @Headers({"Content-Type: application/json", "Authorization: Basic {basicAuthToken}"})
     List<Patient> listPatientsByCaregiverId(@Param("caregiverId") Long caregiverId, @Param("basicAuthToken") String basicAuthToken);
 
+    @RequestLine("GET /patient/findById/{patientId}")
+    @Headers({"Content-Type: application/json", "Authorization: Basic {basicAuthToken}"})
+    Patient findById(@Param("patientId") Long patientId, @Param("basicAuthToken") String basicAuthToken);
+
     @RequestLine("POST /patient/insert")
     @Headers({"Content-Type: application/json", "Authorization: Basic {basicAuthToken}"})
     Patient addPatient(Patient patient, @Param("basicAuthToken") String basicAuthToken);

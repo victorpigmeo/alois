@@ -19,6 +19,7 @@ import br.com.alois.aloismobile.application.preference.GeneralPreferences_;
 import br.com.alois.aloismobile.ui.view.home.AdministratorHomeActivity;
 import br.com.alois.aloismobile.ui.view.home.AdministratorHomeActivity_;
 import br.com.alois.aloismobile.ui.view.home.CaregiverHomeActivity_;
+import br.com.alois.aloismobile.ui.view.home.PatientHomeActivity_;
 import br.com.alois.aloismobile.ui.view.login.fragment.LoginFragment;
 import br.com.alois.aloismobile.ui.view.login.fragment.LoginFragment_;
 import br.com.alois.domain.entity.user.Caregiver;
@@ -72,7 +73,7 @@ public class LoginActivity extends AppCompatActivity
                     homeIntent = CaregiverHomeActivity_.intent(this.getApplicationContext()).get();
                     break;
                 case PATIENT:
-                    homeIntent = null;//TODO change to patient home activity
+                    homeIntent = PatientHomeActivity_.intent(this.getApplicationContext()).get();
                     break;
             }
 
@@ -116,7 +117,7 @@ public class LoginActivity extends AppCompatActivity
 
     public void login(String username, String password){
         //force hide keyboard
-        this.inputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
+        //this.inputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
 
         this.progressDialog = ProgressDialog.show(this,
                 this.getResources().getString(R.string.siging_in),
