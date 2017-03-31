@@ -16,10 +16,13 @@ import org.androidannotations.annotations.NonConfigurationInstance;
 import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.ViewById;
 
+import java.util.List;
+
 import br.com.alois.aloismobile.R;
 import br.com.alois.aloismobile.application.api.caregiver.CaregiverTasks;
 import br.com.alois.aloismobile.ui.view.home.fragment.AdministratorHomeFragment;
 import br.com.alois.aloismobile.ui.view.home.fragment.AdministratorHomeFragment_;
+import br.com.alois.domain.entity.user.Caregiver;
 
 @EActivity(R.layout.activity_administrator_home)
 @OptionsMenu(R.menu.home_caregiver_menu)
@@ -29,13 +32,16 @@ public class AdministratorHomeActivity extends AppCompatActivity
     @ViewById(R.id.administratorHomeFrame)
     FrameLayout administratorHomeFrame;
 
-    ProgressDialog progressDialog;
+    public ProgressDialog progressDialog;
+
+    AdministratorHomeFragment administratorHomeFragment;
 //======================================================================================
 
 //=====================================INJECTIONS=======================================
     @NonConfigurationInstance
     @Bean
     CaregiverTasks caregiverTasks;
+    private List<Caregiver> caregiverList;
 //======================================================================================
 
 //====================================CONSTRUCTORS======================================
@@ -53,7 +59,7 @@ public class AdministratorHomeActivity extends AppCompatActivity
     public void onAfterViews()
     {
         //cria uma instancia do fragment
-        AdministratorHomeFragment administratorHomeFragment = AdministratorHomeFragment_.builder()
+        this.administratorHomeFragment = AdministratorHomeFragment_.builder()
                 .build();
 
         //coloca a instancia no F Manager, cria uma transacao, coloca o fragment no FrameLayout, coloca o fragment na pilha..
@@ -83,6 +89,11 @@ public class AdministratorHomeActivity extends AppCompatActivity
     {
         menu.getItem(0).getIcon().setColorFilter(this.getResources().getColor(R.color.white), PorterDuff.Mode.SRC_IN);
         return true;
+    }
+
+    public void setCaregiverList(List<Caregiver> caregiverList)
+    {
+        this.administratorHomeFragment.setCaregiverList(caregiverList);
     }
 
     @Override

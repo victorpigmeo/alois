@@ -190,5 +190,22 @@ public class PatientDetailActivity extends AppCompatActivity
     {
         this.routeListFragment.setRouteFormFragment(routeFormFragment);
     }
+
+    public void deleteRoute(Route route)
+    {
+        this.progressDialog = ProgressDialog.show(this,
+                this.getResources().getString(R.string.deleting_route),
+                this.getResources().getString(R.string.please_wait),
+                true,
+                false
+        );
+
+        this.routeTasks.deleteRoute(route);
+    }
+
+    public void onDeleteRoute(Route route)
+    {
+        this.routeListFragment.onDeleteRoute(route);
+    }
     //======================================================================================
 }

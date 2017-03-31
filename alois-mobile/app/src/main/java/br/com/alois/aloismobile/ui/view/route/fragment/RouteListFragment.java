@@ -120,6 +120,11 @@ public class RouteListFragment extends Fragment
     {
         this.routeFormFragment = routeFormFragment;
     }
+
+    public void onDeleteRoute(Route route)
+    {
+        this.routeListAdapter.onDeleteRoute(route);
+    }
     //======================================================================================
 
 }

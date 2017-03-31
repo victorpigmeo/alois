@@ -264,6 +264,32 @@ public class RouteTasks
         this.patientDetailActivity.progressDialog.dismiss();
         System.out.println(message);
     }
+
+    @Background
+    public void deleteRoute(Route route)
+    {
+        RouteClient routeClient = Feign.builder()
+                .encoder(new JacksonEncoder())
+                .decoder(new JacksonDecoder())
+                .target(RouteClient.class, ServerConfiguration.API_ENDPOINT);
+
+        try
+        {
+            routeClient.deleteRoute(route, this.generalPreferences.loggedUserAuthToken().get());
+            deleteRouteHandleSuccess(route);
+        }
+        catch (FeignException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    @UiThread
+    public void deleteRouteHandleSuccess(Route route)
+    {
+        this.patientDetailActivity.progressDialog.dismiss();
+        this.patientDetailActivity.onDeleteRoute(route);
+    }
     //======================================================================================
 
 }

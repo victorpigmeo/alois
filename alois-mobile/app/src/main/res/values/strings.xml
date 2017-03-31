@@ -92,4 +92,6 @@
     <string name="deleting_patient">Deleting patient</string>
     <string name="you_must_clear_map_before_edit">You must clear the map before edit the route</string>
     <string name="loading_caregivers">Loading Caregivers</string>
+    <string name="you_really_want_delete_route">You really want to delete this route?</string>
+    <string name="deleting_route">Deleting route</string>
 </resources>

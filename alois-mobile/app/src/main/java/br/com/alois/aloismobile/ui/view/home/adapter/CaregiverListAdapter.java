@@ -78,6 +78,12 @@ public class CaregiverListAdapter extends BaseAdapter
 
         return caregiverListRow;
     }
+
+    public void setCaregiverList(List<Caregiver> caregiverList)
+    {
+        this.caregiverList = caregiverList;
+        this.notifyDataSetChanged();
+    }
     //======================================================================================
 
 }

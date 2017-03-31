@@ -3,6 +3,7 @@ package br.com.alois.aloismobile.application.api.caregiver;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
+import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import java.util.List;
@@ -46,8 +47,10 @@ public class CaregiverTasks
         }
     }
 
+    @UiThread
     public void getCaregiverListHandleSucess(List<Caregiver> caregiverList)
     {
-        System.out.println(caregiverList);
+        this.administratorHomeActivity.progressDialog.dismiss();
+        this.administratorHomeActivity.setCaregiverList(caregiverList);
     }
 }
