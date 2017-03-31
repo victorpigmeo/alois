@@ -28,6 +28,12 @@ public class PatientController {
 	{
 		return this.patientService.listPatientsByCaregiverId(caregiverId);
 	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/findById/{patientId}")
+	public Patient findById(@PathVariable("patientId") Long patientId)
+	{
+		return this.patientService.findById(patientId);
+	}
 
 	@RequestMapping(method=RequestMethod.POST, value="/insert")
 	public Patient insertPatient(@RequestBody Patient patient)

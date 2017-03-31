@@ -192,7 +192,8 @@ public class PatientFormFragment extends Fragment implements
     {
         RadioButton radioGender = (RadioButton) this.getActivity().findViewById(this.patientFormRadioGender.getCheckedRadioButtonId());
 
-        if(this.patient == null && this.patient.getId() == null)
+        //if(this.patient == null && this.patient.getId() == null)
+        if(this.patient == null)
         {
             this.patient = new Patient(
                     this.patientFormEditName.getText().toString(),

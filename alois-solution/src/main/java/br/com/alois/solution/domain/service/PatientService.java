@@ -10,6 +10,7 @@ import org.springframework.util.Assert;
 
 import br.com.alois.domain.entity.route.AloisLatLng;
 import br.com.alois.domain.entity.user.Patient;
+import br.com.alois.domain.entity.user.UserType;
 import br.com.alois.solution.domain.repository.IPatientRepository;
 import br.com.alois.solution.domain.repository.IUserRepository;
 
@@ -32,11 +33,24 @@ public class PatientService {
 	{
 		return this.patientRepository.listPatientsByCaregiverId(caregiverId);
 	}
+	
+	public Patient findById(Long patientId) 
+	{
+		Patient patient = new Patient();
+		patient = this.patientRepository.findById(patientId);
+		System.out.println("----------------------------------");
+		System.out.println("----------------------------------");
+		System.out.println(patient.getName());
+		System.out.println("----------------------------------");
+		System.out.println("----------------------------------");
+		
+		return patient;
+	}
 
 	public Patient insert(Patient patient) 
 	{
 		Assert.notNull(patient);
-		
+		patient.setUserType(UserType.PATIENT);
 		if(this.userRepository.findByUsername(patient.getUsername()) == null)
 		{
 			try

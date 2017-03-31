@@ -84,4 +84,10 @@
     <string name="saving_route">Saving route</string>
     <string name="error_default">An error occurred, please contact an system administrator</string>
     <string name="saving_patient">Saving patient</string>
+
+    <string-array name="menu_patient">
+        <item>Minhas Memórias</item>
+        <item>Minhas Rotas Seguras</item>
+        <item>Meus Lembretes</item>
+    </string-array>
 </resources>
