@@ -7,8 +7,7 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/list_menu_patient_home"
-        android:entries="@array/menu_patient"/>
+        android:id="@+id/list_menu_patient_home"/>
 
     <RelativeLayout
         android:layout_width="match_parent"

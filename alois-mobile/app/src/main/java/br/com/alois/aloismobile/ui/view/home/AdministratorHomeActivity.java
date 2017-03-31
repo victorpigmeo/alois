@@ -13,6 +13,7 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.NonConfigurationInstance;
+import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.ViewById;
 
@@ -22,6 +23,7 @@ import br.com.alois.aloismobile.R;
 import br.com.alois.aloismobile.application.api.caregiver.CaregiverTasks;
 import br.com.alois.aloismobile.ui.view.home.fragment.AdministratorHomeFragment;
 import br.com.alois.aloismobile.ui.view.home.fragment.AdministratorHomeFragment_;
+import br.com.alois.aloismobile.ui.view.login.LoginActivity;
 import br.com.alois.domain.entity.user.Caregiver;
 
 @EActivity(R.layout.activity_administrator_home)
@@ -94,6 +96,17 @@ public class AdministratorHomeActivity extends AppCompatActivity
     public void setCaregiverList(List<Caregiver> caregiverList)
     {
         this.administratorHomeFragment.setCaregiverList(caregiverList);
+    }
+
+    @OptionsItem(R.id.menu_logoff)
+    public void logoff()
+    {
+        LoginActivity.clearUserData();
+
+        final Intent returnIntent = new Intent();
+        returnIntent.putExtra("action", "logoff");
+        this.setResult(Activity.RESULT_OK, returnIntent);
+        this.finish();
     }
 
     @Override
