@@ -30,4 +30,8 @@ public interface RouteClient
     @RequestLine("PUT /route/updateRoute")
     @Headers({"Content-Type: application/json", "Authorization: Basic {basicAuthToken}"})
     Route updateRoute(Route route, @Param("basicAuthToken") String basicAuthToken);
+
+    @RequestLine("POST /route/deleteRoute")
+    @Headers({"Content-Type: application/json", "Authorization: Basic {basicAuthToken}"})
+    void deleteRoute(Route route, @Param("basicAuthToken") String basicAuthToken);
 }

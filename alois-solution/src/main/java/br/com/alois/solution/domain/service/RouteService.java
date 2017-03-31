@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import br.com.alois.domain.entity.route.Route;
-import br.com.alois.domain.entity.route.Step;
 import br.com.alois.solution.domain.repository.IRouteRepository;
 import br.com.alois.solution.domain.repository.IStepRepository;
 
@@ -43,6 +42,10 @@ public class RouteService {
 		Assert.notNull(route.getSteps());
 		
 		return this.routeRepository.save(route);
+	}
+
+	public void deleteRoute(Route route) {
+		this.routeRepository.delete(route);
 	}
 
 	//======================================================================================

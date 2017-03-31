@@ -103,6 +103,11 @@ public class RouteListAdapter extends BaseAdapter
             }
         }
     }
+
+    public void onDeleteRoute(Route route)
+    {
+        this.routeList.remove(route);
+    }
     //======================================================================================
 
 }

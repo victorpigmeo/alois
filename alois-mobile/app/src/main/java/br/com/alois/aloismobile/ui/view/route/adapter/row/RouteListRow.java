@@ -1,6 +1,8 @@
 package br.com.alois.aloismobile.ui.view.route.adapter.row;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.ImageButton;
@@ -14,6 +16,7 @@ import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
 
 import br.com.alois.aloismobile.R;
+import br.com.alois.aloismobile.ui.view.home.CaregiverHomeActivity;
 import br.com.alois.aloismobile.ui.view.patient.PatientDetailActivity;
 import br.com.alois.aloismobile.ui.view.route.fragment.RouteFormFragment;
 import br.com.alois.aloismobile.ui.view.route.fragment.RouteFormFragment_;
@@ -92,7 +95,24 @@ public class RouteListRow extends LinearLayout
                                 .commit();
                         break;
                     case R.id.routeListMenuDeleteButton:
-                        Toast.makeText(getContext(), "Delete route", Toast.LENGTH_SHORT).show();
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity)
+                                .setTitle(R.string.are_you_sure)
+                                .setMessage(R.string.you_really_want_delete_route)
+                                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                        ((PatientDetailActivity) activity).deleteRoute(route);
+                                    }
+                                })
+                                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                        AlertDialog alert = alertDialog.create();
+                        alert.show();
                         break;
                 }
 

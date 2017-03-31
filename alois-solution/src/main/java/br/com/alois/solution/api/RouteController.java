@@ -39,6 +39,12 @@ public class RouteController {
 	{
 		return this.routeService.updateRoute(route);
 	}
+	
+	@RequestMapping(method = RequestMethod.POST, value="/deleteRoute")
+	public void deleteRoute(@RequestBody Route route)
+	{
+		this.routeService.deleteRoute(route);
+	}
 	//======================================================================================
 
 }
