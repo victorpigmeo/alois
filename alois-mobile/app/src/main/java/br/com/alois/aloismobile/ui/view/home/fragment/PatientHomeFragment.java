@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -39,8 +40,14 @@ import br.com.alois.domain.entity.user.Patient;
 public class PatientHomeFragment extends Fragment
 {
     //=====================================ATTRIBUTES=======================================
-    @ViewById(R.id.list_menu_patient_home)
-    ListView menuList;
+    @ViewById(R.id.buttonMyRoutes)
+    Button myRoutes;
+
+    @ViewById(R.id.buttonMyMemories)
+    Button myMemories;
+
+    @ViewById(R.id.buttonMyReminders)
+    Button myReminders;
 
     @ViewById(R.id.patientDetailName)
     TextView patientDetailName;
@@ -100,11 +107,6 @@ public class PatientHomeFragment extends Fragment
     @AfterViews
     public void onAfterViews() {
         ((PatientHomeActivity) this.getActivity()).getPatient(this.patientId);
-    }
-    @ItemClick(R.id.list_menu_patient_home)
-    public void onMenuPatientClick(View view)
-    {
-
     }
     //======================================================================================
 
