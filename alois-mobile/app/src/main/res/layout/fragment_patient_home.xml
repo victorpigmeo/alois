@@ -4,15 +4,43 @@
     android:layout_height="match_parent"
     tools:context="br.com.alois.aloismobile.ui.view.home.fragment.PatientHomeFragment">
 
-    <ListView
+    <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/list_menu_patient_home"/>
+    <Button
+        android:layout_height="50dp"
+        android:text="@string/myMemories"
+        android:id="@+id/buttonMyMemories"
+        android:textSize="16sp"
+        style="@style/Base.Widget.AppCompat.Button.Borderless"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="@string/myRoutes"
+        android:id="@+id/buttonMyRoutes"
+        android:layout_below="@id/buttonMyMemories"
+        android:textSize="16sp"
+        style="@style/Base.Widget.AppCompat.Button.Borderless"/>
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/buttonMyReminders"
+        android:layout_below="@id/buttonMyRoutes"
+        android:text="@string/myReminders"
+        android:textSize="16sp"
+        style="@style/Base.Widget.AppCompat.Button.Borderless"
+        />
+>>>>>>> desenv
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/list_menu_patient_home"
+        android:layout_below="@id/buttonMyReminders"
         android:id="@+id/patientDetails">
 
         <TextView

@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-
     <string name="app_name">Alois</string>
     <string name="login">Login</string>
     <string name="password">Password</string>
@@ -85,6 +83,8 @@
     <string name="error_default">An error occurred, please contact an system administrator</string>
     <string name="saving_patient">Saving patient</string>
 
+
+
     <string name="patient_update_error">Update failed due some error, contact the system administrator</string>
     <string name="are_you_sure">Are you sure?</string>
     <string name="yes">Yes</string>
@@ -93,6 +93,12 @@
     <string name="deleting_patient">Deleting patient</string>
     <string name="you_must_clear_map_before_edit">You must clear the map before edit the route</string>
     <string name="loading_caregivers">Loading Caregivers</string>
+
     <string name="you_really_want_delete_route">You really want to delete this route?</string>
     <string name="deleting_route">Deleting route</string>
+
+    <string name="myMemories">Minhas Memórias</string>
+    <string name="myRoutes">Minhas Rotas Seguras</string>
+    <string name="myReminders">Meus Lembretes</string>
+
 </resources>
