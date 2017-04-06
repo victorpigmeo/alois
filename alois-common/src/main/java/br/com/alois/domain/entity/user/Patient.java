@@ -3,6 +3,7 @@ package br.com.alois.domain.entity.user;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -23,7 +24,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import br.com.alois.domain.entity.memory.Memory;
 import br.com.alois.domain.entity.reminder.Reminder;
-import br.com.alois.domain.entity.route.AloisLatLng;
+import br.com.alois.domain.entity.route.Point;
 import br.com.alois.domain.entity.route.Route;
 
 @Entity
@@ -57,8 +58,8 @@ public class Patient extends User
 	@ManyToOne
 	private Caregiver caregiver;
 	
-	@OneToOne
-	private AloisLatLng lastLocation;
+	@OneToOne(optional = true, cascade = CascadeType.ALL)
+	private Point lastLocation;
 	
 	@JsonManagedReference
 	@OneToMany(orphanRemoval=true, fetch=FetchType.LAZY, mappedBy="patient")
@@ -156,11 +157,11 @@ public class Patient extends User
 		this.caregiver = caregiver;
 	}
 	
-	public AloisLatLng getLastLocation(){
+	public Point getLastLocation(){
 		return lastLocation;
 	}
 	
-	public void setLastLocation(AloisLatLng lastLocation){
+	public void setLastLocation(Point lastLocation){
 		this.lastLocation = lastLocation;
 	}
 	

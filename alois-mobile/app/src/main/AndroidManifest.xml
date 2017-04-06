@@ -16,6 +16,9 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key"/>
 
+        <service android:name=".application.service.LastLocationService_"/><!--Define a classe do service -->
+            android:exported="false"/><!--Define que outros apps não podem acessar esse service -->
+
         <activity
             android:name=".ui.view.login.LoginActivity_"
             android:screenOrientation="portrait"
@@ -26,9 +29,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
-        <!-- verify this -->
-        <activity android:name=".ui.view.home.HomeActivity_"/>
 
         <activity
             android:name=".ui.view.home.CaregiverHomeActivity_"

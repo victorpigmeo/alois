@@ -8,10 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import br.com.alois.domain.entity.route.AloisLatLng;
+import br.com.alois.domain.entity.route.Point;
 import br.com.alois.domain.entity.user.Patient;
 import br.com.alois.domain.entity.user.UserType;
 import br.com.alois.solution.domain.repository.IPatientRepository;
+import br.com.alois.solution.domain.repository.IPointRepository;
 import br.com.alois.solution.domain.repository.IUserRepository;
 
 @Service
@@ -26,6 +27,9 @@ public class PatientService {
 	
 	@Autowired
 	IUserRepository userRepository;
+	
+	@Autowired
+	IPointRepository pointRepository;
 	//======================================================================================
 
 	//=====================================BEHAVIOUR========================================
@@ -38,11 +42,6 @@ public class PatientService {
 	{
 		Patient patient = new Patient();
 		patient = this.patientRepository.findById(patientId);
-		System.out.println("----------------------------------");
-		System.out.println("----------------------------------");
-		System.out.println(patient.getName());
-		System.out.println("----------------------------------");
-		System.out.println("----------------------------------");
 		
 		return patient;
 	}
@@ -69,9 +68,22 @@ public class PatientService {
 		}
 	}
 
-	public AloisLatLng updateLastLocation(AloisLatLng lastLocation, Long patientId) 
+	public void updateLastLocation(Point lastLocation, Long patientId) 
 	{
-		return this.patientRepository.updateLastLocation(lastLocation, patientId);
+		Assert.notNull(lastLocation);
+		Assert.notNull(patientId);
+		
+		Patient patient = this.patientRepository.findOne(patientId);
+		
+		Point oldLastLocation = patient.getLastLocation();
+		
+		patient.setLastLocation(lastLocation);
+		this.patientRepository.save(patient);
+		
+		if(oldLastLocation != null)
+		{
+			this.pointRepository.delete(oldLastLocation);
+		}
 	}
 
 	public Patient updatePatient(Patient patient) 

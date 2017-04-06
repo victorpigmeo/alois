@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.PorterDuff;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -69,6 +70,7 @@ public class AdministratorHomeActivity extends AppCompatActivity
                 .beginTransaction()
                 .replace(R.id.administratorHomeFrame, administratorHomeFragment)
                 .addToBackStack("administratorHomeFragment")
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .commit();
 
         this.getCaregiversList();

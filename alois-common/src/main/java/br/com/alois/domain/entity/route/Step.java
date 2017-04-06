@@ -35,10 +35,10 @@ public class Step implements Serializable
 	private Long id;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	private AloisLatLng startPoint;
+	private Point startPoint;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	private AloisLatLng endPoint;
+	private Point endPoint;
 	
 	private int sequence;
 
@@ -54,7 +54,7 @@ public class Step implements Serializable
 	//====================================CONSTRUCTORS======================================
 	public Step(){}
 	
-	public Step(AloisLatLng startPoint, AloisLatLng endPoint, int sequence)
+	public Step(Point startPoint, Point endPoint, int sequence)
 	{
 		this.startPoint = startPoint;
 		this.endPoint = endPoint;
@@ -73,22 +73,22 @@ public class Step implements Serializable
 		this.id = id;
 	}
 
-	public AloisLatLng getStartPoint() 
+	public Point getStartPoint() 
 	{
 		return startPoint;
 	}
 
-	public void setStartPoint(AloisLatLng startPoint) 
+	public void setStartPoint(Point startPoint) 
 	{
 		this.startPoint = startPoint;
 	}
 
-	public AloisLatLng getEndPoint() 
+	public Point getEndPoint() 
 	{
 		return endPoint;
 	}
 
-	public void setEndPoint(AloisLatLng endPoint) 
+	public void setEndPoint(Point endPoint) 
 	{
 		this.endPoint = endPoint;
 	}

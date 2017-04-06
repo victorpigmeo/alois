@@ -2,8 +2,8 @@ package br.com.alois.aloismobile.application.api.patient;
 
 import java.util.List;
 
+import br.com.alois.domain.entity.route.Point;
 import br.com.alois.domain.entity.user.Patient;
-import feign.Body;
 import feign.Headers;
 import feign.Param;
 import feign.RequestLine;
@@ -33,4 +33,8 @@ public interface PatientClient
     @RequestLine("POST /patient/delete")
     @Headers({"Content-Type: application/json", "Authorization: Basic {basicAuthToken}"})
     void deletePatient(Patient patient, @Param("basicAuthToken") String basicAuthToken);
+
+    @RequestLine("POST /patient/updateLastLocation/{patientId}")
+    @Headers({"Content-Type: application/json", "Authorization: Basic {basicAuthToken}"})
+    void updateLastLocation(Point lastLocationLatLng, @Param("patientId") Long patientId, @Param("basicAuthToken") String basicAuthToken);
 }

@@ -3,6 +3,7 @@ package br.com.alois.aloismobile.ui.view.patient;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -74,6 +75,7 @@ public class PatientDetailActivity extends AppCompatActivity
                 .beginTransaction()
                 .replace(R.id.patientDetailFrame, patientDetailFragment)
                 .addToBackStack("patientDetailFragment")
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .commit();
     }
 
@@ -96,6 +98,7 @@ public class PatientDetailActivity extends AppCompatActivity
                     .beginTransaction()
                     .replace(R.id.patientDetailFrame, routeListFragment)
                     .addToBackStack("routeListFragment")
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .commit();
         }
     }
@@ -171,21 +174,6 @@ public class PatientDetailActivity extends AppCompatActivity
         this.routeListFragment.onUpdateRoute(route);
     }
 
-    @Override
-    public void onBackPressed()
-    {
-        int fragments = this.getSupportFragmentManager().getBackStackEntryCount();
-
-        if (fragments > 1)
-        {
-            getSupportFragmentManager().popBackStack();
-        }
-        else
-        {
-            finish();
-        }
-    }
-
     public void setRouteFormFragment(RouteFormFragment routeFormFragment)
     {
         this.routeListFragment.setRouteFormFragment(routeFormFragment);
@@ -206,6 +194,21 @@ public class PatientDetailActivity extends AppCompatActivity
     public void onDeleteRoute(Route route)
     {
         this.routeListFragment.onDeleteRoute(route);
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        int fragments = this.getSupportFragmentManager().getBackStackEntryCount();
+
+        if (fragments > 1)
+        {
+            getSupportFragmentManager().popBackStack();
+        }
+        else
+        {
+            finish();
+        }
     }
     //======================================================================================
 }

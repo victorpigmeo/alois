@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.PorterDuff;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 
@@ -59,6 +60,7 @@ public class CaregiverHomeActivity extends AppCompatActivity
                 .beginTransaction()
                 .replace(R.id.caregiver_home_frame_layout, caregiverHomeFragment)
                 .addToBackStack("caregiverHomeFragment")
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .commit();
 
         this.getPatientListByCaregiverId(this.generalPreferences.loggedUserId().get());

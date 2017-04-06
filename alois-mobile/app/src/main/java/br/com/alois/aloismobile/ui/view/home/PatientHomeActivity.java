@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.PorterDuff;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -24,6 +25,8 @@ import java.util.List;
 import br.com.alois.aloismobile.R;
 import br.com.alois.aloismobile.application.api.patient.PatientTasks;
 import br.com.alois.aloismobile.application.preference.GeneralPreferences_;
+import br.com.alois.aloismobile.application.service.LastLocationService;
+import br.com.alois.aloismobile.application.service.LastLocationService_;
 import br.com.alois.aloismobile.ui.view.home.fragment.CaregiverHomeFragment;
 import br.com.alois.aloismobile.ui.view.home.fragment.CaregiverHomeFragment_;
 import br.com.alois.aloismobile.ui.view.home.fragment.PatientHomeFragment;
@@ -34,7 +37,8 @@ import br.com.alois.aloismobile.ui.view.patient.fragment.PatientDetailFragment_;
 import br.com.alois.domain.entity.user.Patient;
 
 @EActivity(R.layout.activity_patient_home)
-public class PatientHomeActivity extends AppCompatActivity {
+public class PatientHomeActivity extends AppCompatActivity
+{
     //=====================================ATTRIBUTES=======================================
     public ProgressDialog progressDialog;
 
@@ -52,24 +56,22 @@ public class PatientHomeActivity extends AppCompatActivity {
     @Bean
     PatientTasks patientTasks;
 
-    @Extra("patient")
-    Patient patient;
-
     //======================================================================================
 
     //=====================================BEHAVIOUR========================================
-
-
     @AfterViews
-    public void onAfterViews() {
+    public void onAfterViews()
+    {
+        LastLocationService_.intent(this.getApplicationContext()).start();
+
         this.patientHomeFragment = PatientHomeFragment_.builder().patientId(this.generalPreferences.loggedUserId().get()).build();
 
         this.getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.patient_home_frame_layout, patientHomeFragment)
                 .addToBackStack("patient_home_fragment")
+                .setTransition(FragmentTransaction.TRANSIT_ENTER_MASK)
                 .commit();
-
     }
 
     public void getPatient(Long patientId)
@@ -85,12 +87,16 @@ public class PatientHomeActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressed()
+    {
         int fragments = this.getSupportFragmentManager().getBackStackEntryCount();
 
-        if (fragments > 1) {
+        if (fragments > 1)
+        {
             getSupportFragmentManager().popBackStack();
-        } else {
+        }
+        else
+        {
             //TODO FAZER UM CONFIRM DIALOG AQUI PRA VER SE O CARA REALMENTE QUER DESLOGAR
             final Intent returnIntent = new Intent();
             returnIntent.putExtra("action", "quit");

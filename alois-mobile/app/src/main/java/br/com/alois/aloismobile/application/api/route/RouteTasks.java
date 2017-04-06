@@ -25,7 +25,7 @@ import br.com.alois.aloismobile.application.preference.ServerConfiguration;
 import br.com.alois.aloismobile.application.util.jackson.JacksonDecoder;
 import br.com.alois.aloismobile.application.util.jackson.JacksonEncoder;
 import br.com.alois.aloismobile.ui.view.patient.PatientDetailActivity;
-import br.com.alois.domain.entity.route.AloisLatLng;
+import br.com.alois.domain.entity.route.Point;
 import br.com.alois.domain.entity.route.Route;
 import br.com.alois.domain.entity.route.Step;
 import feign.Feign;
@@ -166,7 +166,7 @@ public class RouteTasks
 
                 line.add(stepLineEnd);
 
-                Step step = new Step(new AloisLatLng(stepLineStart.latitude, stepLineStart.longitude), new AloisLatLng(stepLineEnd.latitude, stepLineEnd.longitude), i);
+                Step step = new Step(new Point(stepLineStart.latitude, stepLineStart.longitude), new Point(stepLineEnd.latitude, stepLineEnd.longitude), i);
                 routeSteps.add(step);
 //essa porra que ve a distancia -> Toast.makeText(this, String.valueOf(PolyUtil.distanceToLine(this.mMyLocation, stepLineStart, stepLineEnd)), Toast.LENGTH_SHORT).show();
             }

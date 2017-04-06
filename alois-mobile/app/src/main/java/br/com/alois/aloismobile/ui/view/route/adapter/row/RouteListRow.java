@@ -2,6 +2,7 @@ package br.com.alois.aloismobile.ui.view.route.adapter.row;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
@@ -92,6 +93,7 @@ public class RouteListRow extends LinearLayout
                                 .beginTransaction()
                                 .replace(R.id.patientDetailFrame, routeFormFragment)
                                 .addToBackStack("routeFormFragment")
+                                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                                 .commit();
                         break;
                     case R.id.routeListMenuDeleteButton:

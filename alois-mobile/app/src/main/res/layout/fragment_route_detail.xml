@@ -1,0 +1,69 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context="br.com.alois.aloismobile.ui.view.route.fragment.RouteDetailFragment">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:padding="@dimen/pad_10"
+        android:id="@+id/routeDetails">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/routeDetailNameLabel"
+            android:text="@string/name"
+            android:layout_marginRight="@dimen/marg_10"
+            android:layout_alignParentStart="true"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/routeDetailName"
+            android:text="RouteName"
+            android:layout_below="@+id/routeDetailNameLabel"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/routeDetailDescriptionLabel"
+            android:text="@string/route_description"
+            android:layout_below="@+id/routeDetailName"
+            android:layout_marginRight="@dimen/marg_10"
+            android:layout_alignParentStart="true"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/routeDetailDescription"
+            android:text="RouteDescriptiondasdasmasnkdasnksnfds;fadsn;vsndaoimfdsjfiosd;jfiosdjfiosajiofjsdifsidofjiosdjfiosdjfiosdajiofjsadiofjisodajfoasjfodajfiosdjfoisdjfoiajsoifsjadio;fsdajfiso;dfnsdi;ofnsiofnsido;fnaio;fnsido;f;asndfioasndfionsadoifnsd"
+            android:layout_below="@+id/routeDetailDescriptionLabel"/>
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/routeDetailMapFrame"
+        android:layout_above="@+id/routeDetailActionButtons"
+        android:layout_below="@+id/routeDetails">
+        <fragment
+            android:id="@+id/routeDetailMap"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            class="com.google.android.gms.maps.SupportMapFragment" />
+    </FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/routeDetailActionButtons"
+        android:layout_alignParentBottom="true">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/routeDetailBackButton"
+            android:layout_alignParentEnd="true"
+            android:text="@string/back"
+            style="@style/Base.Widget.AppCompat.Button.Borderless"/>
+    </RelativeLayout>
+</RelativeLayout>
+

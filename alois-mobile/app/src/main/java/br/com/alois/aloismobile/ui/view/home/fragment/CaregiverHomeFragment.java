@@ -2,6 +2,7 @@ package br.com.alois.aloismobile.ui.view.home.fragment;
 
 import android.content.Intent;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -81,6 +82,7 @@ public class CaregiverHomeFragment extends Fragment
                 .beginTransaction()
                 .replace(R.id.caregiver_home_frame_layout, patientFormFragment)
                 .addToBackStack("patient_form_fragment")
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .commit();
     }
 

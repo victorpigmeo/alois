@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.alois.domain.entity.route.AloisLatLng;
+import br.com.alois.domain.entity.route.Point;
 import br.com.alois.domain.entity.user.Patient;
 import br.com.alois.solution.domain.service.PatientService;
 
@@ -42,9 +42,9 @@ public class PatientController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, value="/updateLastLocation/{patientId}")
-	public AloisLatLng updateLastLocation(@RequestBody AloisLatLng lastLocation, @PathVariable("patientId") Long patientId)
+	public void updateLastLocation(@RequestBody Point lastLocation, @PathVariable("patientId") Long patientId)
 	{
-		return this.patientService.updateLastLocation(lastLocation, patientId);
+		this.patientService.updateLastLocation(lastLocation, patientId);
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT, value="/update")

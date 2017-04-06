@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Entity
 @Audited
 @Table(name="point")
-public class AloisLatLng implements Serializable 
+public class Point implements Serializable 
 {
 	//=====================================ATTRIBUTES=======================================
 	private static final long serialVersionUID = -6618831162858353856L;
@@ -35,9 +35,9 @@ public class AloisLatLng implements Serializable
 	//======================================================================================
 	
 	//====================================CONSTRUCTORS======================================
-	public AloisLatLng(){};
+	public Point(){};
 	
-	public AloisLatLng(
+	public Point(
 			@JsonProperty("latitude") double latitude, 
 			@JsonProperty("longitude") double longitude
 			){
@@ -101,7 +101,7 @@ public class AloisLatLng implements Serializable
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		AloisLatLng other = (AloisLatLng) obj;
+		Point other = (Point) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

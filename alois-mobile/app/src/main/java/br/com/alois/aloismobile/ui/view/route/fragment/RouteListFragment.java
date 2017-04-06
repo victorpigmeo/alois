@@ -2,6 +2,7 @@ package br.com.alois.aloismobile.ui.view.route.fragment;
 
 
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -83,13 +84,24 @@ public class RouteListFragment extends Fragment
                 .beginTransaction()
                 .replace(R.id.patientDetailFrame, this.routeFormFragment)
                 .addToBackStack("routeFormFragment")
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .commit();
     }
 
     @ItemClick(R.id.routeList)
     public void onRouteListItemClick(Route route)
     {
+        RouteDetailFragment routeDetailFragment = RouteDetailFragment_
+                .builder()
+                .route(route)
+                .build();
 
+        this.getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.patientDetailFrame, routeDetailFragment)
+                .addToBackStack("routeDetailFragment")
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .commit();
     }
 
     public void setPatientRouteList(List<Route> patientRouteList)

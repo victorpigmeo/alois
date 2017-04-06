@@ -2,6 +2,7 @@ package br.com.alois.aloismobile.ui.view.login.fragment;
 
 import android.net.ConnectivityManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -74,6 +75,7 @@ public class LoginFragment extends Fragment implements Validator.ValidationListe
                 .beginTransaction()
                 .replace(R.id.loginFrameLayout, signupFragment)
                 .addToBackStack("loginFragment")
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .commit();
     }
 

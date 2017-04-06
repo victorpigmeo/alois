@@ -3,6 +3,7 @@ package br.com.alois.aloismobile.ui.view.route.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,6 +89,7 @@ public class RouteFormFragment extends Fragment implements Validator.ValidationL
         this.getActivity().getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.routeAddFrame, this.routeFormMapFragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .commit();
 
         if(this.route != null){

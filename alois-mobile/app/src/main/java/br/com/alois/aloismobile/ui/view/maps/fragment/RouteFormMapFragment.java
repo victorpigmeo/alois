@@ -28,7 +28,6 @@ import java.util.List;
 
 import br.com.alois.aloismobile.R;
 import br.com.alois.aloismobile.ui.view.patient.PatientDetailActivity;
-import br.com.alois.domain.entity.route.AloisLatLng;
 import br.com.alois.domain.entity.route.Step;
 
 /**

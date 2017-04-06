@@ -1,7 +1,12 @@
 package br.com.alois.aloismobile.ui.view.login;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.inputmethod.InputMethodManager;
 
@@ -16,7 +21,6 @@ import br.com.alois.aloismobile.R;
 import br.com.alois.aloismobile.application.api.login.LoginTasks;
 import br.com.alois.aloismobile.application.api.signup.SignupTasks;
 import br.com.alois.aloismobile.application.preference.GeneralPreferences_;
-import br.com.alois.aloismobile.ui.view.home.AdministratorHomeActivity;
 import br.com.alois.aloismobile.ui.view.home.AdministratorHomeActivity_;
 import br.com.alois.aloismobile.ui.view.home.CaregiverHomeActivity_;
 import br.com.alois.aloismobile.ui.view.home.PatientHomeActivity_;
@@ -53,6 +57,13 @@ public class LoginActivity extends AppCompatActivity
     @AfterViews
     public void onAfterViews()
     {
+        if (ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+        {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        }
+
         if(!this.generalPreferences.loggedUsername().exists()){
             LoginFragment loginFragment = LoginFragment_.builder().build();
 
@@ -60,6 +71,7 @@ public class LoginActivity extends AppCompatActivity
                     .beginTransaction()
                     .replace(R.id.loginFrameLayout, loginFragment)
                     .addToBackStack("loginFragment")
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .commit();
         }else{
             Intent homeIntent = null;
@@ -82,6 +94,12 @@ public class LoginActivity extends AppCompatActivity
     }
 
     @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
+    {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(data.getStringExtra("action").equals("logoff")) {
@@ -98,6 +116,7 @@ public class LoginActivity extends AppCompatActivity
                     .beginTransaction()
                     .replace(R.id.loginFrameLayout, loginFragment)
                     .addToBackStack("loginFragment")
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .commit();
         }else{
             this.finish();

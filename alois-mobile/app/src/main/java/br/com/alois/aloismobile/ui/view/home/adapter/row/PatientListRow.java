@@ -2,6 +2,7 @@ package br.com.alois.aloismobile.ui.view.home.adapter.row;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
@@ -86,6 +87,7 @@ public class PatientListRow extends LinearLayout
                                 .beginTransaction()
                                 .replace(R.id.caregiver_home_frame_layout, patientFormFragment)
                                 .addToBackStack("patientFormFragment")
+                                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                                 .commit();
                         break;
                     case R.id.caregiver_home_delete_patient_button:
