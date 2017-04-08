@@ -28,6 +28,8 @@ public class Caregiver extends User
 	
 	@OneToMany(orphanRemoval = true, fetch=FetchType.LAZY, mappedBy="caregiver")
 	private List<Patient> patients;
+	
+	private String notificationToken;
 
 	//======================================================================================
 		
@@ -39,7 +41,8 @@ public class Caregiver extends User
 		this.setId(id);
 	}
 	
-	public Caregiver(String name, String email, Gender gender, String username, String password){
+	public Caregiver(String name, String email, Gender gender, String username, String password)
+	{
 		this.setName(name);
 		this.setEmail(email);
 		this.setGender(gender);
@@ -49,12 +52,22 @@ public class Caregiver extends User
 	//======================================================================================
 
 	//==================================GETTERS/SETTERS=====================================
-	public List<Patient> getPatients() {
+	public List<Patient> getPatients() 
+	{
 		return patients;
 	}
 	
-	public void setPatients(List<Patient> patients) {
+	public void setPatients(List<Patient> patients) 
+	{
 		this.patients = patients;
+	}
+
+	public String getNotificationToken() {
+		return notificationToken;
+	}
+
+	public void setNotificationToken(String notificationToken) {
+		this.notificationToken = notificationToken;
 	}
 	
 	//======================================================================================

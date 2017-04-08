@@ -10,18 +10,15 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
 
 import br.com.alois.aloismobile.R;
-import br.com.alois.aloismobile.ui.view.home.CaregiverHomeActivity;
 import br.com.alois.aloismobile.ui.view.patient.PatientDetailActivity;
 import br.com.alois.aloismobile.ui.view.route.fragment.RouteFormFragment;
 import br.com.alois.aloismobile.ui.view.route.fragment.RouteFormFragment_;
-import br.com.alois.aloismobile.ui.view.route.fragment.RouteListFragment;
 import br.com.alois.domain.entity.route.Route;
 
 /**

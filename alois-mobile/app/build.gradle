@@ -63,7 +63,7 @@ dependencies {
         exclude group: 'org.hibernate', module: 'hibernate-validator'
     }
 
-
+    compile 'com.google.firebase:firebase-messaging:9.6.1'
     compile 'com.android.support:appcompat-v7:25.2.0'
     compile 'com.android.support:support-v4:25.2.0'
     compile 'org.androidannotations:androidannotations-api:4.2.0'
@@ -72,9 +72,8 @@ dependencies {
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.github.clans:fab:1.6.4'
     compile 'com.wdullaer:materialdatetimepicker:2.5.0'
-    compile 'com.google.android.gms:play-services-maps:10.2.0'
-    compile 'com.google.android.gms:play-services-location:10.2.0'
-    compile 'com.google.maps.android:android-maps-utils:0.4.+'
+    compile 'com.google.android.gms:play-services-maps:9.6.1'
+    compile 'com.google.android.gms:play-services-location:9.6.1'
     testCompile 'junit:junit:4.12'
     apt 'org.androidannotations:androidannotations:4.2.0'
 }
@@ -90,3 +89,5 @@ apt {
         // logFile '/var/log/aa.log'
     }
 }
+
+apply plugin: 'com.google.gms.google-services'

@@ -2,20 +2,24 @@ package br.com.alois.aloismobile.application.api.login;
 
 import android.content.Intent;
 import android.util.Base64;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import br.com.alois.aloismobile.R;
+import br.com.alois.aloismobile.application.api.caregiver.CaregiverClient;
 import br.com.alois.aloismobile.application.preference.GeneralPreferences_;
 import br.com.alois.aloismobile.application.preference.ServerConfiguration;
+import br.com.alois.aloismobile.application.service.NotificationService;
 import br.com.alois.aloismobile.application.util.jackson.JacksonDecoder;
 import br.com.alois.aloismobile.application.util.jackson.JacksonEncoder;
 import br.com.alois.aloismobile.ui.view.home.AdministratorHomeActivity;
@@ -42,6 +46,9 @@ public class LoginTasks
 
     @RootContext
     LoginActivity loginActivity;
+
+    @Bean
+    NotificationService notificationService;
 
     @Background
     public void loginAsyncTask(String username, String password)
@@ -99,6 +106,7 @@ public class LoginTasks
                     break;
                 case CAREGIVER:
                     homeIntent = CaregiverHomeActivity_.intent(this.loginActivity.getApplicationContext()).get();
+                    this.updateNotificationToken(user.getId());
                     break;
                 case PATIENT:
                     homeIntent = PatientHomeActivity_.intent(this.loginActivity.getApplicationContext()).get();
@@ -112,6 +120,30 @@ public class LoginTasks
             loginHandleResponseFail(this.loginActivity.getResources().getString(R.string.wrong_username_or_password));
         }
 
+    }
+
+    @Background
+    public void updateNotificationToken(Long caregiverId)
+    {
+        CaregiverClient caregiverClient = Feign.builder()
+                .encoder(new JacksonEncoder())
+                .decoder(new JacksonDecoder())
+                .target(CaregiverClient.class, ServerConfiguration.API_ENDPOINT);
+
+        this.notificationService.onTokenRefresh();
+
+        System.out.println(this.notificationService.getToken());
+        try
+        {
+            caregiverClient.updateNotificationToken(this.notificationService.getToken(), caregiverId, this.generalPreferences.loggedUserAuthToken().get());
+            Log.i("INFO", this.loginActivity.getResources().getString(R.string.success_update_notification_token));
+        }
+        catch(FeignException e)
+        {
+            //What a Terrible Failure
+            Log.wtf("FAIL", this.loginActivity.getResources().getString(R.string.fail_update_notification_token));
+            e.printStackTrace();
+        }
     }
 
     @UiThread

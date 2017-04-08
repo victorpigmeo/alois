@@ -16,8 +16,12 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key"/>
 
-        <service android:name=".application.service.LastLocationService_"/><!--Define a classe do service -->
+        <!--Define a classe do service -->
+        <service android:name=".application.service.LastLocationService_"
             android:exported="false"/><!--Define que outros apps não podem acessar esse service -->
+
+        <service android:name=".application.service.NotificationService"
+            android:exported="false"/>
 
         <activity
             android:name=".ui.view.login.LoginActivity_"

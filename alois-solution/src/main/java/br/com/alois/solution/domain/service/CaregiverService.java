@@ -49,4 +49,12 @@ public class CaregiverService
 	{
 		return this.caregiverRepository.findAll();
 	}
+
+	public void updateNotificationToken(String notificationToken, Long caregiverId) {
+		Caregiver caregiver = this.caregiverRepository.findOne(caregiverId);
+		
+		caregiver.setNotificationToken(notificationToken);
+		
+		this.caregiverRepository.save(caregiver);
+	}
 }

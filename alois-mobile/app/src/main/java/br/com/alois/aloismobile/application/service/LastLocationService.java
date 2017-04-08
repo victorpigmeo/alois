@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,7 +16,13 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResult;
 
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EService;
@@ -47,6 +54,12 @@ public class LastLocationService extends IntentService implements
     @Pref
     GeneralPreferences_ generalPreferences;
 
+    Location lastLocation;
+
+    private LocationRequest locationRequest;
+    private LocationSettingsRequest locationSettingsRequest;
+    LocationListener locationListener;
+
     public LastLocationService()
     {
         super("LastLocationService");
@@ -67,6 +80,15 @@ public class LastLocationService extends IntentService implements
         //Connect to google play services
         this.googleApiClient.connect();
 
+        this.locationRequest = new LocationRequest();
+        this.locationRequest.setInterval(5000); //Set the prefered interval this can suffer influence of the availability of the providers
+        this.locationRequest.setFastestInterval(5000);//Set the fastest interval
+        this.locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder();
+        builder.addLocationRequest(this.locationRequest);
+        this.locationSettingsRequest = builder.build();
+
         try
         {
             Notification.Builder notification = new Notification.Builder(this)
@@ -79,8 +101,8 @@ public class LastLocationService extends IntentService implements
             while (true)
             {
                 this.updateLastLocation();
-                System.out.println("Chama!");
-                TimeUnit.MINUTES.sleep(5);
+                System.out.println("Alois patient last location updated!");
+                TimeUnit.SECONDS.sleep(5);
             }
         } catch (InterruptedException e)
         {
@@ -98,16 +120,49 @@ public class LastLocationService extends IntentService implements
             return;
         }
 
-        Location lastLocation = LocationServices.FusedLocationApi.getLastLocation(this.googleApiClient);
+        this.locationListener = new LocationListener()
+        {
+            @Override
+            public void onLocationChanged(Location location)
+            {
+                lastLocation = location;
+            }
 
-        if (lastLocation != null)
+        };
+
+        LocationServices.SettingsApi.checkLocationSettings(
+                this.googleApiClient,
+                this.locationSettingsRequest
+        ).setResultCallback(new ResultCallback<LocationSettingsResult>()
+                            {
+                                @Override
+                                public void onResult(LocationSettingsResult locationSettingsResult)
+                                {
+                                    final Status status = locationSettingsResult.getStatus();
+                                    switch (status.getStatusCode())
+                                    {
+                                        case 0:
+                                            try
+                                            {
+                                                LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, locationListener);
+                                            }catch (SecurityException e)
+                                            {
+                                                e.printStackTrace();
+                                            }
+                                            break;
+                                    }
+                                }
+                            });
+
+        if (this.lastLocation != null)
         {
             PatientClient routeClient = Feign.builder()
                     .encoder(new JacksonEncoder())
                     .decoder(new JacksonDecoder())
                     .target(PatientClient.class, ServerConfiguration.API_ENDPOINT);
 
-            Point lastLocationPoint = new Point(lastLocation.getLatitude(), lastLocation.getLongitude());
+            Point lastLocationPoint = new Point(this.lastLocation.getLatitude(), this.lastLocation.getLongitude());
+            String teste  = "LastKnow:"+this.lastLocation.getLatitude()+"|"+this.lastLocation.getLongitude();
             try
             {
                 routeClient.updateLastLocation(
@@ -115,20 +170,27 @@ public class LastLocationService extends IntentService implements
                         this.generalPreferences.loggedUserId().get(),
                         this.generalPreferences.loggedUserAuthToken().get()
                 );
-                this.updateLastLocationHandleSuccess();
+                this.updateLastLocationHandleSuccess(teste);
             }
             catch (FeignException e)
             {
                 e.printStackTrace();
+                this.updateLastLocationHandleFail();
             }
         }
 
     }
 
     @UiThread
-    public void updateLastLocationHandleSuccess()
+    public void updateLastLocationHandleSuccess(String teste)
     {
-        Toast.makeText(this.getApplicationContext(), "Posição Atualizada", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this.getApplicationContext(), teste, Toast.LENGTH_SHORT).show();
+    }
+
+    @UiThread
+    public void updateLastLocationHandleFail()
+    {
+        Toast.makeText(this.getApplicationContext(), "Deu pinto", Toast.LENGTH_SHORT).show();
     }
 
     @Override

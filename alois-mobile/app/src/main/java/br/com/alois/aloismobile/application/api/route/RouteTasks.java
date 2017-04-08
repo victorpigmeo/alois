@@ -168,7 +168,6 @@ public class RouteTasks
 
                 Step step = new Step(new Point(stepLineStart.latitude, stepLineStart.longitude), new Point(stepLineEnd.latitude, stepLineEnd.longitude), i);
                 routeSteps.add(step);
-//essa porra que ve a distancia -> Toast.makeText(this, String.valueOf(PolyUtil.distanceToLine(this.mMyLocation, stepLineStart, stepLineEnd)), Toast.LENGTH_SHORT).show();
             }
 
             this.patientDetailActivity.setRouteSteps(routeSteps);

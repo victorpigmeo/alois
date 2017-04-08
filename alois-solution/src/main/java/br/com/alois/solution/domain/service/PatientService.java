@@ -13,6 +13,7 @@ import br.com.alois.domain.entity.user.Patient;
 import br.com.alois.domain.entity.user.UserType;
 import br.com.alois.solution.domain.repository.IPatientRepository;
 import br.com.alois.solution.domain.repository.IPointRepository;
+import br.com.alois.solution.domain.repository.IRouteRepository;
 import br.com.alois.solution.domain.repository.IUserRepository;
 
 @Service
@@ -30,6 +31,9 @@ public class PatientService {
 	
 	@Autowired
 	IPointRepository pointRepository;
+	
+	@Autowired
+	IRouteRepository routeRepository;
 	//======================================================================================
 
 	//=====================================BEHAVIOUR========================================
@@ -84,6 +88,20 @@ public class PatientService {
 		{
 			this.pointRepository.delete(oldLastLocation);
 		}
+		
+		Double startLat = -25.442882;
+		Double startLng = -54.561279;
+		
+		Double endLat = -25.444699;
+		Double endLng = -54.561223;
+		
+		Double myLocationLat = lastLocation.getLatitude();
+		Double myLocationLng = lastLocation.getLongitude();
+		
+		Double distancia = (((endLat - startLat) * (startLng - myLocationLng)) - ((startLat - myLocationLat) * (endLng - startLng))) / Math.sqrt( (Math.pow( (endLat - startLat), 2) + Math.pow( (endLng - startLng), 2) ) );
+		System.out.println(distancia);
+		System.out.println("Em metros: " + ( (distancia * 111.325) * 1000) );
+////		PolyUtil.distanceToLine(this.mMyLocation, stepLineStart, stepLineEnd);
 	}
 
 	public Patient updatePatient(Patient patient) 

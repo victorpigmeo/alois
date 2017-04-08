@@ -108,5 +108,7 @@
     <string name="google_play_services_connected">Google Play Services connected</string>
     <string name="google_play_services_suspended">Google Play Services suspended</string>
     <string name="google_play_services_connection_failed">Google Play Services connection failed</string>
+    <string name="fail_update_notification_token">Notification Token update failed!</string>
+    <string name="success_update_notification_token">Notification Token update succeed</string>
 
 </resources>

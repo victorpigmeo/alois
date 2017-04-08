@@ -22,6 +22,7 @@ import java.util.List;
 import br.com.alois.aloismobile.R;
 import br.com.alois.aloismobile.application.api.patient.PatientTasks;
 import br.com.alois.aloismobile.application.preference.GeneralPreferences_;
+import br.com.alois.aloismobile.application.service.NotificationService;
 import br.com.alois.aloismobile.ui.view.home.fragment.CaregiverHomeFragment;
 import br.com.alois.aloismobile.ui.view.home.fragment.CaregiverHomeFragment_;
 import br.com.alois.aloismobile.ui.view.login.LoginActivity;
