@@ -12,8 +12,12 @@ import org.androidannotations.annotations.EService;
 @EBean
 public class NotificationService extends FirebaseInstanceIdService
 {
+    //=====================================ATTRIBUTES=======================================
     private String token;
 
+    //======================================================================================
+
+    //=====================================BEHAVIOUR========================================
     @Override
     public void onTokenRefresh()
     {
@@ -24,4 +28,7 @@ public class NotificationService extends FirebaseInstanceIdService
     {
         return this.token;
     }
+
+    //======================================================================================
+
 }

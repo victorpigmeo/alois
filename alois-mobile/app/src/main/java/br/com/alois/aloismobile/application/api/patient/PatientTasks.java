@@ -58,7 +58,7 @@ public class PatientTasks
     }
 
     @Background
-    public void findById(Long patientId)
+    public void findPatientById(Long patientId)
     {
         PatientClient patientClient = Feign.builder()
                 .encoder(new JacksonEncoder())
@@ -67,8 +67,7 @@ public class PatientTasks
 
         try
         {
-            Patient pt = patientClient.findById(patientId, this.generalPreferences.loggedUserAuthToken().get());
-            this.findHandleSuccess(pt);
+            this.findHandleSuccess(patientClient.findPatientById(patientId, this.generalPreferences.loggedUserAuthToken().get()));
         }
         catch(FeignException e)
         {

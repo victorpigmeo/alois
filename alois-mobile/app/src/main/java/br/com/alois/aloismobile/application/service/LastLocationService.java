@@ -49,22 +49,34 @@ public class LastLocationService extends IntentService implements
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener
 {
+    //=====================================ATTRIBUTES=======================================
     private GoogleApiClient googleApiClient;
-
-    @Pref
-    GeneralPreferences_ generalPreferences;
 
     Location lastLocation;
 
     private LocationRequest locationRequest;
+
     private LocationSettingsRequest locationSettingsRequest;
+
     LocationListener locationListener;
 
+    //======================================================================================
+
+    //=====================================INJECTIONS=======================================
+    @Pref
+    GeneralPreferences_ generalPreferences;
+
+    //======================================================================================
+
+    //====================================CONSTRUCTORS======================================
     public LastLocationService()
     {
         super("LastLocationService");
     }
 
+    //======================================================================================
+
+    //=====================================BEHAVIOUR========================================
     @Override
     protected void onHandleIntent(@Nullable Intent intent)
     {
@@ -211,4 +223,6 @@ public class LastLocationService extends IntentService implements
     {
         Toast.makeText(this.getApplicationContext(), this.getResources().getString(R.string.google_play_services_connection_failed), Toast.LENGTH_SHORT).show();
     }
+    //======================================================================================
+
 }

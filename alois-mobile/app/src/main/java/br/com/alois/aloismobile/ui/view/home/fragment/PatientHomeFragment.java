@@ -70,7 +70,6 @@ public class PatientHomeFragment extends Fragment
     @ViewById(R.id.patientDetailNote)
     TextView patientDetailNote;
 
-
     private Patient patient;
 
     //======================================================================================
@@ -87,11 +86,13 @@ public class PatientHomeFragment extends Fragment
     //======================================================================================
 
     //==================================GETTERS/SETTERS=====================================
-    public void setPatient(Patient _patient){
+    public void setPatient(Patient _patient)
+    {
         this.patient = _patient;
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        if (this.patient != null) {
+        if (this.patient != null)
+        {
             this.patientDetailName.setText(this.patient.getName());
             this.patientDetailPhone.setText(this.patient.getPhone());
             this.patientDetailGender.setText(this.patient.getGender().toString());
@@ -105,7 +106,8 @@ public class PatientHomeFragment extends Fragment
 
     //=====================================BEHAVIOUR========================================
     @AfterViews
-    public void onAfterViews() {
+    public void onAfterViews()
+    {
         ((PatientHomeActivity) this.getActivity()).getPatient(this.patientId);
     }
     //======================================================================================

@@ -2,9 +2,12 @@ package br.com.alois.aloismobile.ui.view.home;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.PorterDuff;
+import android.location.LocationManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -18,6 +21,7 @@ import org.androidannotations.annotations.InjectMenu;
 import org.androidannotations.annotations.NonConfigurationInstance;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
+import org.androidannotations.annotations.SystemService;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import java.util.List;
@@ -56,12 +60,30 @@ public class PatientHomeActivity extends AppCompatActivity
     @Bean
     PatientTasks patientTasks;
 
+    @SystemService
+    LocationManager locationManager;
     //======================================================================================
 
     //=====================================BEHAVIOUR========================================
     @AfterViews
     public void onAfterViews()
     {
+        if( !this.locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) )
+        {
+            AlertDialog.Builder alertDialogGps = new AlertDialog.Builder(this);
+
+            alertDialogGps.setTitle(this.getResources().getString(R.string.gps_is_off))
+                    .setMessage(this.getResources().getString(R.string.alert_gps_off))
+                    .setNeutralButton(R.string.mdtp_ok, new DialogInterface.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which)
+                        {
+                            dialog.dismiss();
+                        }
+                    }).create().show();
+        }
+
         LastLocationService_.intent(this.getApplicationContext()).start();
 
         this.patientHomeFragment = PatientHomeFragment_.builder().patientId(this.generalPreferences.loggedUserId().get()).build();
@@ -83,7 +105,7 @@ public class PatientHomeActivity extends AppCompatActivity
                 false//is cancelable
         );
 
-        this.patientTasks.findById(patientId);
+        this.patientTasks.findPatientById(patientId);
     }
 
     @Override
@@ -97,7 +119,6 @@ public class PatientHomeActivity extends AppCompatActivity
         }
         else
         {
-            //TODO FAZER UM CONFIRM DIALOG AQUI PRA VER SE O CARA REALMENTE QUER DESLOGAR
             final Intent returnIntent = new Intent();
             returnIntent.putExtra("action", "quit");
             this.setResult(Activity.RESULT_OK, returnIntent);

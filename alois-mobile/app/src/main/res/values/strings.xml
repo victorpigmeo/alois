@@ -112,5 +112,7 @@
     <string name="success_update_notification_token">Notification Token update succeed</string>
     <string name="max_distance_from_route">Max distance from route</string>
     <string name="max_distance_is_required">Max distance is required</string>
+    <string name="gps_is_off">GPS is off</string>
+    <string name="alert_gps_off">In order to use all the features of Alois (such as secure routes tracking) you need a working GPS connection, please enable the device\'s GPS.</string>
 
 </resources>

@@ -95,6 +95,7 @@ public class CaregiverHomeActivity extends AppCompatActivity
     @OptionsItem(R.id.menu_logoff)
     public void logoff()
     {
+        //TODO FAZER UM CONFIRM DIALOG AQUI PRA VER SE O CARA REALMENTE QUER DESLOGAR
         LoginActivity.clearUserData();
 
         final Intent returnIntent = new Intent();
@@ -163,7 +164,6 @@ public class CaregiverHomeActivity extends AppCompatActivity
         }
         else
         {
-            //TODO FAZER UM CONFIRM DIALOG AQUI PRA VER SE O CARA REALMENTE QUER DESLOGAR
             final Intent returnIntent = new Intent();
             returnIntent.putExtra("action", "quit");
             this.setResult(Activity.RESULT_OK, returnIntent);
