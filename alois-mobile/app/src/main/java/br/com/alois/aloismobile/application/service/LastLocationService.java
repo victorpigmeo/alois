@@ -7,11 +7,11 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -35,8 +35,8 @@ import br.com.alois.aloismobile.R;
 import br.com.alois.aloismobile.application.api.patient.PatientClient;
 import br.com.alois.aloismobile.application.preference.GeneralPreferences_;
 import br.com.alois.aloismobile.application.preference.ServerConfiguration;
-import br.com.alois.aloismobile.application.util.jackson.JacksonDecoder;
-import br.com.alois.aloismobile.application.util.jackson.JacksonEncoder;
+import br.com.alois.api.jackson.JacksonDecoder;
+import br.com.alois.api.jackson.JacksonEncoder;
 import br.com.alois.domain.entity.route.Point;
 import feign.Feign;
 import feign.FeignException;
@@ -101,8 +101,8 @@ public class LastLocationService extends IntentService implements
             while (true)
             {
                 this.updateLastLocation();
-                System.out.println("Alois patient last location updated!");
-                TimeUnit.SECONDS.sleep(5);
+                //Sets the time between verifications
+                TimeUnit.SECONDS.sleep(30);
             }
         } catch (InterruptedException e)
         {
@@ -184,13 +184,14 @@ public class LastLocationService extends IntentService implements
     @UiThread
     public void updateLastLocationHandleSuccess(String teste)
     {
+        Log.i("ALOIS-LOCATION", "Alois patient last location updated!");
         Toast.makeText(this.getApplicationContext(), teste, Toast.LENGTH_SHORT).show();
     }
 
     @UiThread
     public void updateLastLocationHandleFail()
     {
-        Toast.makeText(this.getApplicationContext(), "Deu pinto", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this.getApplicationContext(), "Erro ao atualizar localização do paciente", Toast.LENGTH_SHORT).show();
     }
 
     @Override

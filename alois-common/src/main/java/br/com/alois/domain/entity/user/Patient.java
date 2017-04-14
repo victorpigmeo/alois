@@ -13,11 +13,13 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.envers.Audited;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -26,6 +28,7 @@ import br.com.alois.domain.entity.memory.Memory;
 import br.com.alois.domain.entity.reminder.Reminder;
 import br.com.alois.domain.entity.route.Point;
 import br.com.alois.domain.entity.route.Route;
+import br.com.alois.domain.entity.route.Step;
 
 @Entity
 @Audited
@@ -40,7 +43,7 @@ public class Patient extends User
 	//=====================================ATTRIBUTES=======================================
 	private static final long serialVersionUID = -742729100418082281L;
 	
-	@NotBlank(message = "Name is required")
+	@NotBlank(message = "Phone is required")
 	@Column(nullable=false)
 	private String phone;
 	
@@ -54,6 +57,9 @@ public class Patient extends User
 	private String emergencyPhone;
 	
 	private String note;
+	
+	@NotNull
+	private Double maxDistanceFromRoute;
 	
 	@ManyToOne
 	private Caregiver caregiver;
@@ -90,6 +96,7 @@ public class Patient extends User
 			String address,
 			String emergencyPhone,
 			String note,
+			Double maxDistanceFromRoute,
 			String username,
 			String password,
 			Caregiver caregiver
@@ -102,6 +109,7 @@ public class Patient extends User
 		this.address = address;
 		this.emergencyPhone = emergencyPhone;
 		this.note = note;
+		this.maxDistanceFromRoute = maxDistanceFromRoute;
 		this.setUsername(username);
 		this.setPassword(password);
 		this.caregiver = caregiver;
@@ -147,6 +155,14 @@ public class Patient extends User
 
 	public void setNote(String note) {
 		this.note = note;
+	}
+
+	public Double getMaxDistanceFromRoute() {
+		return maxDistanceFromRoute;
+	}
+
+	public void setMaxDistanceFromRoute(Double maxDistanceFromRoute) {
+		this.maxDistanceFromRoute = maxDistanceFromRoute;
 	}
 
 	public Caregiver getCaregiver() {
@@ -252,6 +268,32 @@ public class Patient extends User
 			return false;
 		return true;
 	}
+	
+	@JsonIgnore
+	public boolean isPatientOnSafeRoute()
+	{
+		for(Route route: routes)
+		{
+			for(Step step: route.getSteps())
+			{
+				if(step.isPointNearStepLine(this.lastLocation, this.maxDistanceFromRoute))
+				{
+					return true;
+				}
+			}
+		}			
+		
+		return false;
+	}
+	
+	@JsonIgnore
+	public Point updateLastLocation(Point newLocation)
+	{
+		Point oldLocation = this.lastLocation;
+		this.lastLocation = newLocation;
+		return oldLocation;
+	}
+	
 	//======================================================================================
 
 	

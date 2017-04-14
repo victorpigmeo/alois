@@ -11,7 +11,8 @@ import br.com.alois.solution.domain.repository.IRouteRepository;
 import br.com.alois.solution.domain.repository.IStepRepository;
 
 @Service
-public class RouteService {
+public class RouteService 
+{
 	//=====================================ATTRIBUTES=======================================
 
 	//======================================================================================
@@ -25,11 +26,13 @@ public class RouteService {
 	//======================================================================================
 
 	//=====================================BEHAVIOUR========================================
-	public List<Route> listRoutesByPatientId(Long patientId) {
+	public List<Route> listRoutesByPatientId(Long patientId) 
+	{
 		return this.routeRepository.findByPatientId(patientId);
 	}
 
-	public Route insertRoute(Route route) {
+	public Route insertRoute(Route route) 
+	{
 		Assert.notNull(route);
 		Assert.notNull(route.getName());
 		Assert.notNull(route.getSteps());
@@ -37,14 +40,16 @@ public class RouteService {
 		return this.routeRepository.save(route);
 	}
 
-	public Route updateRoute(Route route) {
+	public Route updateRoute(Route route) 
+	{
 		Assert.notNull(route);
 		Assert.notNull(route.getSteps());
 		
 		return this.routeRepository.save(route);
 	}
 
-	public void deleteRoute(Route route) {
+	public void deleteRoute(Route route) 
+	{
 		this.routeRepository.delete(route);
 	}
 

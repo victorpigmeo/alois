@@ -2,7 +2,6 @@ package br.com.alois.aloismobile.application.api.route;
 
 import android.widget.Toast;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.gms.maps.model.LatLng;
 
 import org.androidannotations.annotations.Background;
@@ -22,9 +21,9 @@ import java.util.Map;
 import br.com.alois.aloismobile.R;
 import br.com.alois.aloismobile.application.preference.GeneralPreferences_;
 import br.com.alois.aloismobile.application.preference.ServerConfiguration;
-import br.com.alois.aloismobile.application.util.jackson.JacksonDecoder;
-import br.com.alois.aloismobile.application.util.jackson.JacksonEncoder;
 import br.com.alois.aloismobile.ui.view.patient.PatientDetailActivity;
+import br.com.alois.api.jackson.JacksonDecoder;
+import br.com.alois.api.jackson.JacksonEncoder;
 import br.com.alois.domain.entity.route.Point;
 import br.com.alois.domain.entity.route.Route;
 import br.com.alois.domain.entity.route.Step;

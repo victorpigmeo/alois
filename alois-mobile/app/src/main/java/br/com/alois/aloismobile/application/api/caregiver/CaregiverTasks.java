@@ -10,9 +10,9 @@ import java.util.List;
 
 import br.com.alois.aloismobile.application.preference.GeneralPreferences_;
 import br.com.alois.aloismobile.application.preference.ServerConfiguration;
-import br.com.alois.aloismobile.application.util.jackson.JacksonDecoder;
-import br.com.alois.aloismobile.application.util.jackson.JacksonEncoder;
 import br.com.alois.aloismobile.ui.view.home.AdministratorHomeActivity;
+import br.com.alois.api.jackson.JacksonDecoder;
+import br.com.alois.api.jackson.JacksonEncoder;
 import br.com.alois.domain.entity.user.Caregiver;
 import feign.Feign;
 import feign.FeignException;

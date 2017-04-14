@@ -20,18 +20,15 @@ import br.com.alois.aloismobile.application.api.caregiver.CaregiverClient;
 import br.com.alois.aloismobile.application.preference.GeneralPreferences_;
 import br.com.alois.aloismobile.application.preference.ServerConfiguration;
 import br.com.alois.aloismobile.application.service.NotificationService;
-import br.com.alois.aloismobile.application.util.jackson.JacksonDecoder;
-import br.com.alois.aloismobile.application.util.jackson.JacksonEncoder;
-import br.com.alois.aloismobile.ui.view.home.AdministratorHomeActivity;
 import br.com.alois.aloismobile.ui.view.home.AdministratorHomeActivity_;
 import br.com.alois.aloismobile.ui.view.home.CaregiverHomeActivity_;
-import br.com.alois.aloismobile.ui.view.home.PatientHomeActivity;
 import br.com.alois.aloismobile.ui.view.home.PatientHomeActivity_;
 import br.com.alois.aloismobile.ui.view.login.LoginActivity;
+import br.com.alois.api.jackson.JacksonDecoder;
+import br.com.alois.api.jackson.JacksonEncoder;
 import br.com.alois.domain.entity.user.User;
 import feign.Feign;
 import feign.FeignException;
-import feign.Request;
 
 /**
  * Created by victor on 2/27/17.

@@ -99,8 +99,21 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/patientFormAddressLabel"
+            android:id="@+id/patientFormMaxDistanceLabel"
             android:layout_below="@+id/patientFormButtonSelectDate"
+            android:text="@string/max_distance_from_route"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/patientFormEditMaxDistance"
+            android:layout_below="@+id/patientFormMaxDistanceLabel"
+            android:inputType="numberDecimal"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/patientFormAddressLabel"
+            android:layout_below="@+id/patientFormEditMaxDistance"
             android:text="@string/address"/>
         <EditText
             android:layout_width="match_parent"
@@ -161,13 +174,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/patientFormEditUsername"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1"
+                    android:inputType="textPersonName"/>
 
                 <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/patientFormEditPassword"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1"
+                    android:inputType="textPersonName"/>
             </TableRow>
         </TableLayout>
 

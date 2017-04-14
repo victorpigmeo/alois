@@ -70,6 +70,10 @@ public class PatientFormFragment extends Fragment implements
     @NotEmpty(messageResId = R.string.date_of_birth_is_required)
     TextView patientFormDateView;
 
+    @ViewById(R.id.patientFormEditMaxDistance)
+    @NotEmpty(messageResId = R.string.max_distance_is_required)
+    EditText patientFormEditMaxDistance;
+
     @ViewById(R.id.patientFormEditAddress)
     @NotEmpty(messageResId = R.string.address_is_required)
     EditText patientFormEditAddress;
@@ -136,6 +140,7 @@ public class PatientFormFragment extends Fragment implements
             this.patientFormEditAddress.setText(this.patient.getAddress());
             this.patientFormEditEmergencyPhone.setText(this.patient.getEmergencyPhone());
             this.patientFormEditNotes.setText(this.patient.getNote());
+            this.patientFormEditMaxDistance.setText(this.patient.getMaxDistanceFromRoute().toString());
             this.patientFormEditUsername.setText(this.patient.getUsername());
         }
     }
@@ -203,6 +208,7 @@ public class PatientFormFragment extends Fragment implements
                     this.patientFormEditAddress.getText().toString(),
                     this.patientFormEditEmergencyPhone.getText().toString(),
                     this.patientFormEditNotes.getText().toString(),
+                    Double.parseDouble(this.patientFormEditMaxDistance.getText().toString()),
                     this.patientFormEditUsername.getText().toString(),
                     User.encryptPassword( this.patientFormEditPassword.getText().toString() ),
                     new Caregiver(this.generalPreferences.loggedUserId().get())
@@ -218,6 +224,7 @@ public class PatientFormFragment extends Fragment implements
             this.patient.setAddress(this.patientFormEditAddress.getText().toString());
             this.patient.setEmergencyPhone(this.patientFormEditEmergencyPhone.getText().toString());
             this.patient.setNote(this.patientFormEditNotes.getText().toString());
+            this.patient.setMaxDistanceFromRoute( Double.parseDouble( this.patientFormEditMaxDistance.getText().toString() ) );
             this.patient.setUsername(this.patientFormEditUsername.getText().toString());
             this.patient.setPassword(User.encryptPassword(this.patientFormEditPassword.getText().toString()));
 

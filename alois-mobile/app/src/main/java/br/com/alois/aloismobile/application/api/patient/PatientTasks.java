@@ -9,19 +9,16 @@ import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.sharedpreferences.Pref;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.List;
 
 import br.com.alois.aloismobile.R;
 import br.com.alois.aloismobile.application.preference.GeneralPreferences_;
 import br.com.alois.aloismobile.application.preference.ServerConfiguration;
-import br.com.alois.aloismobile.application.util.jackson.JacksonDecoder;
-import br.com.alois.aloismobile.application.util.jackson.JacksonEncoder;
 import br.com.alois.aloismobile.ui.view.home.CaregiverHomeActivity;
 import br.com.alois.aloismobile.ui.view.home.PatientHomeActivity;
+import br.com.alois.api.jackson.JacksonDecoder;
+import br.com.alois.api.jackson.JacksonEncoder;
 import br.com.alois.domain.entity.user.Patient;
 import feign.Feign;
 import feign.FeignException;

@@ -8,13 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import br.com.alois.domain.entity.notification.Notification;
 import br.com.alois.domain.entity.route.Point;
 import br.com.alois.domain.entity.user.Patient;
 import br.com.alois.domain.entity.user.UserType;
+import br.com.alois.solution.configuration.NotificationServerConfiguration;
+import br.com.alois.solution.domain.client.NotificationClient;
 import br.com.alois.solution.domain.repository.IPatientRepository;
 import br.com.alois.solution.domain.repository.IPointRepository;
 import br.com.alois.solution.domain.repository.IRouteRepository;
 import br.com.alois.solution.domain.repository.IUserRepository;
+import feign.Feign;
 
 @Service
 public class PatientService {
@@ -72,16 +76,15 @@ public class PatientService {
 		}
 	}
 
-	public void updateLastLocation(Point lastLocation, Long patientId) 
+	public void updateLastLocation(Point newLastLocation, Long patientId) 
 	{
-		Assert.notNull(lastLocation);
+		Assert.notNull(newLastLocation);
 		Assert.notNull(patientId);
 		
-		Patient patient = this.patientRepository.findOne(patientId);
+		final Patient patient = this.patientRepository.findByIdWithRoutes(patientId);
 		
-		Point oldLastLocation = patient.getLastLocation();
+		final Point oldLastLocation = patient.updateLastLocation(newLastLocation);
 		
-		patient.setLastLocation(lastLocation);
 		this.patientRepository.save(patient);
 		
 		if(oldLastLocation != null)
@@ -89,19 +92,22 @@ public class PatientService {
 			this.pointRepository.delete(oldLastLocation);
 		}
 		
-		Double startLat = -25.442882;
-		Double startLng = -54.561279;
+		if( !patient.isPatientOnSafeRoute() )
+		{
+			//TODO apagar os sysout
+			System.out.println("Não ta na rota!");
+			final NotificationClient notificationClient = Feign.builder()
+					.target(NotificationClient.class, NotificationServerConfiguration.API_ENDPOINT);
+			
+			String notification = Notification.toJson(
+					"Alois", 
+					"Warning! Patient: "+patient.getName()+" is out of all his secure routes!", 
+					patient.getCaregiver().getNotificationToken()
+			);
+			
+			System.out.println( notificationClient.sendNotification(notification, NotificationServerConfiguration.FIREBASE_TOKEN) );
+		}
 		
-		Double endLat = -25.444699;
-		Double endLng = -54.561223;
-		
-		Double myLocationLat = lastLocation.getLatitude();
-		Double myLocationLng = lastLocation.getLongitude();
-		
-		Double distancia = (((endLat - startLat) * (startLng - myLocationLng)) - ((startLat - myLocationLat) * (endLng - startLng))) / Math.sqrt( (Math.pow( (endLat - startLat), 2) + Math.pow( (endLng - startLng), 2) ) );
-		System.out.println(distancia);
-		System.out.println("Em metros: " + ( (distancia * 111.325) * 1000) );
-////		PolyUtil.distanceToLine(this.mMyLocation, stepLineStart, stepLineEnd);
 	}
 
 	public Patient updatePatient(Patient patient) 

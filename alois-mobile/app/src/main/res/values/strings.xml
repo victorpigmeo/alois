@@ -110,5 +110,7 @@
     <string name="google_play_services_connection_failed">Google Play Services connection failed</string>
     <string name="fail_update_notification_token">Notification Token update failed!</string>
     <string name="success_update_notification_token">Notification Token update succeed</string>
+    <string name="max_distance_from_route">Max distance from route</string>
+    <string name="max_distance_is_required">Max distance is required</string>
 
 </resources>

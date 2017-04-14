@@ -16,6 +16,7 @@ import org.hibernate.envers.Audited;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
@@ -152,5 +153,24 @@ public class Step implements Serializable
 		return true;
 	}
 	
+	@JsonIgnore
+	public boolean isPointNearStepLine(Point location, Double patientLimit)
+	{
+		//Get the distance in degrees
+		Double distancia = (((this.endPoint.getLatitude() - this.startPoint.getLatitude()) * (this.startPoint.getLongitude() - location.getLongitude())) - ((this.startPoint.getLatitude() - location.getLatitude()) * (this.getEndPoint().getLongitude() - this.startPoint.getLongitude()))) / Math.sqrt( (Math.pow( (this.endPoint.getLatitude() - this.startPoint.getLatitude()), 2) + Math.pow( (this.endPoint.getLongitude() - this.startPoint.getLongitude()), 2) ) );
+		//Convert to meters
+		distancia = Math.abs((distancia * 111.325) * 1000);
+		
+		System.out.println(distancia);
+		System.out.println(patientLimit);
+		if(distancia < patientLimit)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 	//======================================================================================
 }
