@@ -100,8 +100,6 @@
     <string name="myRoutes">Minhas Rotas Seguras</string>
     <string name="myReminders">Meus Lembretes</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="back">Back</string>
     <string name="alois">Alois</string>
     <string name="alois_tracking_active">Alois tracking is active</string>
@@ -114,5 +112,8 @@
     <string name="max_distance_is_required">Max distance is required</string>
     <string name="gps_is_off">GPS is off</string>
     <string name="alert_gps_off">In order to use all the features of Alois (such as secure routes tracking) you need a working GPS connection, please enable the device\'s GPS.</string>
+
+    <string name="reminders_of_patient">Reminders of</string>
+    <string name="warning_patient_out_of_route">Warning! Patient: %1$s is out of his secure routes!</string>
 
 </resources>

@@ -58,6 +58,12 @@ public class PatientController {
 	{
 		this.patientService.deletePatient(patient);
 	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/call")
+	public void call()
+	{
+		this.patientService.call();
+	}
 	//======================================================================================
 
 }

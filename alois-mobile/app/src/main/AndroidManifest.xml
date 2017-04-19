@@ -23,6 +23,12 @@
         <service android:name=".application.service.NotificationService"
             android:exported="false"/>
 
+        <service android:name=".application.service.NotificationReceiverService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
         <activity
             android:name=".ui.view.login.LoginActivity_"
             android:screenOrientation="portrait"

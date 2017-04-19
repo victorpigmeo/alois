@@ -114,7 +114,7 @@ public class LastLocationService extends IntentService implements
             {
                 this.updateLastLocation();
                 //Sets the time between verifications
-                TimeUnit.SECONDS.sleep(30);
+                TimeUnit.SECONDS.sleep(60);
             }
         } catch (InterruptedException e)
         {

@@ -95,13 +95,13 @@ public class PatientService {
 		if( !patient.isPatientOnSafeRoute() )
 		{
 			//TODO apagar os sysout
-			System.out.println("Não ta na rota!");
 			final NotificationClient notificationClient = Feign.builder()
 					.target(NotificationClient.class, NotificationServerConfiguration.API_ENDPOINT);
 			
 			String notification = Notification.toJson(
 					"Alois", 
-					"Warning! Patient: "+patient.getName()+" is out of all his secure routes!", 
+					"Warning! Patient: "+patient.getName()+" is out of all his secure routes!",
+					patient.getName(),
 					patient.getCaregiver().getNotificationToken()
 			);
 			
@@ -118,6 +118,23 @@ public class PatientService {
 	public void deletePatient(Patient patient)
 	{
 		this.patientRepository.delete(patient);
+	}
+	
+	public void call(){
+		final Patient patient = this.patientRepository.findByIdWithRoutes(4L);
+		
+		final NotificationClient notificationClient = Feign.builder()
+				.target(NotificationClient.class, NotificationServerConfiguration.API_ENDPOINT);
+		
+		String notification = Notification.toJson(
+				"Alois", 
+				"Warning! Patient: "+patient.getName()+" is out of all his secure routes!",
+				patient.getName(),
+				patient.getCaregiver().getNotificationToken()
+		);
+		
+		System.out.println(notification);
+		System.out.println( notificationClient.sendNotification(notification, NotificationServerConfiguration.FIREBASE_TOKEN) );
 	}
 	//======================================================================================
 

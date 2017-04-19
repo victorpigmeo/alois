@@ -1,13 +1,9 @@
 package br.com.alois.aloismobile.ui.view.patient;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Menu;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -24,9 +20,10 @@ import java.util.List;
 
 import br.com.alois.aloismobile.R;
 import br.com.alois.aloismobile.application.api.route.RouteTasks;
-import br.com.alois.aloismobile.ui.view.login.LoginActivity;
 import br.com.alois.aloismobile.ui.view.patient.fragment.PatientDetailFragment;
 import br.com.alois.aloismobile.ui.view.patient.fragment.PatientDetailFragment_;
+import br.com.alois.aloismobile.ui.view.reminder.fragment.ReminderListFragment;
+import br.com.alois.aloismobile.ui.view.reminder.fragment.ReminderListFragment_;
 import br.com.alois.aloismobile.ui.view.route.fragment.RouteFormFragment;
 import br.com.alois.aloismobile.ui.view.route.fragment.RouteListFragment;
 import br.com.alois.aloismobile.ui.view.route.fragment.RouteListFragment_;
@@ -42,6 +39,8 @@ public class PatientDetailActivity extends AppCompatActivity
     public ProgressDialog progressDialog;
 
     RouteListFragment routeListFragment;
+
+    ReminderListFragment reminderListFragment;
     //======================================================================================
 
     //=====================================INJECTIONS=======================================
@@ -79,6 +78,7 @@ public class PatientDetailActivity extends AppCompatActivity
                 .commit();
     }
 
+    //TODO resolver o problema de clicar em outro fragment do menu e voltar direto pra activity
     @OptionsItem(R.id.patientDetailRoutesMenuButton)
     public void onPatientRoutesClick()
     {
@@ -98,6 +98,31 @@ public class PatientDetailActivity extends AppCompatActivity
                     .beginTransaction()
                     .replace(R.id.patientDetailFrame, routeListFragment)
                     .addToBackStack("routeListFragment")
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .commit();
+        }
+    }
+
+    @OptionsItem(R.id.patientDetailRemindersMenuButton)
+    public void onPatientRemindersClick()
+    {
+        if(this.getSupportFragmentManager().getBackStackEntryCount() > 1 &&
+                this.getSupportFragmentManager().getBackStackEntryAt(this.getSupportFragmentManager().getBackStackEntryCount() - 1).getName().equals("reminderListFragment"))
+        {
+            System.out.println("mesmo fragment");
+            return;
+        }
+        else
+        {
+            this.reminderListFragment = ReminderListFragment_
+                    .builder()
+                    .patient(this.patient)
+                    .build();
+
+            this.getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.patientDetailFrame, reminderListFragment)
+                    .addToBackStack("reminderListFragment")
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .commit();
         }
