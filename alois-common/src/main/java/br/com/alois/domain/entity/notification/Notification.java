@@ -12,7 +12,8 @@ public abstract class Notification
 					+ "},"
 				+ "\"to\" : \""+deviceToken+"\","
 				+ "\"data\" : {"
-					+ "\"patient_name\": \""+patientName+"\""
+					+ "\"patient_name\": \""+patientName+"\","
+					+ "\"type\":\"PATIENT_OUT_OF_ROUTE\""
 				+ "}"
 			+ "}";
 	}

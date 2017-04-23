@@ -93,8 +93,8 @@ public class LastLocationService extends IntentService implements
         this.googleApiClient.connect();
 
         this.locationRequest = new LocationRequest();
-        this.locationRequest.setInterval(5000); //Set the prefered interval this can suffer influence of the availability of the providers
-        this.locationRequest.setFastestInterval(5000);//Set the fastest interval
+        this.locationRequest.setInterval(30000); //Set the prefered interval this can suffer influence of the availability of the providers
+        this.locationRequest.setFastestInterval(10000);//Set the fastest interval
         this.locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
         LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder();
@@ -114,7 +114,7 @@ public class LastLocationService extends IntentService implements
             {
                 this.updateLastLocation();
                 //Sets the time between verifications
-                TimeUnit.SECONDS.sleep(60);
+                TimeUnit.SECONDS.sleep(30);
             }
         } catch (InterruptedException e)
         {

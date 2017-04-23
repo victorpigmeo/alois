@@ -59,10 +59,10 @@ public class PatientController {
 		this.patientService.deletePatient(patient);
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/call")
-	public void call()
+	@RequestMapping(method = RequestMethod.POST, value = "/updateNotificationToken/{patientId}/{notificationToken}")
+	public void updateNotificationToken(@PathVariable("notificationToken") String notificationToken, @PathVariable("patientId") Long patientId)
 	{
-		this.patientService.call();
+		this.patientService.updateNotificationToken(notificationToken, patientId);
 	}
 	//======================================================================================
 

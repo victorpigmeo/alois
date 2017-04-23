@@ -37,4 +37,8 @@ public interface PatientClient
     @RequestLine("POST /patient/updateLastLocation/{patientId}")
     @Headers({"Content-Type: application/json", "Authorization: Basic {basicAuthToken}"})
     void updateLastLocation(Point lastLocationLatLng, @Param("patientId") Long patientId, @Param("basicAuthToken") String basicAuthToken);
+
+    @RequestLine("POST /patient/updateNotificationToken/{patientId}/{notificationToken}")
+    @Headers({"Content-Type: application/json", "Authorization: Basic {basicAuthToken}"})
+    void updateNotificationToken(@Param("notificationToken") String notificationToken, @Param("patientId") Long patientId, @Param("basicAuthToken") String basicAuthToken);
 }

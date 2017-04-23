@@ -17,6 +17,7 @@ import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import br.com.alois.aloismobile.R;
 import br.com.alois.aloismobile.application.api.caregiver.CaregiverClient;
+import br.com.alois.aloismobile.application.api.patient.PatientClient;
 import br.com.alois.aloismobile.application.preference.GeneralPreferences_;
 import br.com.alois.aloismobile.application.preference.ServerConfiguration;
 import br.com.alois.aloismobile.application.service.NotificationService;
@@ -103,10 +104,11 @@ public class LoginTasks
                     break;
                 case CAREGIVER:
                     homeIntent = CaregiverHomeActivity_.intent(this.loginActivity.getApplicationContext()).get();
-                    this.updateNotificationToken(user.getId());
+                    this.updateCaregiverNotificationToken(user.getId());
                     break;
                 case PATIENT:
                     homeIntent = PatientHomeActivity_.intent(this.loginActivity.getApplicationContext()).get();
+                    this.updatePatientNotificationToken(user.getId());
                     break;
             }
 
@@ -120,7 +122,7 @@ public class LoginTasks
     }
 
     @Background
-    public void updateNotificationToken(Long caregiverId)
+    public void updateCaregiverNotificationToken(Long caregiverId)
     {
         CaregiverClient caregiverClient = Feign.builder()
                 .encoder(new JacksonEncoder())
@@ -133,6 +135,29 @@ public class LoginTasks
         try
         {
             caregiverClient.updateNotificationToken(this.notificationService.getToken(), caregiverId, this.generalPreferences.loggedUserAuthToken().get());
+            Log.i("INFO", this.loginActivity.getResources().getString(R.string.success_update_notification_token));
+        }
+        catch(FeignException e)
+        {
+            //What a Terrible Failure
+            Log.wtf("FAIL", this.loginActivity.getResources().getString(R.string.fail_update_notification_token));
+            e.printStackTrace();
+        }
+    }
+
+    @Background
+    public void updatePatientNotificationToken(Long caregiverId)
+    {
+        PatientClient patientClient = Feign.builder()
+                .encoder(new JacksonEncoder())
+                .decoder(new JacksonDecoder())
+                .target(PatientClient.class, ServerConfiguration.API_ENDPOINT);
+
+        this.notificationService.onTokenRefresh();
+
+        try
+        {
+            patientClient.updateNotificationToken(this.notificationService.getToken(), caregiverId, this.generalPreferences.loggedUserAuthToken().get());
             Log.i("INFO", this.loginActivity.getResources().getString(R.string.success_update_notification_token));
         }
         catch(FeignException e)

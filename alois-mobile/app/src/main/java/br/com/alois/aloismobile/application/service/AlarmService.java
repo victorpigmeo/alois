@@ -1,21 +1,74 @@
 package br.com.alois.aloismobile.application.service;
 
-import android.content.BroadcastReceiver;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.widget.Toast;
+import android.util.Log;
+
+import org.androidannotations.annotations.EBean;
+import org.androidannotations.annotations.RootContext;
+import org.androidannotations.annotations.SystemService;
+
+import java.util.Calendar;
+
+import br.com.alois.domain.entity.reminder.Reminder;
 
 /**
- * Created by victor on 4/14/17.
+ * Created by victor on 4/23/17.
  */
-
-public class AlarmService extends BroadcastReceiver
+public class AlarmService
 {
-    @Override
-    public void onReceive(Context context, Intent intent)
+    //=====================================ATTRIBUTES=======================================
+    private final Context context;
+
+    private AlarmManager alarmManager;
+
+    //====================================CONSTRUCTORS======================================
+    public AlarmService(Context context)
     {
-        System.out.println("CHAMOU ALARME");
-        // For our recurring task, we'll just display a message
-        Toast.makeText(context, "I'm running", Toast.LENGTH_SHORT).show();
+        this.context = context;
+        this.alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
     }
+    //======================================================================================
+
+    //==================================GETTERS/SETTERS=====================================
+
+    //======================================================================================
+
+    //=====================================BEHAVIOUR========================================
+    public void scheduleReminder(Reminder reminder)
+    {
+        Long interval = null;
+        switch (reminder.getFrequency())
+        {
+            case HOURLY:
+                interval = AlarmManager.INTERVAL_HOUR;
+                break;
+            case DAILY:
+                interval = AlarmManager.INTERVAL_DAY;
+                break;
+            case WEEKLY:
+                interval = Long.valueOf(7L * 24L * 60L * 60L * 1000L);
+                break;
+        }
+
+        Intent intent = new Intent(this.context, AlarmReceiverService.class);
+        PendingIntent alarmIntent = PendingIntent.getBroadcast(this.context, 0, intent, 0);
+
+        if(interval != null)
+        {
+            this.alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, reminder.getDateTime().getTimeInMillis(),
+                    interval, alarmIntent);
+            Log.i("ALOIS-REMINDER", "Alois recurrency reminder succesfully scheduled to: " + reminder.getDateTime().getTime());
+        }
+        else
+        {
+            this.alarmManager.set(AlarmManager.RTC_WAKEUP, reminder.getDateTime().getTimeInMillis(), alarmIntent);
+            Log.i("ALOIS-REMINDER", "Alois one-time reminder succesfully scheduled to: " + reminder.getDateTime().getTime());
+        }
+
+    }
+    //======================================================================================
+
 }

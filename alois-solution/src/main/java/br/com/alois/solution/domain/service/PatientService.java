@@ -81,6 +81,8 @@ public class PatientService {
 		Assert.notNull(newLastLocation);
 		Assert.notNull(patientId);
 		
+		System.out.println( "Location: " + newLastLocation.getLatitude() + "|" + newLastLocation.getLongitude() );
+		
 		final Patient patient = this.patientRepository.findByIdWithRoutes(patientId);
 		
 		final Point oldLastLocation = patient.updateLastLocation(newLastLocation);
@@ -94,6 +96,7 @@ public class PatientService {
 		
 		if( !patient.isPatientOnSafeRoute() )
 		{
+			System.out.println("Out of route!!!");
 			//TODO apagar os sysout
 			final NotificationClient notificationClient = Feign.builder()
 					.target(NotificationClient.class, NotificationServerConfiguration.API_ENDPOINT);
@@ -119,23 +122,15 @@ public class PatientService {
 	{
 		this.patientRepository.delete(patient);
 	}
-	
-	public void call(){
-		final Patient patient = this.patientRepository.findByIdWithRoutes(4L);
+
+	public void updateNotificationToken(String notificationToken, Long patientId) {
+		Patient patient = this.patientRepository.findOne(patientId);
 		
-		final NotificationClient notificationClient = Feign.builder()
-				.target(NotificationClient.class, NotificationServerConfiguration.API_ENDPOINT);
+		patient.setNotificationToken(notificationToken);
 		
-		String notification = Notification.toJson(
-				"Alois", 
-				"Warning! Patient: "+patient.getName()+" is out of all his secure routes!",
-				patient.getName(),
-				patient.getCaregiver().getNotificationToken()
-		);
-		
-		System.out.println(notification);
-		System.out.println( notificationClient.sendNotification(notification, NotificationServerConfiguration.FIREBASE_TOKEN) );
+		this.patientRepository.save(patient);
 	}
+	
 	//======================================================================================
 
 }

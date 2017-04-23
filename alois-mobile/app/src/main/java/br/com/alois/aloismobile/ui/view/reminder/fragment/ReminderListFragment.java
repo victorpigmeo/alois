@@ -1,20 +1,19 @@
 package br.com.alois.aloismobile.ui.view.reminder.fragment;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
-import android.os.SystemClock;
+import android.app.Dialog;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.widget.Toast;
+
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
 
-import java.util.Calendar;
-
 import br.com.alois.aloismobile.R;
-import br.com.alois.aloismobile.application.service.AlarmService;
 import br.com.alois.domain.entity.user.Patient;
 
 /**
@@ -23,13 +22,10 @@ import br.com.alois.domain.entity.user.Patient;
 @EFragment(R.layout.fragment_reminder_list)
 public class ReminderListFragment extends Fragment
 {
-    //=====================================ATTRIBUTES=======================================
-
-    //======================================================================================
-
     //=====================================INJECTIONS=======================================
     @FragmentArg("patient")
     Patient patient;
+
     //======================================================================================
 
     //====================================CONSTRUCTORS======================================
@@ -37,9 +33,6 @@ public class ReminderListFragment extends Fragment
     {
         // Required empty public constructor
     }
-    //======================================================================================
-
-    //==================================GETTERS/SETTERS=====================================
 
     //======================================================================================
 
@@ -47,18 +40,24 @@ public class ReminderListFragment extends Fragment
     @AfterViews
     public void onAfterViews()
     {
-        Calendar calendar = Calendar.getInstance();
-
-        calendar.set(Calendar.HOUR_OF_DAY, calendar.get(Calendar.HOUR_OF_DAY));
-        calendar.set(Calendar.MINUTE, (calendar.get(Calendar.MINUTE) + 1));
-        calendar.set(Calendar.SECOND, 0);
-
-        AlarmManager alarmManager = (AlarmManager) this.getActivity().getSystemService(Context.ALARM_SERVICE);
-        Intent myIntent = new Intent(this.getActivity(), AlarmService.class);
-        PendingIntent  pendingIntent = PendingIntent.getBroadcast(this.getActivity(), 0, myIntent, 0);
-        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                SystemClock.elapsedRealtime() + 15* 60 * 1000, pendingIntent);
+        Toast.makeText(this.getContext(), "Implementar serviço de busca dos reminders", Toast.LENGTH_SHORT).show();
     }
+
+    @Click(R.id.fab_add_reminder)
+    public void onFabAddReminderClick()
+    {
+        ReminderFormFragment reminderFormFragment = ReminderFormFragment_.builder()
+                .patient(this.patient)
+                .build();
+
+        this.getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.patientDetailFrame, reminderFormFragment)
+                .addToBackStack("reminderFormFragment")
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .commit();
+    }
+
     //======================================================================================
 
 

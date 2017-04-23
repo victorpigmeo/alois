@@ -67,7 +67,6 @@ public class Patient extends User
 	@OneToOne(optional = true, cascade = CascadeType.ALL)
 	private Point lastLocation;
 	
-	@JsonManagedReference
 	@OneToMany(orphanRemoval=true, fetch=FetchType.LAZY, mappedBy="patient")
 	private List<Reminder> reminders;
 	
@@ -77,6 +76,8 @@ public class Patient extends User
 	
 	@OneToMany(orphanRemoval=true, fetch=FetchType.LAZY, mappedBy="patient")
 	private List<Route> routes;
+	
+	private String notificationToken;
 
 	//======================================================================================
 	
@@ -204,7 +205,14 @@ public class Patient extends User
 	public void setRoutes(List<Route> routes) {
 		this.routes = routes;
 	}
+	
+	public String getNotificationToken() {
+		return notificationToken;
+	}
 
+	public void setNotificationToken(String notificationToken) {
+		this.notificationToken = notificationToken;
+	}
 	//======================================================================================
 
 	//=====================================BEHAVIOUR========================================

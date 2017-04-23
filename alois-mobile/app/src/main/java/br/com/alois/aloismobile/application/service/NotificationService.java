@@ -4,7 +4,6 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 
 import org.androidannotations.annotations.EBean;
-import org.androidannotations.annotations.EService;
 
 /**
  * Created by victor on 4/6/17.
