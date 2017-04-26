@@ -12,6 +12,7 @@ import org.androidannotations.annotations.SystemService;
 
 import java.util.Calendar;
 
+import br.com.alois.aloismobile.ui.view.login.LoginActivity;
 import br.com.alois.domain.entity.reminder.Reminder;
 
 /**
@@ -53,18 +54,18 @@ public class AlarmService
                 break;
         }
 
-        Intent intent = new Intent(this.context, AlarmReceiverService.class);
-        PendingIntent alarmIntent = PendingIntent.getBroadcast(this.context, 0, intent, 0);
+        Intent myIntent = new Intent(this.context, AlarmReceiverService.class);
+        PendingIntent  pendingIntent = PendingIntent.getBroadcast(this.context, 0, myIntent, 0);
 
         if(interval != null)
         {
             this.alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, reminder.getDateTime().getTimeInMillis(),
-                    interval, alarmIntent);
+                    interval, pendingIntent);
             Log.i("ALOIS-REMINDER", "Alois recurrency reminder succesfully scheduled to: " + reminder.getDateTime().getTime());
         }
         else
         {
-            this.alarmManager.set(AlarmManager.RTC_WAKEUP, reminder.getDateTime().getTimeInMillis(), alarmIntent);
+            this.alarmManager.set(AlarmManager.RTC_WAKEUP, reminder.getDateTime().getTimeInMillis(), pendingIntent);
             Log.i("ALOIS-REMINDER", "Alois one-time reminder succesfully scheduled to: " + reminder.getDateTime().getTime());
         }
 
