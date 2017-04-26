@@ -130,5 +130,7 @@
     <string name="recurrency_is_required">Recurrency is a require field</string>
     <string name="you_must_select_a_date_and_time">You must select a date and time to save a reminder</string>
     <string name="once">Only once</string>
+    <string name="loading_patient">Loading Patient...</string>
+    <string name="loading_memories">Loading Memories...</string>
 
 </resources>
