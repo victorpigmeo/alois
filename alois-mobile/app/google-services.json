@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1056938426975",
+    "firebase_url": "https://alois-162416.firebaseio.com",
+    "project_id": "alois-162416",
+    "storage_bucket": "alois-162416.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1056938426975:android:129c757e6049845e",
+        "android_client_info": {
+          "package_name": "br.com.alois.aloismobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1056938426975-k418d62i387dnhu35b8b07sm490r7oa4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtZ9omsM2xvGyAY0tsp-UCuk1Cv1x-sfc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
