@@ -23,6 +23,7 @@ import org.androidannotations.annotations.sharedpreferences.Pref;
 import java.util.List;
 
 import br.com.alois.aloismobile.R;
+import br.com.alois.aloismobile.application.api.memory.MemoryTasks;
 import br.com.alois.aloismobile.application.api.patient.PatientTasks;
 import br.com.alois.aloismobile.application.preference.GeneralPreferences_;
 import br.com.alois.aloismobile.application.service.LastLocationService;
@@ -56,9 +57,14 @@ public class PatientHomeActivity extends AppCompatActivity
     @Bean
     PatientTasks patientTasks;
 
+    @NonConfigurationInstance
+    @Bean
+    MemoryTasks memoryTasks;
+
     //======================================================================================
 
     //=====================================BEHAVIOUR========================================
+    @SuppressWarnings("WrongConstant")
     @AfterViews
     public void onAfterViews()
     {
@@ -84,6 +90,18 @@ public class PatientHomeActivity extends AppCompatActivity
         );
 
         this.patientTasks.findById(patientId);
+    }
+
+    public void getMemoriesByPatientId(Long patientId)
+    {
+        this.progressDialog = ProgressDialog.show(this,
+                super.getString(R.string.loading_patients),
+                super.getString(R.string.please_wait),
+                true,//is indeterminate
+                false//is cancelable
+        );
+
+        this.memoryTasks.getMemoryList(patientId);
     }
 
     @Override

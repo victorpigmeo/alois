@@ -5,6 +5,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,8 @@ import br.com.alois.aloismobile.R;
 import br.com.alois.aloismobile.application.api.patient.PatientTasks;
 import br.com.alois.aloismobile.ui.view.home.PatientHomeActivity;
 import br.com.alois.aloismobile.ui.view.home.adapter.PatientListAdapter;
+import br.com.alois.aloismobile.ui.view.memory.fragment.MemoryListFragment;
+import br.com.alois.aloismobile.ui.view.memory.fragment.MemoryListFragment_;
 import br.com.alois.aloismobile.ui.view.patient.fragment.PatientFormFragment;
 import br.com.alois.aloismobile.ui.view.patient.fragment.PatientFormFragment_;
 import br.com.alois.domain.entity.user.Patient;
@@ -73,6 +76,8 @@ public class PatientHomeFragment extends Fragment
 
     private Patient patient;
 
+    public MemoryListFragment memoryListFragment;
+
     //======================================================================================
 
     //=====================================INJECTIONS=======================================
@@ -100,6 +105,19 @@ public class PatientHomeFragment extends Fragment
             this.patientDetailEmergencyPhone.setText(this.patient.getEmergencyPhone());
             this.patientDetailNote.setText(this.patient.getNote());
         }
+    }
+
+    @Click(R.id.buttonMyMemories)
+    public void onClickButtonMyMemories()
+    {
+        this.memoryListFragment = MemoryListFragment_.builder().patient(patient).build();
+
+        this.getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.patient_home_frame_layout, memoryListFragment)
+                .addToBackStack("memory_list_fragment")
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .commit();
     }
     //======================================================================================
 
