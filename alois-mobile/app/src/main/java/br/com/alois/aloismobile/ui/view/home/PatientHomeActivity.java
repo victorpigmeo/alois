@@ -107,7 +107,7 @@ public class PatientHomeActivity extends AppCompatActivity
     public void getPatient(Long patientId)
     {
         this.progressDialog = ProgressDialog.show(this,
-                super.getString(R.string.loading_patients),
+                super.getString(R.string.loading_patient),
                 super.getString(R.string.please_wait),
                 true,//is indeterminate
                 false//is cancelable
@@ -119,7 +119,7 @@ public class PatientHomeActivity extends AppCompatActivity
     public void getMemoriesByPatientId(Long patientId)
     {
         this.progressDialog = ProgressDialog.show(this,
-                super.getString(R.string.loading_patients),
+                super.getString(R.string.loading_memories),
                 super.getString(R.string.please_wait),
                 true,//is indeterminate
                 false//is cancelable
