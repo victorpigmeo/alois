@@ -2,6 +2,9 @@
 # Created by https://www.gitignore.io/api/android,java,eclipse,maven,gradle
 
 ### Android ###
+#Server Configuration#
+alois-mobile/app/src/main/java/br/com/alois/aloismobile/application/preference/ServerConfiguration.java 
+
 # Built application files
 *.apk
 *.ap_
@@ -38,6 +41,7 @@ captures/
 
 # Intellij
 *.iml
+.idea/*
 .idea/workspace.xml
 .idea/tasks.xml
 .idea/gradle.xml
