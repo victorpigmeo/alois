@@ -1,5 +1,7 @@
 package br.com.alois.solution.domain.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,32 +27,32 @@ public class ReminderService {
 	
 	//======================================================================================
 
+
+	//=====================================BEHAVIOUR========================================
 	public Reminder insertReminder(Reminder reminder) {
 		return this.reminderRepository.save(reminder);
 	}
 
-	public Reminder sendRequest(Reminder reminder) {
-		System.out.println(reminder.getPatient().getNotificationToken());
+	public void sendRequest(Reminder reminder) {
 		ObjectMapper objectMapper = new ObjectMapper();
 		
 		try{
 			String jsonReminder = objectMapper.writeValueAsString(reminder);
 			String notification = new ReminderNotification().setData(jsonReminder).toJson( reminder.getPatient().getNotificationToken() );
-			System.out.println(notification);
+			
 			NotificationClient notificationClient = Feign.builder()
 					.target(NotificationClient.class, NotificationServerConfiguration.API_ENDPOINT);
 			
-			String result = notificationClient.sendNotification(notification, NotificationServerConfiguration.FIREBASE_TOKEN);
-			System.out.println(result);
+			notificationClient.sendNotification(notification, NotificationServerConfiguration.FIREBASE_TOKEN);
 		}catch(JsonProcessingException e)
 		{
 			e.printStackTrace();
 		}
-		return null;
 	}
-
-	//=====================================BEHAVIOUR========================================
-
 	//======================================================================================
+
+	public List<Reminder> listReminderByPatientId(Long patientId) {
+		return this.reminderRepository.listReminderByPatientId(patientId);
+	}
 
 }

@@ -95,7 +95,6 @@ public class LoginTasks
                     .put(authToken)
                     .apply();
 
-
             Intent homeIntent = null;
             switch(user.getUserType())
             {
@@ -135,7 +134,7 @@ public class LoginTasks
         try
         {
             caregiverClient.updateNotificationToken(this.notificationService.getToken(), caregiverId, this.generalPreferences.loggedUserAuthToken().get());
-            Log.i("INFO", this.loginActivity.getResources().getString(R.string.success_update_notification_token));
+            Log.i("ALOIS-INFO", this.loginActivity.getResources().getString(R.string.success_update_notification_token));
         }
         catch(FeignException e)
         {

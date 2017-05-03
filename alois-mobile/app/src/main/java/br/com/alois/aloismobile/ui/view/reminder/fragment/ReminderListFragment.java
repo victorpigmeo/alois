@@ -13,7 +13,11 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
 
+import java.util.List;
+
 import br.com.alois.aloismobile.R;
+import br.com.alois.aloismobile.ui.view.patient.PatientDetailActivity;
+import br.com.alois.domain.entity.reminder.Reminder;
 import br.com.alois.domain.entity.user.Patient;
 
 /**
@@ -40,7 +44,7 @@ public class ReminderListFragment extends Fragment
     @AfterViews
     public void onAfterViews()
     {
-        Toast.makeText(this.getContext(), "Implementar serviço de busca dos reminders", Toast.LENGTH_SHORT).show();
+        ((PatientDetailActivity) this.getActivity()).listRemindersByPatientId(this.patient.getId());
     }
 
     @Click(R.id.fab_add_reminder)
@@ -56,6 +60,11 @@ public class ReminderListFragment extends Fragment
                 .addToBackStack("reminderFormFragment")
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .commit();
+    }
+
+    public void setReminderList(List<Reminder> reminders)
+    {
+
     }
 
     //======================================================================================

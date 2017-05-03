@@ -132,5 +132,6 @@
     <string name="once">Only once</string>
     <string name="loading_patient">Loading Patient...</string>
     <string name="loading_memories">Loading Memories...</string>
+    <string name="processingReminder">Processing reminder, it will be available after processed</string>
 
 </resources>

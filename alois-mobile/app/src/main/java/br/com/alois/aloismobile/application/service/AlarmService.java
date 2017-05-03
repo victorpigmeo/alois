@@ -6,24 +6,34 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
-import org.androidannotations.annotations.SystemService;
+import org.androidannotations.annotations.sharedpreferences.Pref;
 
-import java.util.Calendar;
-
-import br.com.alois.aloismobile.ui.view.login.LoginActivity;
+import br.com.alois.aloismobile.application.api.reminder.ReminderClient;
+import br.com.alois.aloismobile.application.preference.GeneralPreferences_;
+import br.com.alois.aloismobile.application.preference.ServerConfiguration;
+import br.com.alois.aloismobile.ui.view.patient.PatientDetailActivity;
+import br.com.alois.api.jackson.JacksonDecoder;
+import br.com.alois.api.jackson.JacksonEncoder;
 import br.com.alois.domain.entity.reminder.Reminder;
+import feign.Feign;
+import feign.FeignException;
 
 /**
  * Created by victor on 4/23/17.
  */
+@EBean
 public class AlarmService
 {
     //=====================================ATTRIBUTES=======================================
     private final Context context;
 
     private AlarmManager alarmManager;
+
+    @Pref
+    GeneralPreferences_ generalPreferences;
 
     //====================================CONSTRUCTORS======================================
     public AlarmService(Context context)
@@ -38,6 +48,7 @@ public class AlarmService
     //======================================================================================
 
     //=====================================BEHAVIOUR========================================
+    @Background
     public void scheduleReminder(Reminder reminder)
     {
         Long interval = null;
@@ -65,8 +76,21 @@ public class AlarmService
         }
         else
         {
-            this.alarmManager.set(AlarmManager.RTC_WAKEUP, reminder.getDateTime().getTimeInMillis(), pendingIntent);
-            Log.i("ALOIS-REMINDER", "Alois one-time reminder succesfully scheduled to: " + reminder.getDateTime().getTime());
+            ReminderClient reminderClient = Feign.builder()
+                    .encoder(new JacksonEncoder())
+                    .decoder(new JacksonDecoder())
+                    .target(ReminderClient.class, ServerConfiguration.API_ENDPOINT);
+
+            try
+            {
+                reminderClient.addReminder(reminder, ServerConfiguration.LOGGED_USER_AUTH_TOKEN);
+                this.alarmManager.set(AlarmManager.RTC_WAKEUP, reminder.getDateTime().getTimeInMillis(), pendingIntent);
+                Log.i("ALOIS-REMINDER", "Alois one-time reminder succesfully scheduled to: " + reminder.getDateTime().getTime());
+            }
+            catch (FeignException e )
+            {
+                e.printStackTrace();
+            }
         }
 
     }

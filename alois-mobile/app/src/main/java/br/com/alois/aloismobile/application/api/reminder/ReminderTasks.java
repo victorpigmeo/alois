@@ -1,10 +1,16 @@
 package br.com.alois.aloismobile.application.api.reminder;
 
+import android.widget.Toast;
+
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
+import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
+import java.util.List;
+
+import br.com.alois.aloismobile.R;
 import br.com.alois.aloismobile.application.preference.GeneralPreferences_;
 import br.com.alois.aloismobile.application.preference.ServerConfiguration;
 import br.com.alois.aloismobile.ui.view.patient.PatientDetailActivity;
@@ -52,9 +58,38 @@ public class ReminderTasks
         }
     }
 
-    private void addReminderHandleSuccess(Reminder reminder)
+    @UiThread
+    public void addReminderHandleSuccess(Reminder reminder)
     {
-        System.out.println(reminder);
+        this.patientDetailActivity.progressDialog.dismiss();
+
+        Toast.makeText(this.patientDetailActivity.getApplicationContext(), this.patientDetailActivity.getResources().getString(R.string.processingReminder), Toast.LENGTH_SHORT).show();
+
+        this.patientDetailActivity.getSupportFragmentManager().popBackStack();
+    }
+
+    @Background
+    public void listRemindersByPatientId(Long patientId)
+    {
+        ReminderClient reminderClient = Feign.builder()
+                .encoder(new JacksonEncoder())
+                .decoder(new JacksonDecoder())
+                .target(ReminderClient.class, ServerConfiguration.API_ENDPOINT);
+
+        try
+        {
+            listRemindersByPatientIdHandleSuccess( reminderClient.listRemindersByPatientId( patientId, this.generalPreferences.loggedUserAuthToken().get() ) );
+        }
+        catch(FeignException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    @UiThread
+    public void listRemindersByPatientIdHandleSuccess(List<Reminder> reminders)
+    {
+        this.patientDetailActivity.setReminderList( reminders );
     }
     //======================================================================================
 

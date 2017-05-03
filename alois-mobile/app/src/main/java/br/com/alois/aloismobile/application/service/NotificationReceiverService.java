@@ -23,17 +23,18 @@ public class NotificationReceiverService extends FirebaseMessagingService
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage)
     {
-        Uri alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        Ringtone ringtone = RingtoneManager.getRingtone(this.getApplicationContext(), alarmUri);
-        ringtone.play();
-
         if(remoteMessage.getData().get("type") != null)
         {
+
             String type = remoteMessage.getData().get("type");
 
             switch (type)
             {
                 case "PATIENT_OUT_OF_ROUTE":
+                    Uri alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                    Ringtone ringtone = RingtoneManager.getRingtone(this.getApplicationContext(), alarmUri);
+                    ringtone.play();
+
                     NotificationCompat.Builder notification = new NotificationCompat.Builder(this.getApplicationContext())
                             .setSmallIcon(R.drawable.common_google_signin_btn_icon_dark)
                             .setContentTitle(this.getResources().getString(R.string.alois))

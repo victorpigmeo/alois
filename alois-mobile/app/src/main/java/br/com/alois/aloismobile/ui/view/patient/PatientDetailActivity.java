@@ -19,6 +19,7 @@ import org.androidannotations.annotations.OptionsMenu;
 import java.util.List;
 
 import br.com.alois.aloismobile.R;
+import br.com.alois.aloismobile.application.api.reminder.ReminderTasks;
 import br.com.alois.aloismobile.application.api.route.RouteTasks;
 import br.com.alois.aloismobile.ui.view.patient.fragment.PatientDetailFragment;
 import br.com.alois.aloismobile.ui.view.patient.fragment.PatientDetailFragment_;
@@ -27,6 +28,7 @@ import br.com.alois.aloismobile.ui.view.reminder.fragment.ReminderListFragment_;
 import br.com.alois.aloismobile.ui.view.route.fragment.RouteFormFragment;
 import br.com.alois.aloismobile.ui.view.route.fragment.RouteListFragment;
 import br.com.alois.aloismobile.ui.view.route.fragment.RouteListFragment_;
+import br.com.alois.domain.entity.reminder.Reminder;
 import br.com.alois.domain.entity.route.Route;
 import br.com.alois.domain.entity.route.Step;
 import br.com.alois.domain.entity.user.Patient;
@@ -54,7 +56,10 @@ public class PatientDetailActivity extends AppCompatActivity
     @Bean
     RouteTasks routeTasks;
 
-    private RouteFormFragment routeFormFragment;
+    @NonConfigurationInstance
+    @Bean
+    ReminderTasks reminderTasks;
+
     //======================================================================================
 
     //====================================CONSTRUCTORS======================================
@@ -234,6 +239,36 @@ public class PatientDetailActivity extends AppCompatActivity
         {
             finish();
         }
+    }
+
+    public void addReminderRequest(Reminder reminder)
+    {
+        this.progressDialog = ProgressDialog.show(this,
+                this.getResources().getString(R.string.deleting_route),
+                this.getResources().getString(R.string.please_wait),
+                true,
+                false
+        );
+
+        this.reminderTasks.addReminder( reminder );
+
+    }
+
+    public void setReminderList(List<Reminder> reminders)
+    {
+        this.reminderListFragment.setReminderList( reminders );
+    }
+
+    public void listRemindersByPatientId(Long patientId)
+    {
+        this.progressDialog = ProgressDialog.show(this,
+                this.getResources().getString(R.string.deleting_route),
+                this.getResources().getString(R.string.please_wait),
+                true,
+                false
+        );
+
+        this.reminderTasks.listRemindersByPatientId( patientId );
     }
     //======================================================================================
 }

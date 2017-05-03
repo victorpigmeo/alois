@@ -21,6 +21,7 @@ import br.com.alois.aloismobile.R;
 import br.com.alois.aloismobile.application.api.login.LoginTasks;
 import br.com.alois.aloismobile.application.api.signup.SignupTasks;
 import br.com.alois.aloismobile.application.preference.GeneralPreferences_;
+import br.com.alois.aloismobile.application.preference.ServerConfiguration;
 import br.com.alois.aloismobile.ui.view.home.AdministratorHomeActivity_;
 import br.com.alois.aloismobile.ui.view.home.CaregiverHomeActivity_;
 import br.com.alois.aloismobile.ui.view.home.PatientHomeActivity_;
@@ -64,7 +65,8 @@ public class LoginActivity extends AppCompatActivity
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         }
 
-        if(!this.generalPreferences.loggedUsername().exists()){
+        if(!this.generalPreferences.loggedUsername().exists())
+        {
             LoginFragment loginFragment = LoginFragment_.builder().build();
 
             super.getSupportFragmentManager()
@@ -73,9 +75,14 @@ public class LoginActivity extends AppCompatActivity
                     .addToBackStack("loginFragment")
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .commit();
-        }else{
+        }
+        else
+        {
+            ServerConfiguration.LOGGED_USER_AUTH_TOKEN = this.generalPreferences.loggedUserAuthToken().get();
+
             Intent homeIntent = null;
             int userType = this.generalPreferences.loggedUserType().get().intValue();
+
             switch(UserType.values()[userType])
             {
                 case ADMINISTRATOR:
@@ -100,13 +107,16 @@ public class LoginActivity extends AppCompatActivity
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
         super.onActivityResult(requestCode, resultCode, data);
-        if(data.getStringExtra("action").equals("logoff")) {
+        if(data.getStringExtra("action").equals("logoff"))
+        {
             //User logged off
 
             //clear the backstack
-            for(int i = 0; i < this.getSupportFragmentManager().getBackStackEntryCount(); i++){
+            for(int i = 0; i < this.getSupportFragmentManager().getBackStackEntryCount(); i++)
+            {
                 this.getSupportFragmentManager().popBackStack();
             }
 
@@ -118,7 +128,9 @@ public class LoginActivity extends AppCompatActivity
                     .addToBackStack("loginFragment")
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .commit();
-        }else{
+        }
+        else
+        {
             this.finish();
         }
     }

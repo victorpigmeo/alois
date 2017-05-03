@@ -10,7 +10,7 @@ public class ServerConfiguration
     /**
      * Server address
      */
-    public static final String SERVER_ADDRESS = "192.168.20.137:8090";
+    public static final String SERVER_ADDRESS = "192.168.20.173:8090";
 //    public static final String SERVER_ADDRESS = "victorcarvalho.duckdns.org:8090";
     /**
      *
@@ -24,5 +24,9 @@ public class ServerConfiguration
      *
      */
     public static final String API_ENDPOINT = HTTP_HOST + API_CONTEXT;
+    /**
+     *
+     */
+    public static String LOGGED_USER_AUTH_TOKEN = "";
 
 }

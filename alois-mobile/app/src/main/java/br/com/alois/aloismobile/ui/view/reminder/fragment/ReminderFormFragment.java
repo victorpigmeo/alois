@@ -24,10 +24,13 @@ import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import br.com.alois.aloismobile.R;
 import br.com.alois.aloismobile.application.api.reminder.ReminderTasks;
+import br.com.alois.aloismobile.ui.view.patient.PatientDetailActivity;
 import br.com.alois.domain.entity.reminder.Frequency;
 import br.com.alois.domain.entity.reminder.Reminder;
 import br.com.alois.domain.entity.user.Patient;
@@ -71,8 +74,6 @@ public class ReminderFormFragment extends Fragment implements
     @FragmentArg("patient")
     Patient patient;
 
-    @Bean
-    ReminderTasks reminderTasks;
     //======================================================================================
 
     //====================================CONSTRUCTORS======================================
@@ -157,10 +158,12 @@ public class ReminderFormFragment extends Fragment implements
         this.reminderTime = Calendar.getInstance();
         this.reminderTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
         this.reminderTime.set(Calendar.MINUTE, minute);
+        this.reminderTime.set(Calendar.SECOND, 0);
+        this.reminderTime.set(Calendar.MILLISECOND, 0);
 
         if(this.reminderFormDateView.getText() != null && !this.reminderFormDateView.getText().equals(""))
         {
-            this.reminderFormDateView.setText(this.reminderFormDateView.getText().toString()+" "+hourOfDay+":"+minute);
+            this.reminderFormDateView.setText(this.reminderFormDateView.getText().toString().split(" ")[0]+" "+hourOfDay+":"+minute);
         }
         else
         {
@@ -185,11 +188,12 @@ public class ReminderFormFragment extends Fragment implements
         reminderDateTime.set(Calendar.DAY_OF_MONTH, this.reminderDate.get(Calendar.DAY_OF_MONTH));
 
         reminderDateTime.set(Calendar.HOUR_OF_DAY, this.reminderTime.get(Calendar.HOUR_OF_DAY));
-        reminderDateTime.set(Calendar.MINUTE, this.reminderDate.get(Calendar.MINUTE));
+        reminderDateTime.set(Calendar.MINUTE, this.reminderTime.get(Calendar.MINUTE));
+        reminderDateTime.set(Calendar.SECOND, 0);
 
-        reminder.setDateTime(reminderDateTime);
+        reminder.setDateTime( reminderDateTime );
 
-        this.reminderTasks.addReminder( reminder );
+        ((PatientDetailActivity) this.getActivity()).addReminderRequest( reminder );
     }
 
     @Override
