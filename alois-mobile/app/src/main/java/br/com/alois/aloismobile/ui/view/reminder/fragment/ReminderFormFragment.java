@@ -193,7 +193,7 @@ public class ReminderFormFragment extends Fragment implements
 
         reminder.setDateTime( reminderDateTime );
 
-        ((PatientDetailActivity) this.getActivity()).addReminderRequest( reminder );
+        ((PatientDetailActivity) this.getActivity()).addPendingReminder( reminder );
     }
 
     @Override

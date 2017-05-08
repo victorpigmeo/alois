@@ -27,6 +27,8 @@ public class NotificationReceiverService extends FirebaseMessagingService
         {
 
             String type = remoteMessage.getData().get("type");
+            AlarmService alarmService = new AlarmService( this.getApplicationContext() );
+            ObjectMapper objectMapper = new ObjectMapper();
 
             switch (type)
             {
@@ -44,9 +46,6 @@ public class NotificationReceiverService extends FirebaseMessagingService
                     notificationManager.notify("PatientOutOfRoute", 0, notification.build());
                     break;
                 case "ADD_REMINDER_REQUEST":
-                    AlarmService alarmService = new AlarmService( this.getApplicationContext() );
-
-                    ObjectMapper objectMapper = new ObjectMapper();
                     try
                     {
                         Reminder reminder = objectMapper.readValue(remoteMessage.getData().get("reminder"), Reminder.class);
@@ -57,7 +56,23 @@ public class NotificationReceiverService extends FirebaseMessagingService
                         e.printStackTrace();
                     }
                     break;
+                case "DELETE_REMINDER_REQUEST":
+                    try
+                    {
+                        Reminder reminder = objectMapper.readValue(remoteMessage.getData().get("reminder"), Reminder.class);
+                        alarmService.deleteReminder( reminder );
+                    }
+                    catch (IOException e)
+                    {
+                        e.printStackTrace();
+                    }
+
+                    break;
             }
+        }
+        else
+        {
+            System.out.println(remoteMessage);
         }
 
     }

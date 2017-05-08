@@ -1,7 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:descendantFocusability="blocksDescendants"
+    android:padding="@dimen/pad_5">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ListRow"
+        android:layout_centerVertical="true"
+        android:id="@+id/reminderListRowName"/>
 
-</LinearLayout>
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="end"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_error_outline_black_24dp"
+        android:id="@+id/reminderListRowSign"
+        style="@style/Base.Widget.AppCompat.ActionButton"
+        android:layout_toLeftOf="@+id/reminderListRowPopUpMenu"/>
+
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="end"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_more_vert_black_24dp"
+        android:id="@+id/reminderListRowPopUpMenu"
+        style="@style/Base.Widget.AppCompat.ActionButton"
+        android:layout_alignParentEnd="true"/>
+</RelativeLayout>

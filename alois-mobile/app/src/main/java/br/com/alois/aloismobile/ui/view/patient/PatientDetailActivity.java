@@ -241,7 +241,7 @@ public class PatientDetailActivity extends AppCompatActivity
         }
     }
 
-    public void addReminderRequest(Reminder reminder)
+    public void addPendingReminder(Reminder reminder)
     {
         this.progressDialog = ProgressDialog.show(this,
                 this.getResources().getString(R.string.deleting_route),
@@ -250,7 +250,7 @@ public class PatientDetailActivity extends AppCompatActivity
                 false
         );
 
-        this.reminderTasks.addReminder( reminder );
+        this.reminderTasks.addPendingReminder( reminder );
 
     }
 
@@ -269,6 +269,23 @@ public class PatientDetailActivity extends AppCompatActivity
         );
 
         this.reminderTasks.listRemindersByPatientId( patientId );
+    }
+
+    public void deleteReminder(Reminder reminder)
+    {
+        this.progressDialog = ProgressDialog.show(this,
+                this.getResources().getString(R.string.deleting_route),
+                this.getResources().getString(R.string.please_wait),
+                true,
+                false
+        );
+
+        this.reminderTasks.deleteReminderRequest( reminder );
+    }
+
+    public void onDeleteReminder(Reminder reminder)
+    {
+        this.reminderListFragment.onDeleteReminder(reminder);
     }
     //======================================================================================
 }

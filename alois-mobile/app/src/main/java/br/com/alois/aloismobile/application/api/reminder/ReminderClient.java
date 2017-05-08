@@ -13,15 +13,19 @@ import feign.RequestLine;
 
 public interface ReminderClient
 {
-    @RequestLine("POST /reminder/insert")
-    @Headers({"Content-Type: application/json", "Authorization: Basic {basicAuthToken}"})
-    Reminder addReminder(Reminder reminder, @Param("basicAuthToken") String basicAuthToken);
-
     @RequestLine("POST /reminder/sendRequest")
-    @Headers({"Csontent-Type: application/json", "Authorization: Basic {basicAuthToken}"})
-    Reminder sendRequest(Reminder reminder, @Param("basicAuthToken") String basicAuthToken);
+    @Headers({"Content-Type: application/json", "Authorization: Basic {basicAuthToken}"})
+    Reminder addPendingReminder(Reminder reminder, @Param("basicAuthToken") String basicAuthToken);
 
-    @RequestLine("POST /reminder/listReminderByPatientId")
-    @Headers({"Csontent-Type: application/json", "Authorization: Basic {basicAuthToken}"})
-    List<Reminder> listRemindersByPatientId(Long patientId, String userAuthToken);
+    @RequestLine("GET /reminder/listReminderByPatientId/{patientId}")
+    @Headers({"Content-Type: application/json", "Authorization: Basic {basicAuthToken}"})
+    List<Reminder> listRemindersByPatientId(@Param("patientId") Long patientId, @Param("basicAuthToken") String userAuthToken);
+
+    @RequestLine("POST /reminder/update")
+    @Headers({"Content-Type: application/json", "Authorization: Basic {basicAuthToken}"})
+    Reminder updateReminder(Reminder reminder, @Param("basicAuthToken") String loggedUserAuthToken);
+
+    @RequestLine("POST /reminder/deleteRequest/{reminderId}")
+    @Headers({"Content-Type: application/json", "Authorization: Basic {basicAuthToken}"})
+    void deleteReminderRequest(@Param("reminderId") Long reminder, @Param("basicAuthToken") String userAuthToken);
 }

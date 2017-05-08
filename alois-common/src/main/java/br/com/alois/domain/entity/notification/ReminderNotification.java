@@ -10,11 +10,11 @@ public class ReminderNotification
 		return this;
 	}
 	
-	public String toJson( String deviceToken)
+	public String toJson( String deviceToken, String type)
 	{
 		return "{\"to\" : \""+deviceToken+"\","
 				+ "\"data\" : {"
-					+ "\"type\": \"ADD_REMINDER_REQUEST\","
+					+ "\"type\": \""+type+"\","
 					+ "\"reminder\": "+this.data
 				+ "}"
 			+ "}";

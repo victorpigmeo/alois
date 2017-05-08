@@ -2,9 +2,8 @@ package br.com.alois.solution.api;
 
 import java.util.List;
 
-import javax.websocket.server.PathParam;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,14 +31,26 @@ public class ReminderController {
 		return this.reminderService.insertReminder(reminder);
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, value = "/sendRequest")
-	public void sendRequest(@RequestBody Reminder reminder)
+	@RequestMapping(method = RequestMethod.POST, value = "/update")
+	public Reminder updateReminder(@RequestBody Reminder reminder)
 	{
-		this.reminderService.sendRequest(reminder);
+		return this.reminderService.updateReminder(reminder);
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/sendRequest")
+	public Reminder sendRequest(@RequestBody Reminder reminder)
+	{
+		return this.reminderService.sendRequest(reminder);
+	}
+
+	@RequestMapping(method = RequestMethod.POST, value = "/deleteRequest/{reminderId}")
+	public void deleteRequest(@PathVariable Long reminderId)
+	{
+		this.reminderService.deleteRequest(reminderId);
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/listReminderByPatientId/{patientId}")
-	public List<Reminder> listReminderByPatientId(@PathParam("patientId") Long patientId)
+	public List<Reminder> listReminderByPatientId(@PathVariable("patientId") Long patientId)
 	{
 		return this.reminderService.listReminderByPatientId(patientId);
 	}

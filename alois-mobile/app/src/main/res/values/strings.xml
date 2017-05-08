@@ -123,8 +123,6 @@
     <string name="recurrency">Recurrency</string>
     <string name="reminder_title_is_required">Reminder title is required</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="reminder_description">Description</string>
     <string name="reminder_date_time"><![CDATA[Date & Time]]></string>
     <string name="recurrency_is_required">Recurrency is a require field</string>
@@ -133,5 +131,9 @@
     <string name="loading_patient">Loading Patient...</string>
     <string name="loading_memories">Loading Memories...</string>
     <string name="processingReminder">Processing reminder, it will be available after processed</string>
+    <string name="edit_reminder">Edit Reminder</string>
+    <string name="delete_reminder">Delete Reminder</string>
+    <string name="reminder_pending">This reminder is pending, it is not in the patient device yet</string>
+    <string name="reminder_inactive">This reminder is inactive, it does not rings at patient device</string>
 
 </resources>

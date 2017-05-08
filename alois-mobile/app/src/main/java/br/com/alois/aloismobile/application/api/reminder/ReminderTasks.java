@@ -37,7 +37,7 @@ public class ReminderTasks
 
     //=====================================BEHAVIOUR========================================
     @Background
-    public void addReminder(Reminder reminder)
+    public void addPendingReminder(Reminder reminder)
     {
         ReminderClient reminderClient = Feign.builder()
                 .encoder(new JacksonEncoder())
@@ -50,7 +50,7 @@ public class ReminderTasks
 
         try
         {
-            addReminderHandleSuccess( reminderClient.sendRequest( reminder, this.generalPreferences.loggedUserAuthToken().get() ) );
+            addPendingReminderHandleSuccess( reminderClient.addPendingReminder( reminder, this.generalPreferences.loggedUserAuthToken().get() ) );
         }
         catch(FeignException e)
         {
@@ -59,7 +59,7 @@ public class ReminderTasks
     }
 
     @UiThread
-    public void addReminderHandleSuccess(Reminder reminder)
+    public void addPendingReminderHandleSuccess(Reminder reminder)
     {
         this.patientDetailActivity.progressDialog.dismiss();
 
@@ -90,6 +90,33 @@ public class ReminderTasks
     public void listRemindersByPatientIdHandleSuccess(List<Reminder> reminders)
     {
         this.patientDetailActivity.setReminderList( reminders );
+        this.patientDetailActivity.progressDialog.dismiss();
+    }
+
+    @Background
+    public void deleteReminderRequest( Reminder reminder )
+    {
+        ReminderClient reminderClient = Feign.builder()
+                .encoder(new JacksonEncoder())
+                .decoder(new JacksonDecoder())
+                .target(ReminderClient.class, ServerConfiguration.API_ENDPOINT);
+
+        try
+        {
+            reminderClient.deleteReminderRequest(reminder.getId(), this.generalPreferences.loggedUserAuthToken().get());
+            deleteReminderRequestHandleSuccess( reminder );
+        }
+        catch (FeignException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    @UiThread
+    public void deleteReminderRequestHandleSuccess( Reminder reminder )
+    {
+        this.patientDetailActivity.progressDialog.dismiss();
+        this.patientDetailActivity.onDeleteReminder(reminder);
     }
     //======================================================================================
 

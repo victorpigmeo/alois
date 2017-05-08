@@ -18,6 +18,9 @@ public class AlarmReceiverService extends WakefulBroadcastReceiver
     public void onReceive(Context context, Intent intent)
     {
         Log.i("ALOIS-REMINDER", "Alois reminder ringing");
+
+        System.out.println(intent.getExtras().get("reminder"));
+
         Uri alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
         Ringtone ringtone = RingtoneManager.getRingtone(context, alarmUri);
         ringtone.play();

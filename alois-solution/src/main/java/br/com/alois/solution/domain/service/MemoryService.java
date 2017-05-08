@@ -2,11 +2,8 @@ package br.com.alois.solution.domain.service;
 
 import java.util.List;
 
-import javax.validation.ConstraintViolationException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 
 import br.com.alois.domain.entity.memory.Memory;
 import br.com.alois.solution.domain.repository.IMemoryRepository;

@@ -11,6 +11,7 @@ import org.androidannotations.annotations.RootContext;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.alois.aloismobile.R;
 import br.com.alois.aloismobile.ui.view.reminder.adapter.row.ReminderListRow;
 import br.com.alois.aloismobile.ui.view.reminder.adapter.row.ReminderListRow_;
 import br.com.alois.domain.entity.reminder.Reminder;
@@ -60,5 +61,17 @@ public class ReminderListAdapter extends BaseAdapter
         reminderListRow.bind(this.reminders.get(position), this.context);
 
         return reminderListRow;
+    }
+
+    public void setReminders(List<Reminder> reminders)
+    {
+        this.reminders = reminders;
+        this.notifyDataSetChanged();
+    }
+
+    public void onDeleteReminder(Reminder reminder)
+    {
+        this.reminders.remove(reminder);
+        this.notifyDataSetChanged();
     }
 }

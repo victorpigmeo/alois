@@ -10,7 +10,7 @@ public class ServerConfiguration
     /**
      * Server address
      */
-    public static final String SERVER_ADDRESS = "192.168.20.173:8090";
+    public static final String SERVER_ADDRESS = "192.168.20.65:8090";
 //    public static final String SERVER_ADDRESS = "victorcarvalho.duckdns.org:8090";
     /**
      *
