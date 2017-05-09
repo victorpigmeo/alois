@@ -1,5 +1,7 @@
 package br.com.alois.aloismobile.application.preference;
 
+import android.content.Intent;
+
 /**
  * Created by victor on 2/27/17.
  * Class containing the server configurations

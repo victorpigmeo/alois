@@ -2,6 +2,8 @@ package br.com.alois.aloismobile.application.preference;
 
 import org.androidannotations.annotations.sharedpreferences.SharedPref;
 
+import java.util.List;
+
 /**
  * Created by victor on 3/4/17.
  */
@@ -45,5 +47,9 @@ public interface GeneralPreferences
      */
     String loggedUserAuthToken();
 
+    /**
+     * Stores the json with the user alarm ids
+     */
+    String alarmIds();
     //End User Info
 }

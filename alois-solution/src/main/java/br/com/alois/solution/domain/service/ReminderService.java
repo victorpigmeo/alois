@@ -18,7 +18,8 @@ import br.com.alois.solution.domain.repository.IReminderRepository;
 import feign.Feign;
 
 @Service
-public class ReminderService {
+public class ReminderService 
+{
 	//=====================================ATTRIBUTES=======================================
 
 	//======================================================================================
@@ -31,7 +32,8 @@ public class ReminderService {
 
 
 	//=====================================BEHAVIOUR========================================
-	public Reminder insertReminder(Reminder reminder) {
+	public Reminder insertReminder(Reminder reminder) 
+	{
 		return this.reminderRepository.save(reminder);
 	}
 
@@ -70,11 +72,13 @@ public class ReminderService {
 	}
 	
 	
-	public List<Reminder> listReminderByPatientId(Long patientId) {
+	public List<Reminder> listReminderByPatientId(Long patientId) 
+	{
 		return this.reminderRepository.listReminderByPatientId(patientId);
 	}
 	
-	public void deleteRequest(Long reminderId) {
+	public void deleteRequest(Long reminderId) 
+	{
 		Assert.notNull(reminderId, "Reminder id null");
 		
 		Reminder reminder = this.reminderRepository.findOne( reminderId );
@@ -85,7 +89,8 @@ public class ReminderService {
 		
 		ObjectMapper objectMapper = new ObjectMapper();
 		
-		try{
+		try
+		{
 			String patientNotificationToken = reminder.getPatient().getNotificationToken();
 			//Setando patient null pois não é necessário e se deixar excede o tamanho maximo do firebase
 			reminder.setPatient(null);
