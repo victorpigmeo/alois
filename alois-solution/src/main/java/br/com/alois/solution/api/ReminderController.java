@@ -3,6 +3,7 @@ package br.com.alois.solution.api;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.alois.domain.entity.reminder.Reminder;
+import br.com.alois.domain.entity.reminder.ReminderStatus;
 import br.com.alois.solution.domain.service.ReminderService;
 
 @RestController
@@ -47,6 +49,14 @@ public class ReminderController {
 	public void deleteRequest(@PathVariable Long reminderId)
 	{
 		this.reminderService.deleteRequest(reminderId);
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/delete")
+	public void deleteReminder(@RequestBody Reminder reminder)
+	{
+		Assert.isTrue( reminder.getReminderStatus().equals( ReminderStatus.PENDING_DELETE ), "Esse reminder não está marcado para remoção" );
+		
+		this.reminderService.deleteReminder(reminder);
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/listReminderByPatientId/{patientId}")

@@ -45,11 +45,6 @@ public class AlarmService
 
     private AlarmManager alarmManager;
 
-    @Pref
-    GeneralPreferences_ generalPreferences;
-
-    private ObjectMapper objectMapper = new ObjectMapper();
-
     //====================================CONSTRUCTORS======================================
     public AlarmService(Context context)
     {
@@ -81,52 +76,9 @@ public class AlarmService
         }
 
         Intent alarmIntent = new Intent(this.context, AlarmReceiverService.class);
-
-        try
-        {
-            alarmIntent.putExtra("reminder", this.objectMapper.writeValueAsString(reminder));
-        }
-        catch(IOException e)
-        {
-            e.printStackTrace();
-        }
+        alarmIntent.putExtra("reminder", reminder);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this.context, reminder.getId().intValue(), alarmIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.context);
-
-        JSONArray alarmIds = null;
-        try
-        {
-            alarmIds = new JSONArray(prefs.getString("alarmIds", "[]"));
-            System.out.println(alarmIds);
-
-            List<Integer> alarmIdsList = new ArrayList<Integer>();
-
-            for(int i = 0; i < alarmIds.length(); i++)
-            {
-                alarmIdsList.add(alarmIds.getInt(i));
-            }
-
-            if(!alarmIdsList.contains(reminder.getId()))
-            {
-                alarmIdsList.add(reminder.getId().intValue());
-            }
-
-        }
-        catch (JSONException e)
-        {
-            e.printStackTrace();
-        }
-
-
-        try
-        {
-            reminder.setIntent( objectMapper.writeValueAsString( pendingIntent ) );
-        }
-        catch( JsonProcessingException e )
-        {
-            e.printStackTrace();
-        }
 
         if(interval != null)
         {
@@ -137,19 +89,15 @@ public class AlarmService
 
             try
             {
-                reminder.setIntent( objectMapper.writeValueAsString(alarmIntent) );
+                this.alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, reminder.getDateTime().getTimeInMillis(),
+                        interval, pendingIntent);
+
                 reminder.setReminderStatus(ReminderStatus.ACTIVE);
                 reminderClient.updateReminder(reminder, ServerConfiguration.LOGGED_USER_AUTH_TOKEN);
 
-                this.alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, reminder.getDateTime().getTimeInMillis(),
-                        interval, pendingIntent);
                 Log.i("ALOIS-REMINDER", "Alois recurrency reminder succesfully scheduled to: " + reminder.getDateTime().getTime());
             }
             catch (FeignException e )
-            {
-                e.printStackTrace();
-            }
-            catch (JsonProcessingException e)
             {
                 e.printStackTrace();
             }
@@ -179,45 +127,29 @@ public class AlarmService
 
     public void deleteReminder(Reminder reminder)
     {
-//        try
-//        {
             Intent alarmIntent = new Intent(this.context, AlarmReceiverService.class);
-//            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.context);
-
-//            JSONArray alarmIds = null;
-//                alarmIds = new JSONArray(prefs.getString("alarmIds", "[]"));
-//                System.out.println(alarmIds);
-//
-//                List<Integer> alarmIdsList = new ArrayList<Integer>();
-//
-//                for(int i = 0; i < alarmIds.length(); i++)
-//                {
-//                    alarmIdsList.add(alarmIds.getInt(i));
-//                }
-//
-//                if(!alarmIdsList.contains(reminder.getId()))
-//                {
-//                    alarmIdsList.add(reminder.getId().intValue());
-//                }
 
             PendingIntent pendingIntent = PendingIntent.getBroadcast(this.context, reminder.getId().intValue(), alarmIntent, PendingIntent.FLAG_CANCEL_CURRENT);
             this.alarmManager.cancel(pendingIntent);
             pendingIntent.cancel();
 
-            //TODO ACHO QUE AGORA FOI, TESTAR MAIS!!!!!!!!!!!!!!!!!!!!!!!
-            //TODO CORRIGIR ACIMA, TRABALHAR COM OS IDS NAS SHARED PREF!!!
+            ReminderClient reminderClient = Feign.builder()
+                    .encoder(new JacksonEncoder())
+                    .decoder(new JacksonDecoder())
+                    .target(ReminderClient.class, ServerConfiguration.API_ENDPOINT);
+
+            try
+            {
+                reminderClient.deleteReminder(reminder, ServerConfiguration.LOGGED_USER_AUTH_TOKEN);
+            }
+            catch (FeignException e)
+            {
+                e.printStackTrace();
+            }
+
             Log.i("ALOIS-REMINDER", "Alois reminder with id: " + reminder.getId() + " canceled");
-//        }
-//        catch (JSONException e)
-//        {
-//            e.printStackTrace();
-//        }
     }
 
-    public void insertAlarmId()
-    {
-
-    }
     //======================================================================================
 
 }

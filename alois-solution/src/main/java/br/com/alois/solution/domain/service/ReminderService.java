@@ -100,14 +100,21 @@ public class ReminderService
 			NotificationClient notificationClient = Feign.builder()
 					.target(NotificationClient.class, NotificationServerConfiguration.API_ENDPOINT);
 			
-			System.out.println(notificationClient.sendNotification(notification, NotificationServerConfiguration.FIREBASE_TOKEN));
+			notificationClient.sendNotification(notification, NotificationServerConfiguration.FIREBASE_TOKEN);
 		}
 		catch(JsonProcessingException e)
 		{
 			e.printStackTrace();
 		}
 	}
+	
+	public void deleteReminder(Reminder reminder) 
+	{
+		this.reminderRepository.delete( reminder );
+	}
+	
 	//======================================================================================
+
 
 
 

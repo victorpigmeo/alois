@@ -28,4 +28,8 @@ public interface ReminderClient
     @RequestLine("POST /reminder/deleteRequest/{reminderId}")
     @Headers({"Content-Type: application/json", "Authorization: Basic {basicAuthToken}"})
     void deleteReminderRequest(@Param("reminderId") Long reminder, @Param("basicAuthToken") String userAuthToken);
+
+    @RequestLine("POST /reminder/delete")
+    @Headers({"Content-Type: application/json", "Authorization: Basic {basicAuthToken}"})
+    void deleteReminder(Reminder reminder, @Param("basicAuthToken") String loggedUserAuthToken);
 }
