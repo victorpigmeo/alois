@@ -62,13 +62,22 @@
         android:layout_below="@+id/reminderFormDatetimeLabel"
         android:textColor="@android:color/black"
         android:layout_marginTop="10dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/reminderFormTimeView"
+        android:layout_toRightOf="@+id/reminderFormDateView"
+        android:layout_below="@+id/reminderFormDatetimeLabel"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/reminderFormRecurrencyLabel"
         android:layout_below="@+id/reminderFormButtonSelectDate"
-        android:text="@string/recurrency"/>
+        android:text="@string/reminder_recurrency"/>
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

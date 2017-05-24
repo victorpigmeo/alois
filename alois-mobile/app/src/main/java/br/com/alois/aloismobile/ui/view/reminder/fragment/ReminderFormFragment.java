@@ -23,6 +23,7 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.ViewById;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -52,13 +53,26 @@ public class ReminderFormFragment extends Fragment implements
     @ViewById(R.id.reminderFormDescriptionEdit)
     EditText reminderFormDescriptionEdit;
 
-    @NotEmpty(messageResId = R.string.date_of_birth_is_required)
+    @NotEmpty(messageResId = R.string.reminder_date_required)
     @ViewById(R.id.reminderFormDateView)
     TextView reminderFormDateView;
+
+    @NotEmpty(messageResId = R.string.reminder_time_required)
+    @ViewById(R.id.reminderFormTimeView)
+    TextView reminderFormTimeView;
 
     @Checked(messageResId = R.string.recurrency_is_required)
     @ViewById(R.id.reminderFormRadioGroup)
     RadioGroup reminderFormRadioGroup;
+
+    @ViewById(R.id.reminderFormRadioOnce)
+    RadioButton reminderFormRadioOnce;
+
+    @ViewById(R.id.reminderFormRadioHourly)
+    RadioButton reminderFormRadioHourly;
+
+    @ViewById(R.id.reminderFormRadioDaily)
+    RadioButton reminderFormRadioDaily;
 
     @ViewById(R.id.reminderFormRadioWeekly)
     RadioButton reminderFormRadioWeekly;
@@ -74,6 +88,8 @@ public class ReminderFormFragment extends Fragment implements
     @FragmentArg("patient")
     Patient patient;
 
+    @FragmentArg("reminder")
+    Reminder reminder;
     //======================================================================================
 
     //====================================CONSTRUCTORS======================================
@@ -89,6 +105,51 @@ public class ReminderFormFragment extends Fragment implements
     public void onAfterViews()
     {
         this.validator.setValidationListener(this);
+
+        if(this.reminder != null && this.reminder.getId() != null)
+        {
+            this.patient = this.reminder.getPatient();
+
+            this.reminderFormTitleEdit.setText( this.reminder.getTitle() );
+            this.reminderFormDescriptionEdit.setText( this.reminder.getDescription() );
+
+            Calendar reminderDate = Calendar.getInstance();
+            reminderDate.set( Calendar.DAY_OF_MONTH, this.reminder.getDateTime().get( Calendar.DAY_OF_MONTH ) );
+            reminderDate.set( Calendar.MONTH, this.reminder.getDateTime().get( Calendar.MONTH ) );
+            reminderDate.set( Calendar.YEAR, this.reminder.getDateTime().get( Calendar.YEAR ) );
+
+            this.reminderDate = reminderDate;
+
+            Calendar reminderTime = Calendar.getInstance();
+            reminderTime.set( Calendar.HOUR_OF_DAY, this.reminder.getDateTime().get( Calendar.HOUR_OF_DAY ) );
+            reminderTime.set( Calendar.MINUTE, this.reminder.getDateTime().get( Calendar.MINUTE ) );
+            reminderTime.set( Calendar.SECOND, this.reminder.getDateTime().get( Calendar.SECOND ) );
+
+            this.reminderTime = reminderTime;
+
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            this.reminderFormDateView.setText(simpleDateFormat.format( this.reminder.getDateTime().getTime() ) );
+
+            SimpleDateFormat simpleTimeFormat = new SimpleDateFormat("HH:mm");
+            this.reminderFormTimeView.setText(simpleTimeFormat.format( this.reminder.getDateTime().getTime() ) );
+
+
+            switch ( reminder.getFrequency() )
+            {
+                case ONCE:
+                    this.reminderFormRadioOnce.toggle();
+                    break;
+                case HOURLY:
+                    this.reminderFormRadioHourly.toggle();
+                    break;
+                case DAILY:
+                    this.reminderFormRadioDaily.toggle();
+                    break;
+                case WEEKLY:
+                    this.reminderFormRadioWeekly.toggle();
+                    break;
+            }
+        }
     }
 
     @Click(R.id.reminderFormButtonSave)
@@ -142,14 +203,7 @@ public class ReminderFormFragment extends Fragment implements
         this.reminderDate.set(Calendar.MONTH, monthOfYear);
         this.reminderDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-        if(this.reminderFormDateView.getText() != null && !this.reminderFormDateView.getText().equals(""))
-        {
-            this.reminderFormDateView.setText(dayOfMonth+"/"+monthOfYear+"/"+year+" "+this.reminderFormDateView.getText().toString());
-        }
-        else
-        {
-            this.reminderFormDateView.setText(dayOfMonth+"/"+monthOfYear+"/"+year);
-        }
+        this.reminderFormDateView.setText(dayOfMonth+"/"+monthOfYear+"/"+year);
     }
 
     @Override
@@ -161,39 +215,56 @@ public class ReminderFormFragment extends Fragment implements
         this.reminderTime.set(Calendar.SECOND, 0);
         this.reminderTime.set(Calendar.MILLISECOND, 0);
 
-        if(this.reminderFormDateView.getText() != null && !this.reminderFormDateView.getText().equals(""))
-        {
-            this.reminderFormDateView.setText(this.reminderFormDateView.getText().toString().split(" ")[0]+" "+hourOfDay+":"+minute);
-        }
-        else
-        {
-            this.reminderFormDateView.setText(hourOfDay+":"+minute);
-        }
+        this.reminderFormTimeView.setText(hourOfDay+":"+minute);
     }
 
     @Override
     public void onValidationSucceeded()
     {
-        Reminder reminder = new Reminder();
-        reminder.setTitle(this.reminderFormTitleEdit.getText().toString());
-        reminder.setDescription(this.reminderFormDescriptionEdit.getText().toString());
-        reminder.setPatient(this.patient);
+        if(this.reminder == null)
+        {
+            Reminder reminder = new Reminder();
+            reminder.setTitle(this.reminderFormTitleEdit.getText().toString());
+            reminder.setDescription(this.reminderFormDescriptionEdit.getText().toString());
+            reminder.setPatient(this.patient);
 
-        RadioButton radioFrequency = (RadioButton) this.getActivity().findViewById(this.reminderFormRadioGroup.getCheckedRadioButtonId());
-        reminder.setFrequency(Frequency.valueOf(radioFrequency.getTag().toString()));
+            RadioButton radioFrequency = (RadioButton) this.getActivity().findViewById(this.reminderFormRadioGroup.getCheckedRadioButtonId());
+            reminder.setFrequency(Frequency.valueOf(radioFrequency.getTag().toString()));
 
-        Calendar reminderDateTime = Calendar.getInstance();
-        reminderDateTime.set(Calendar.YEAR, this.reminderDate.get(Calendar.YEAR));
-        reminderDateTime.set(Calendar.MONTH, this.reminderDate.get(Calendar.MONTH));
-        reminderDateTime.set(Calendar.DAY_OF_MONTH, this.reminderDate.get(Calendar.DAY_OF_MONTH));
+            Calendar reminderDateTime = Calendar.getInstance();
+            reminderDateTime.set(Calendar.YEAR, this.reminderDate.get(Calendar.YEAR));
+            reminderDateTime.set(Calendar.MONTH, this.reminderDate.get(Calendar.MONTH));
+            reminderDateTime.set(Calendar.DAY_OF_MONTH, this.reminderDate.get(Calendar.DAY_OF_MONTH));
 
-        reminderDateTime.set(Calendar.HOUR_OF_DAY, this.reminderTime.get(Calendar.HOUR_OF_DAY));
-        reminderDateTime.set(Calendar.MINUTE, this.reminderTime.get(Calendar.MINUTE));
-        reminderDateTime.set(Calendar.SECOND, 0);
+            reminderDateTime.set(Calendar.HOUR_OF_DAY, this.reminderTime.get(Calendar.HOUR_OF_DAY));
+            reminderDateTime.set(Calendar.MINUTE, this.reminderTime.get(Calendar.MINUTE));
+            reminderDateTime.set(Calendar.SECOND, 0);
 
-        reminder.setDateTime( reminderDateTime );
+            reminder.setDateTime( reminderDateTime );
 
-        ((PatientDetailActivity) this.getActivity()).addPendingReminder( reminder );
+            ((PatientDetailActivity) this.getActivity()).addPendingReminder( reminder );
+        }
+        else
+        {
+            this.reminder.setTitle( this.reminderFormTitleEdit.getText().toString() );
+            this.reminder.setDescription( this.reminderFormDescriptionEdit.getText().toString() );
+
+            Calendar reminderDateTime = Calendar.getInstance();
+            reminderDateTime.set(Calendar.YEAR, this.reminderDate.get(Calendar.YEAR));
+            reminderDateTime.set(Calendar.MONTH, this.reminderDate.get(Calendar.MONTH));
+            reminderDateTime.set(Calendar.DAY_OF_MONTH, this.reminderDate.get(Calendar.DAY_OF_MONTH));
+
+            reminderDateTime.set(Calendar.HOUR_OF_DAY, this.reminderTime.get(Calendar.HOUR_OF_DAY));
+            reminderDateTime.set(Calendar.MINUTE, this.reminderTime.get(Calendar.MINUTE));
+            reminderDateTime.set(Calendar.SECOND, 0);
+
+            reminder.setDateTime( reminderDateTime );
+
+            RadioButton radioFrequency = (RadioButton) this.getActivity().findViewById(this.reminderFormRadioGroup.getCheckedRadioButtonId());
+            reminder.setFrequency( Frequency.valueOf( radioFrequency.getTag().toString() ) );
+
+            ( ( PatientDetailActivity ) this.getActivity() ).editReminder( reminder );
+        }
     }
 
     @Override

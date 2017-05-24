@@ -287,5 +287,17 @@ public class PatientDetailActivity extends AppCompatActivity
     {
         this.reminderListFragment.onDeleteReminder(reminder);
     }
+
+    public void editReminder(Reminder reminder)
+    {
+        this.progressDialog = ProgressDialog.show(this,
+                this.getResources().getString(R.string.deleting_route),
+                this.getResources().getString(R.string.please_wait),
+                true,
+                false
+        );
+
+        this.reminderTasks.updateReminder( reminder );
+    }
     //======================================================================================
 }

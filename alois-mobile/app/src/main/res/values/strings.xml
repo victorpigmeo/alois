@@ -120,7 +120,7 @@
     <string name="daily">Daily</string>
     <string name="hourly">Hourly</string>
     <string name="weekly">Weekly</string>
-    <string name="recurrency">Recurrency</string>
+    <string name="reminder_recurrency">Recurrency</string>
     <string name="reminder_title_is_required">Reminder title is required</string>
 
     <string name="reminder_description">Description</string>
@@ -135,5 +135,7 @@
     <string name="delete_reminder">Delete Reminder</string>
     <string name="reminder_pending">This reminder is pending, it is not in the patient device yet</string>
     <string name="reminder_inactive">This reminder is inactive, it does not rings at patient device</string>
+    <string name="reminder_date_required">Reminder date is required</string>
+    <string name="reminder_time_required">Reminder time is required</string>
 
 </resources>

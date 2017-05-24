@@ -68,6 +68,20 @@ public class NotificationReceiverService extends FirebaseMessagingService
                     }
 
                     break;
+                case "UPDATE_REMINDER_REQUEST":
+                    try
+                    {
+                        Reminder reminder = objectMapper.readValue(remoteMessage.getData().get("reminder"), Reminder.class);
+                        alarmService.cancelReminder( reminder );
+
+                        alarmService.scheduleReminder(reminder);
+                    }
+                    catch (IOException e)
+                    {
+                        e.printStackTrace();
+                    }
+
+                    break;
             }
         }
         else

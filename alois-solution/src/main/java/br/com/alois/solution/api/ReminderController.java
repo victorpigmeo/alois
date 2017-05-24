@@ -39,6 +39,12 @@ public class ReminderController {
 		return this.reminderService.updateReminder(reminder);
 	}
 	
+	@RequestMapping(method = RequestMethod.POST, value = "/updateAtivoReminder/{reminderId}/{reminderStatus}")
+	public void updateAtivoReminder(@PathVariable("reminderId") Long reminderId, @PathVariable("reminderStatus") ReminderStatus reminderStatus)
+	{
+		this.reminderService.updateAtivoReminder(reminderId, reminderStatus);
+	}
+	
 	@RequestMapping(method = RequestMethod.POST, value = "/sendRequest")
 	public Reminder sendRequest(@RequestBody Reminder reminder)
 	{

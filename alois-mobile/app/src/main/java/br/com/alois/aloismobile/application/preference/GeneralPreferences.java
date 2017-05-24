@@ -47,9 +47,4 @@ public interface GeneralPreferences
      */
     String loggedUserAuthToken();
 
-    /**
-     * Stores the json with the user alarm ids
-     */
-    String alarmIds();
-    //End User Info
 }

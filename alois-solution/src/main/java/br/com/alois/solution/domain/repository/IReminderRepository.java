@@ -4,10 +4,12 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import br.com.alois.domain.entity.reminder.Reminder;
+import br.com.alois.domain.entity.reminder.ReminderStatus;
 
 public interface IReminderRepository extends JpaRepository<Reminder, Long>{
 
@@ -22,5 +24,9 @@ public interface IReminderRepository extends JpaRepository<Reminder, Long>{
 			"patient"
 	})
 	@Query(value = "FROM Reminder reminder WHERE reminder.id = :reminderId")
-	public Reminder findOne(@Param("reminderId") Long reminderId);
+	Reminder findOne(@Param("reminderId") Long reminderId);
+
+	@Modifying
+	@Query(value="UPDATE Reminder reminder SET reminder.reminderStatus = :status WHERE reminder.id = :reminderId ")
+	void updateStatusReminder(@Param("reminderId") Long reminderId, @Param("status") ReminderStatus reminderStatus);
 }

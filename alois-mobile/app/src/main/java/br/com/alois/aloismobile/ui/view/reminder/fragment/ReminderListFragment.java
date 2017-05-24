@@ -3,7 +3,10 @@ package br.com.alois.aloismobile.ui.view.reminder.fragment;
 import android.app.Dialog;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
@@ -14,9 +17,12 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
+import org.androidannotations.annotations.ItemClick;
 import org.androidannotations.annotations.ViewById;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.TimeZone;
 
 import br.com.alois.aloismobile.R;
 import br.com.alois.aloismobile.ui.view.patient.PatientDetailActivity;
@@ -74,6 +80,22 @@ public class ReminderListFragment extends Fragment
                 .addToBackStack("reminderFormFragment")
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .commit();
+    }
+
+    @ItemClick(R.id.reminderList)
+    public void onReminderListClick(Reminder reminder)
+    {
+        AlertDialog reminderDetailDialog = new AlertDialog.Builder( this.getActivity() ).create();
+
+        View reminderDetailView = this.getActivity().getLayoutInflater().inflate(R.layout.reminder_detail_view, null);
+
+        ( ( TextView ) reminderDetailView.findViewById( R.id.reminderDetailReminderTitle ) ).setText( reminder.getTitle() );
+        ( ( TextView ) reminderDetailView.findViewById( R.id.reminderDetailReminderDescription ) ).setText( reminder.getDescription() );
+        ( ( TextView ) reminderDetailView.findViewById( R.id.reminderDetailReminderDateTime ) ).setText( reminder.getDateTime().getTime().toString() );
+        ( ( TextView ) reminderDetailView.findViewById( R.id.reminderDetailReminderRecurrency) ).setText( reminder.getFrequency().toString() );
+
+        reminderDetailDialog.setView(reminderDetailView);
+        reminderDetailDialog.show();
     }
 
     public void setReminderList(List<Reminder> reminders)

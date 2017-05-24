@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
@@ -21,6 +22,7 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import br.com.alois.aloismobile.application.api.reminder.ReminderClient;
@@ -61,82 +63,49 @@ public class AlarmService
     @Background
     public void scheduleReminder(Reminder reminder)
     {
-        Long interval = null;
-        switch (reminder.getFrequency())
-        {
-            case HOURLY:
-                interval = AlarmManager.INTERVAL_HOUR;
-                break;
-            case DAILY:
-                interval = AlarmManager.INTERVAL_DAY;
-                break;
-            case WEEKLY:
-                interval = Long.valueOf(7L * 24L * 60L * 60L * 1000L);
-                break;
-        }
-
         Intent alarmIntent = new Intent(this.context, AlarmReceiverService.class);
         alarmIntent.putExtra("reminder", reminder);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this.context, reminder.getId().intValue(), alarmIntent, PendingIntent.FLAG_CANCEL_CURRENT);
 
-        if(interval != null)
+        ReminderClient reminderClient = Feign.builder()
+                .encoder(new JacksonEncoder())
+                .decoder(new JacksonDecoder())
+                .target(ReminderClient.class, ServerConfiguration.API_ENDPOINT);
+
+        try
         {
-            ReminderClient reminderClient = Feign.builder()
-                    .encoder(new JacksonEncoder())
-                    .decoder(new JacksonDecoder())
-                    .target(ReminderClient.class, ServerConfiguration.API_ENDPOINT);
+            reminder.setReminderStatus(ReminderStatus.ACTIVE);
+            reminderClient.updateStatusReminder(reminder.getId(), ReminderStatus.ACTIVE, ServerConfiguration.LOGGED_USER_AUTH_TOKEN);
 
-            try
-            {
-                this.alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, reminder.getDateTime().getTimeInMillis(),
-                        interval, pendingIntent);
-
-                reminder.setReminderStatus(ReminderStatus.ACTIVE);
-                reminderClient.updateReminder(reminder, ServerConfiguration.LOGGED_USER_AUTH_TOKEN);
-
-                Log.i("ALOIS-REMINDER", "Alois recurrency reminder succesfully scheduled to: " + reminder.getDateTime().getTime());
-            }
-            catch (FeignException e )
-            {
-                e.printStackTrace();
-            }
+            this.alarmManager.set(AlarmManager.RTC_WAKEUP, reminder.getDateTime().getTimeInMillis(), pendingIntent);
+            Log.i("ALOIS-REMINDER", "Alois reminder succesfully scheduled to: " + reminder.getDateTime().getTime());
         }
-        else
+        catch (FeignException e )
         {
-            ReminderClient reminderClient = Feign.builder()
-                    .encoder(new JacksonEncoder())
-                    .decoder(new JacksonDecoder())
-                    .target(ReminderClient.class, ServerConfiguration.API_ENDPOINT);
-
-            try
-            {
-                reminder.setReminderStatus(ReminderStatus.ACTIVE);
-                reminderClient.updateReminder(reminder, ServerConfiguration.LOGGED_USER_AUTH_TOKEN);
-
-                this.alarmManager.set(AlarmManager.RTC_WAKEUP, reminder.getDateTime().getTimeInMillis(), pendingIntent);
-                Log.i("ALOIS-REMINDER", "Alois one-time reminder succesfully scheduled to: " + reminder.getDateTime().getTime());
-            }
-            catch (FeignException e )
-            {
-                e.printStackTrace();
-            }
+            e.printStackTrace();
         }
+    }
 
+    public void rescheduleReminder(Reminder reminder)
+    {
+        Intent alarmIntent = new Intent(this.context, AlarmReceiverService.class);
+        alarmIntent.putExtra("reminder", reminder);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this.context, reminder.getId().intValue(), alarmIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+        this.alarmManager.set(AlarmManager.RTC_WAKEUP, reminder.getDateTime().getTimeInMillis(), pendingIntent);
+        Log.i("ALOIS-REMINDER", "Alois reminder succesfully scheduled to: " + reminder.getDateTime().getTime());
     }
 
     public void deleteReminder(Reminder reminder)
     {
-            Intent alarmIntent = new Intent(this.context, AlarmReceiverService.class);
-
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(this.context, reminder.getId().intValue(), alarmIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-            this.alarmManager.cancel(pendingIntent);
-            pendingIntent.cancel();
-
             ReminderClient reminderClient = Feign.builder()
                     .encoder(new JacksonEncoder())
                     .decoder(new JacksonDecoder())
                     .target(ReminderClient.class, ServerConfiguration.API_ENDPOINT);
+
+            this.cancelReminder( reminder );
 
             try
             {
@@ -147,7 +116,17 @@ public class AlarmService
                 e.printStackTrace();
             }
 
-            Log.i("ALOIS-REMINDER", "Alois reminder with id: " + reminder.getId() + " canceled");
+    }
+
+    public void cancelReminder(Reminder reminder)
+    {
+        Intent alarmIntent = new Intent(this.context, AlarmReceiverService.class);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this.context, reminder.getId().intValue(), alarmIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+        this.alarmManager.cancel(pendingIntent);
+        pendingIntent.cancel();
+
+        Log.i("ALOIS-REMINDER", "Alois reminder with id: " + reminder.getId() + " canceled");
     }
 
     //======================================================================================

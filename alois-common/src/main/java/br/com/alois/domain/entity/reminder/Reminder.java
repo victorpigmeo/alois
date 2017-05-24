@@ -57,9 +57,6 @@ public class Reminder implements Serializable{
 	@ManyToOne(fetch=FetchType.LAZY)
 	private Patient patient;
 	
-	@Column(nullable = true, length = 5000)
-	private String intent;
-	
 	@Enumerated(EnumType.ORDINAL)
 	@Column(nullable = false)
 	private ReminderStatus reminderStatus;
@@ -118,14 +115,6 @@ public class Reminder implements Serializable{
 		this.patient = patient;
 	}
 
-	public String getIntent() {
-		return intent;
-	}
-
-	public void setIntent(String intent) {
-		this.intent = intent;
-	}
-	
 	public ReminderStatus getReminderStatus() {
 		return reminderStatus;
 	}
@@ -134,7 +123,7 @@ public class Reminder implements Serializable{
 		this.reminderStatus = reminderStatus;
 	}
 	//======================================================================================
-	
+
 	//=====================================BEHAVIOUR========================================
 	@Override
 	public int hashCode() {
@@ -144,7 +133,8 @@ public class Reminder implements Serializable{
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((frequency == null) ? 0 : frequency.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((intent == null) ? 0 : intent.hashCode());
+		result = prime * result + ((patient == null) ? 0 : patient.hashCode());
+		result = prime * result + ((reminderStatus == null) ? 0 : reminderStatus.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		return result;
 	}
@@ -175,10 +165,12 @@ public class Reminder implements Serializable{
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (intent == null) {
-			if (other.intent != null)
+		if (patient == null) {
+			if (other.patient != null)
 				return false;
-		} else if (!intent.equals(other.intent))
+		} else if (!patient.equals(other.patient))
+			return false;
+		if (reminderStatus != other.reminderStatus)
 			return false;
 		if (title == null) {
 			if (other.title != null)
@@ -187,8 +179,6 @@ public class Reminder implements Serializable{
 			return false;
 		return true;
 	}
-	
-
 	//======================================================================================
 	
 }

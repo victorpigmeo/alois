@@ -2,6 +2,7 @@ package br.com.alois.aloismobile.ui.view.reminder.adapter.row;
 
 import android.content.Context;
 import android.graphics.PorterDuff;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.view.MenuItem;
@@ -17,6 +18,8 @@ import org.androidannotations.annotations.ViewById;
 
 import br.com.alois.aloismobile.R;
 import br.com.alois.aloismobile.ui.view.patient.PatientDetailActivity;
+import br.com.alois.aloismobile.ui.view.reminder.fragment.ReminderFormFragment;
+import br.com.alois.aloismobile.ui.view.reminder.fragment.ReminderFormFragment_;
 import br.com.alois.domain.entity.reminder.Reminder;
 
 /**
@@ -109,7 +112,16 @@ public class ReminderListRow extends RelativeLayout
                 switch (id)
                 {
                     case R.id.reminderListMenuEditButton:
+                        ReminderFormFragment reminderFormFragment = ReminderFormFragment_.builder()
+                                .reminder(reminder)
+                                .build();
 
+                        activity.getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.patientDetailFrame, reminderFormFragment)
+                                .addToBackStack("patientFormFragment")
+                                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                                .commit();
                         break;
                     case R.id.reminderListMenuDeleteButton:
                         ((PatientDetailActivity) activity).deleteReminder(reminder);

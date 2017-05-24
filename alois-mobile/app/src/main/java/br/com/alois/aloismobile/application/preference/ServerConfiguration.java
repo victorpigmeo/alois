@@ -1,18 +1,15 @@
 package br.com.alois.aloismobile.application.preference;
 
-import android.content.Intent;
-
 /**
  * Created by victor on 2/27/17.
  * Class containing the server configurations
  */
-
 public class ServerConfiguration
 {
     /**
      * Server address
      */
-    public static final String SERVER_ADDRESS = "192.168.20.65:8090";
+    public static final String SERVER_ADDRESS = "192.168.11.71:8090";
 //    public static final String SERVER_ADDRESS = "victorcarvalho.duckdns.org:8090";
     /**
      *

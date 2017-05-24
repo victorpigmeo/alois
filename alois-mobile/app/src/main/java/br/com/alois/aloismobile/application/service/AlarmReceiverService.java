@@ -1,5 +1,6 @@
 package br.com.alois.aloismobile.application.service;
 
+import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
@@ -10,7 +11,11 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.WakefulBroadcastReceiver;
 import android.util.Log;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import br.com.alois.aloismobile.R;
+import br.com.alois.domain.entity.reminder.Frequency;
 import br.com.alois.domain.entity.reminder.Reminder;
 
 /**
@@ -38,5 +43,33 @@ public class AlarmReceiverService extends WakefulBroadcastReceiver
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify("ALOIS-REMINDER", 0, notification.build());
+
+        if( reminder.getFrequency() != null && !reminder.getFrequency().equals( Frequency.ONCE ) )
+        {
+            Long interval = null;
+
+            switch ( reminder.getFrequency() )
+            {
+                case HOURLY:
+                    interval = AlarmManager.INTERVAL_HOUR;
+                    break;
+                case DAILY:
+                    interval = AlarmManager.INTERVAL_DAY;
+                    break;
+                case WEEKLY:
+                    interval = AlarmManager.INTERVAL_DAY * 7L;
+            }
+
+            AlarmService alarmService = new AlarmService(context);
+
+            Calendar reminderDateTime = reminder.getDateTime();
+
+            reminderDateTime.setTime( new Date( reminderDateTime.getTimeInMillis() + interval ) );
+
+            reminder.setDateTime( reminderDateTime );
+
+            alarmService.rescheduleReminder(reminder);
+        }
+
     }
 }
