@@ -2,118 +2,142 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context="br.com.alois.aloismobile.ui.view.patient.fragment.PatientDetailFragment">
+             tools:context="br.com.alois.aloismobile.ui.view.patient.fragment.PatientDetailFragment"
+             android:padding="@dimen/pad_10">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/patientDetails">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/patientDetailNameLabel"
-            android:layout_alignParentStart="true"
-            android:text="@string/nameDot"
-            android:layout_marginRight="@dimen/marg_10"
-            android:textSize="@dimen/title_text_size"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/patientDetailName"
-            android:text="PatientName"
-            android:layout_alignTop="@+id/patientDetailNameLabel"
-            android:layout_toRightOf="@+id/patientDetailNameLabel"
-            android:textSize="@dimen/title_text_size"/>
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TableRow>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/patientDetailGenderLabel"
+                        android:layout_marginRight="@dimen/marg_10"
+                        android:text="@string/genderDot"
+                        android:textSize="@dimen/labelSize"
+                        android:textColor="@color/labelColor"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/patientDetailGender"
+                        android:text="PatientGender"
+                        android:layout_below="@+id/patientDetailGenderLabel"/>
+                </RelativeLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/patientDetailPhoneLabel"
-            android:text="@string/phoneDot"
-            android:layout_below="@+id/patientDetailNameLabel"
-            android:layout_marginRight="@dimen/marg_10"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/patientDetailPhone"
-            android:text="PatientPhone"
-            android:layout_below="@+id/patientDetailName"
-            android:layout_toRightOf="@+id/patientDetailPhoneLabel"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/patientDetailDateOfBirthLabel"
+                        android:text="@string/date_of_birth_dot"
+                        android:textSize="@dimen/labelSize"
+                        android:textColor="@color/labelColor"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/patientDetailDateOfBirth"
+                        android:text="PatientDateOfBirth"
+                        android:layout_below="@+id/patientDetailDateOfBirthLabel"/>
+                </RelativeLayout>
+            </TableRow>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/patientDetailGenderLabel"
-            android:text="@string/genderDot"
-            android:layout_below="@+id/patientDetailPhoneLabel"
-            android:layout_marginRight="@dimen/marg_10"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/patientDetailGender"
-            android:text="PatientGender"
-            android:layout_below="@+id/patientDetailPhone"
-            android:layout_toRightOf="@+id/patientDetailGenderLabel"/>
+            <TableRow>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+                    <TextView
+                        android:id="@+id/patientDetailPhoneLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/phoneDot"
+                        android:textSize="@dimen/labelSize"
+                        android:textColor="@color/labelColor"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/patientDetailPhone"
+                        android:text="PatientPhone"
+                        android:layout_marginRight="@dimen/marg_10"
+                        android:layout_below="@+id/patientDetailPhoneLabel"/>
+                </RelativeLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/patientDetailDateOfBirthLabel"
-            android:text="@string/date_of_birth_dot"
-            android:layout_below="@+id/patientDetailGender"
-            android:layout_marginRight="@dimen/marg_10"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/patientDetailDateOfBirth"
-            android:text="PatientDateOfBirth"
-            android:layout_below="@+id/patientDetailGender"
-            android:layout_toRightOf="@+id/patientDetailDateOfBirthLabel"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/patientDetailEmergencyPhoneLabel"
+                        android:text="@string/emergency_phone_dot"
+                        android:textSize="@dimen/labelSize"
+                        android:textColor="@color/labelColor"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/patientDetailEmergenyPhone"
+                        android:text="PatientEmergencyPhone"
+                        android:layout_below="@+id/patientDetailEmergencyPhoneLabel"/>
+                </RelativeLayout>
+            </TableRow>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/patientDetailAddressLabel"
-            android:text="@string/address_dot"
-            android:layout_below="@+id/patientDetailDateOfBirthLabel"
-            android:layout_marginRight="@dimen/marg_10"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/patientDetailAddress"
-            android:text="PatientAddress"
-            android:layout_below="@+id/patientDetailDateOfBirth"
-            android:layout_toRightOf="@+id/patientDetailAddressLabel"/>
+            <TableRow>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/patientDetailAddressLabel"
+                        android:text="@string/address_dot"
+                        android:layout_marginRight="@dimen/marg_10"
+                        android:textSize="@dimen/labelSize"
+                        android:textColor="@color/labelColor"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/patientDetailAddress"
+                        android:text="PatientAddress"
+                        android:layout_below="@+id/patientDetailAddressLabel"/>
+                </RelativeLayout>
+            </TableRow>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/patientDetailEmergencyPhoneLabel"
-            android:text="@string/emergency_phone_dot"
-            android:layout_below="@+id/patientDetailAddressLabel"
-            android:layout_marginRight="@dimen/marg_10"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/patientDetailEmergenyPhone"
-            android:text="PatientEmergencyPhone"
-            android:layout_below="@+id/patientDetailAddress"
-            android:layout_toRightOf="@+id/patientDetailEmergencyPhoneLabel"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/patientDetailNoteLabel"
-            android:text="@string/note_dot"
-            android:layout_below="@+id/patientDetailEmergencyPhoneLabel"
-            android:layout_marginRight="@dimen/marg_10"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/patientDetailNote"
-            android:text="PatientNote"
-            android:layout_below="@+id/patientDetailEmergenyPhone"
-            android:layout_toRightOf="@+id/patientDetailNoteLabel"/>
+            <TableRow>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/patientDetailNoteLabel"
+                        android:text="@string/note_dot"
+                        android:layout_marginRight="@dimen/marg_10"
+                        android:textSize="@dimen/labelSize"
+                        android:textColor="@color/labelColor"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/patientDetailNote"
+                        android:text="PatientNote"
+                        android:layout_below="@+id/patientDetailNoteLabel"/>
+                </RelativeLayout>
+            </TableRow>
+        </TableLayout>
     </RelativeLayout>
 
     <LinearLayout
@@ -132,7 +156,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/patientDetailMapFrame">
-
         </FrameLayout>
     </LinearLayout>
 </RelativeLayout>

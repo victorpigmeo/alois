@@ -56,7 +56,8 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.view.patient.PatientDetailActivity_"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
     </application>
 
 </manifest>

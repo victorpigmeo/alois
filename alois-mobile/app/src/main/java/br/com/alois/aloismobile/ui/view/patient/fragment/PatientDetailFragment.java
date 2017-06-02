@@ -38,9 +38,6 @@ import br.com.alois.domain.entity.user.Patient;
 public class PatientDetailFragment extends Fragment
 {
     //=====================================ATTRIBUTES=======================================
-    @ViewById(R.id.patientDetailName)
-    TextView patientDetailName;
-
     @ViewById(R.id.patientDetailPhone)
     TextView patientDetailPhone;
 
@@ -88,7 +85,6 @@ public class PatientDetailFragment extends Fragment
     {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-        this.patientDetailName.setText(this.patient.getName());
         this.patientDetailPhone.setText(this.patient.getPhone());
         this.patientDetailGender.setText(this.patient.getGender().toString());
         this.patientDetailDateOfBirth.setText(simpleDateFormat.format(this.patient.getBirthDate().getTime()));

@@ -68,7 +68,7 @@
     <string name="patient_routes">Patient routes</string>
     <string name="patient_reminders">Patient reminders</string>
     <string name="patient_requests">Patient requests</string>
-    <string name="safe_routes_of_patient">Safe routes of:</string>
+    <string name="safe_routes">Safe routes</string>
     <string name="edit_route">Edit route</string>
     <string name="delete_route">Delete route</string>
     <string name="patient_does_not_have_routes">This patient does not have any route</string>
@@ -113,7 +113,7 @@
     <string name="gps_is_off">GPS is off</string>
     <string name="alert_gps_off">In order to use all the features of Alois (such as secure routes tracking) you need a working GPS connection, please enable the device\'s GPS.</string>
 
-    <string name="reminders_of_patient">Reminders of</string>
+    <string name="reminders">Reminders</string>
     <string name="warning_patient_out_of_route">Warning! Patient: %1$s is out of his secure routes!</string>
     <string name="add_reminder">Add new reminder</string>
     <string name="reminder_title">Title</string>
@@ -137,5 +137,17 @@
     <string name="reminder_inactive">This reminder is inactive, it does not rings at patient device</string>
     <string name="reminder_date_required">Reminder date is required</string>
     <string name="reminder_time_required">Reminder time is required</string>
+    <string name="loading_routes">Loading routes</string>
+    <string name="saving_reminder">Saving reminder</string>
+    <string name="loading_reminders">Loading reminders</string>
+    <string name="deleting_reminder">Deleting reminder</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="loading_logoff_requests">Loading loggoff requests</string>
+    <string name="aprove_request">Aprove request</string>
+    <string name="discard_request">Discard request</string>
+    <string name="approving_request">Approving request</string>
+    <string name="request_time_label">Requested in:</string>
 
 </resources>

@@ -12,16 +12,7 @@
         android:layout_alignParentStart="true"
         android:textSize="@dimen/title_text_size"
         android:layout_margin="@dimen/title_margin"
-        android:text="@string/reminders_of_patient"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="PatientName"
-        android:textSize="@dimen/title_text_size"
-        android:layout_toRightOf="@+id/remindersListLabel"
-        android:id="@+id/remindersListPatientName"
-        android:layout_margin="@dimen/title_margin"/>
+        android:text="@string/reminders"/>
 
     <ListView
         android:layout_width="match_parent"

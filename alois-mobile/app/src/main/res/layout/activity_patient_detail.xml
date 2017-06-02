@@ -6,10 +6,29 @@
     android:layout_height="match_parent"
     tools:context="br.com.alois.aloismobile.ui.view.patient.PatientDetailActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/patientDetailToolbar"
+        android:layout_width="match_parent"
+        android:background="@color/colorPrimary"
+        android:layout_height="wrap_content"
+        android:theme="@style/ToolBarLight">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/toolbarPatientName"
+                android:textSize="20dp"
+                android:textColor="@color/white"/>
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/patientDetailFrame">
-
+        android:id="@+id/patientDetailFrame"
+        android:layout_below="@+id/patientDetailToolbar">
     </FrameLayout>
 </RelativeLayout>

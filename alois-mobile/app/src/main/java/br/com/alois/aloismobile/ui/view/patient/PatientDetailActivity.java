@@ -4,6 +4,9 @@ import android.app.ProgressDialog;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
+import android.view.View;
+import android.widget.TextView;
+import android.support.v7.widget.Toolbar;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -15,16 +18,20 @@ import org.androidannotations.annotations.InjectMenu;
 import org.androidannotations.annotations.NonConfigurationInstance;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
+import org.androidannotations.annotations.ViewById;
 
 import java.util.List;
 
 import br.com.alois.aloismobile.R;
 import br.com.alois.aloismobile.application.api.reminder.ReminderTasks;
+import br.com.alois.aloismobile.application.api.request.RequestTasks;
 import br.com.alois.aloismobile.application.api.route.RouteTasks;
 import br.com.alois.aloismobile.ui.view.patient.fragment.PatientDetailFragment;
 import br.com.alois.aloismobile.ui.view.patient.fragment.PatientDetailFragment_;
 import br.com.alois.aloismobile.ui.view.reminder.fragment.ReminderListFragment;
 import br.com.alois.aloismobile.ui.view.reminder.fragment.ReminderListFragment_;
+import br.com.alois.aloismobile.ui.view.requests.fragment.RequestListFragment;
+import br.com.alois.aloismobile.ui.view.requests.fragment.RequestListFragment_;
 import br.com.alois.aloismobile.ui.view.route.fragment.RouteFormFragment;
 import br.com.alois.aloismobile.ui.view.route.fragment.RouteListFragment;
 import br.com.alois.aloismobile.ui.view.route.fragment.RouteListFragment_;
@@ -32,6 +39,7 @@ import br.com.alois.domain.entity.reminder.Reminder;
 import br.com.alois.domain.entity.route.Route;
 import br.com.alois.domain.entity.route.Step;
 import br.com.alois.domain.entity.user.Patient;
+import br.com.alois.domain.entity.user.Request;
 
 @EActivity(R.layout.activity_patient_detail)
 @OptionsMenu(R.menu.patient_detail_popup_menu)
@@ -43,6 +51,14 @@ public class PatientDetailActivity extends AppCompatActivity
     RouteListFragment routeListFragment;
 
     ReminderListFragment reminderListFragment;
+
+    RequestListFragment requestListFragment;
+
+    @ViewById(R.id.patientDetailToolbar)
+    Toolbar patientDetailToolbar;
+
+    @ViewById(R.id.toolbarPatientName)
+    TextView toolbarPatientName;
     //======================================================================================
 
     //=====================================INJECTIONS=======================================
@@ -60,6 +76,10 @@ public class PatientDetailActivity extends AppCompatActivity
     @Bean
     ReminderTasks reminderTasks;
 
+    @NonConfigurationInstance
+    @Bean
+    RequestTasks requestTasks;
+
     //======================================================================================
 
     //====================================CONSTRUCTORS======================================
@@ -70,6 +90,30 @@ public class PatientDetailActivity extends AppCompatActivity
     @AfterViews
     public void onAfterViews()
     {
+        this.setSupportActionBar(this.patientDetailToolbar);
+        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        this.toolbarPatientName.setText( this.patient.getName() );
+
+        this.patientDetailToolbar.setNavigationOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+
+                if(getSupportFragmentManager().getBackStackEntryCount() >= 1)
+                {
+                    for(int i = 1; i < getSupportFragmentManager().getBackStackEntryCount(); i++)
+                    {
+                        getSupportFragmentManager().popBackStack();
+                    }
+                }
+                else
+                {
+                    finish();
+                }
+            }
+        });
+
         final PatientDetailFragment patientDetailFragment = PatientDetailFragment_
                 .builder()
                 .patient(patient)
@@ -83,7 +127,6 @@ public class PatientDetailActivity extends AppCompatActivity
                 .commit();
     }
 
-    //TODO resolver o problema de clicar em outro fragment do menu e voltar direto pra activity
     @OptionsItem(R.id.patientDetailRoutesMenuButton)
     public void onPatientRoutesClick()
     {
@@ -133,10 +176,35 @@ public class PatientDetailActivity extends AppCompatActivity
         }
     }
 
+    @OptionsItem(R.id.patientDetailRequestsMenuButton)
+    public void onPatientRequestsClick()
+    {
+        if(this.getSupportFragmentManager().getBackStackEntryCount() > 1 &&
+                this.getSupportFragmentManager().getBackStackEntryAt(this.getSupportFragmentManager().getBackStackEntryCount() - 1).getName().equals("requestListFragment"))
+        {
+            System.out.println("mesmo fragment");
+            return;
+        }
+        else
+        {
+            this.requestListFragment = RequestListFragment_
+                    .builder()
+                    .patient( this.patient )
+                    .build();
+
+            this.getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.patientDetailFrame, requestListFragment)
+                    .addToBackStack("requestListFragment")
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .commit();
+        }
+    }
+
     public void listPatientroutes(Long patientId)
     {
         this.progressDialog = ProgressDialog.show(this,
-                super.getString(R.string.loading_patients),
+                super.getString(R.string.loading_routes),
                 super.getString(R.string.please_wait),
                 true,//is indeterminate
                 true//is cancelable
@@ -244,7 +312,7 @@ public class PatientDetailActivity extends AppCompatActivity
     public void addPendingReminder(Reminder reminder)
     {
         this.progressDialog = ProgressDialog.show(this,
-                this.getResources().getString(R.string.deleting_route),
+                this.getResources().getString(R.string.saving_reminder),
                 this.getResources().getString(R.string.please_wait),
                 true,
                 false
@@ -262,7 +330,7 @@ public class PatientDetailActivity extends AppCompatActivity
     public void listRemindersByPatientId(Long patientId)
     {
         this.progressDialog = ProgressDialog.show(this,
-                this.getResources().getString(R.string.deleting_route),
+                this.getResources().getString(R.string.loading_reminders),
                 this.getResources().getString(R.string.please_wait),
                 true,
                 false
@@ -274,7 +342,7 @@ public class PatientDetailActivity extends AppCompatActivity
     public void deleteReminder(Reminder reminder)
     {
         this.progressDialog = ProgressDialog.show(this,
-                this.getResources().getString(R.string.deleting_route),
+                this.getResources().getString(R.string.deleting_reminder),
                 this.getResources().getString(R.string.please_wait),
                 true,
                 false
@@ -291,13 +359,54 @@ public class PatientDetailActivity extends AppCompatActivity
     public void editReminder(Reminder reminder)
     {
         this.progressDialog = ProgressDialog.show(this,
-                this.getResources().getString(R.string.deleting_route),
+                this.getResources().getString(R.string.saving_reminder),
                 this.getResources().getString(R.string.please_wait),
                 true,
                 false
         );
 
         this.reminderTasks.updateReminder( reminder );
+    }
+
+    public void listPatientLogoffRequests(Patient patient)
+    {
+        this.progressDialog = ProgressDialog.show(this,
+                this.getResources().getString(R.string.loading_logoff_requests),
+                this.getResources().getString(R.string.please_wait),
+                true,
+                false
+        );
+
+        this.requestTasks.listLogoffRequestsByPatientId( patient.getId() );
+    }
+
+    public void setPatientLogoffRequests(List<Request> patientLogoffRequests)
+    {
+        this.requestListFragment.setPatientLogoffRequests(patientLogoffRequests);
+    }
+
+    public void approveLogoffRequest(Request request)
+    {
+        this.progressDialog = ProgressDialog.show(this,
+                this.getResources().getString(R.string.approving_request),
+                this.getResources().getString(R.string.please_wait),
+                true,
+                false
+        );
+
+        this.requestTasks.approveLogoffRequest(request);
+    }
+
+    public void discardLogoffRequest(Request request)
+    {
+        this.progressDialog = ProgressDialog.show(this,
+                this.getResources().getString(R.string.approving_request),
+                this.getResources().getString(R.string.please_wait),
+                true,
+                false
+        );
+
+        this.requestTasks.discardLogoffRequest(request);
     }
     //======================================================================================
 }

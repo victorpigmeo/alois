@@ -148,7 +148,7 @@ public class LoginActivity extends AppCompatActivity
 
     public void login(String username, String password){
         //force hide keyboard
-        //this.inputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
+        this.inputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
 
         this.progressDialog = ProgressDialog.show(this,
                 this.getResources().getString(R.string.siging_in),
