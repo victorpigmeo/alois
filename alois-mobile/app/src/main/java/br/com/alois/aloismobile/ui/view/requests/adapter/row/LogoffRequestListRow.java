@@ -5,12 +5,10 @@ import android.graphics.PorterDuff;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EViewGroup;
@@ -20,8 +18,6 @@ import java.text.SimpleDateFormat;
 
 import br.com.alois.aloismobile.R;
 import br.com.alois.aloismobile.ui.view.patient.PatientDetailActivity;
-import br.com.alois.aloismobile.ui.view.reminder.fragment.ReminderFormFragment;
-import br.com.alois.aloismobile.ui.view.reminder.fragment.ReminderFormFragment_;
 import br.com.alois.domain.entity.user.Request;
 
 /**

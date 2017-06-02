@@ -32,8 +32,6 @@ import br.com.alois.domain.entity.user.Patient;
 public class RouteListFragment extends Fragment
 {
     //=====================================ATTRIBUTES=======================================
-    @ViewById(R.id.routeListPatientName)
-    TextView routeListPatientName;
 
     @ViewById(R.id.routeList)
     ListView routeList;
@@ -66,8 +64,6 @@ public class RouteListFragment extends Fragment
     @AfterViews
     public void onAfterViews()
     {
-        this.routeListPatientName.setText(this.patient.getName());
-
         this.routeList.setAdapter(this.routeListAdapter);
 
         ((PatientDetailActivity) this.getActivity()).listPatientroutes(this.patient.getId());

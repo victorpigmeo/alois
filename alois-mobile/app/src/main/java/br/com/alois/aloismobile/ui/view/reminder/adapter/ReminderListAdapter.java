@@ -11,7 +11,6 @@ import org.androidannotations.annotations.RootContext;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.alois.aloismobile.R;
 import br.com.alois.aloismobile.ui.view.reminder.adapter.row.ReminderListRow;
 import br.com.alois.aloismobile.ui.view.reminder.adapter.row.ReminderListRow_;
 import br.com.alois.domain.entity.reminder.Reminder;
