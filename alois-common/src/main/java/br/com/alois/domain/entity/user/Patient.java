@@ -70,7 +70,6 @@ public class Patient extends User
 	@OneToMany(orphanRemoval=true, fetch=FetchType.LAZY, mappedBy="patient")
 	private List<Reminder> reminders;
 	
-	@JsonManagedReference
 	@OneToMany(orphanRemoval=true, fetch=FetchType.LAZY, mappedBy="patient")
 	private List<Memory> memories;
 	

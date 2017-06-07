@@ -1,0 +1,46 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="br.com.alois.aloismobile.ui.view.memory.fragment.MemoryFormFragment">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/memoryFormTitleEdit"
+        android:hint="Memory Title"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/memoryFormImageView"
+        android:layout_below="@id/memoryFormTitleEdit"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/memoryFormDescriptionEdit"
+        android:layout_below="@id/memoryFormImageView"
+        android:hint="Memory Description"
+        android:height="120dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/memoryFormCancelButton"
+        style="@style/Base.Widget.AppCompat.Button.Borderless"
+        android:text="@string/cancel"
+        android:layout_toLeftOf="@+id/patientFormButtonSave"
+        android:layout_marginRight="10dp"
+        android:layout_alignParentBottom="true"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/memoryFormSaveButton"
+        android:layout_alignParentEnd="true"
+        style="@style/Base.Widget.AppCompat.Button.Borderless"
+        android:text="@string/save"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>

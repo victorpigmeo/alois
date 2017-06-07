@@ -130,6 +130,7 @@
     <string name="once">Only once</string>
     <string name="loading_patient">Loading Patient...</string>
     <string name="loading_memories">Loading Memories...</string>
+    <string name="loading_memory">Loading Memory...</string>
     <string name="processingReminder">Processing reminder, it will be available after processed</string>
     <string name="edit_reminder">Edit Reminder</string>
     <string name="delete_reminder">Delete Reminder</string>
@@ -141,13 +142,17 @@
     <string name="saving_reminder">Saving reminder</string>
     <string name="loading_reminders">Loading reminders</string>
     <string name="deleting_reminder">Deleting reminder</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="loading_logoff_requests">Loading loggoff requests</string>
     <string name="aprove_request">Aprove request</string>
     <string name="discard_request">Discard request</string>
     <string name="approving_request">Approving request</string>
     <string name="request_time_label">Requested in:</string>
-
+    <string name="memory_title_is_required">Memory title is required</string>
+    <string name="memory_description_is_required">Memory description is required</string>
+    <string name="saving_memory">Saving memory</string>
+    <string name="memory_title">Memory Title</string>
+    <string name="memory_description">Memory Description</string>
+    <string name="edit_memory">Edit</string>
+    <string name="request_delete_memory">Request Delete</string>
+    <string name="memory_creation_date">Creation Date</string>
 </resources>

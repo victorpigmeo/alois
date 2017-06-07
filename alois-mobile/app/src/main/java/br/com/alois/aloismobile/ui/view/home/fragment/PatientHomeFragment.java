@@ -2,6 +2,7 @@ package br.com.alois.aloismobile.ui.view.home.fragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -34,12 +35,12 @@ import br.com.alois.aloismobile.ui.view.home.PatientHomeActivity;
 import br.com.alois.aloismobile.ui.view.home.adapter.PatientListAdapter;
 import br.com.alois.aloismobile.ui.view.memory.fragment.MemoryListFragment;
 import br.com.alois.aloismobile.ui.view.memory.fragment.MemoryListFragment_;
+import br.com.alois.aloismobile.ui.view.patient.PatientDetailActivity_;
 import br.com.alois.aloismobile.ui.view.patient.fragment.PatientFormFragment;
 import br.com.alois.aloismobile.ui.view.patient.fragment.PatientFormFragment_;
 import br.com.alois.domain.entity.user.Patient;
 
 @EFragment(R.layout.fragment_patient_home)
-@OptionsMenu(R.menu.home_patient_menu)
 public class PatientHomeFragment extends Fragment
 {
     //=====================================ATTRIBUTES=======================================
@@ -120,6 +121,8 @@ public class PatientHomeFragment extends Fragment
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .commit();
     }
+
+
     //======================================================================================
 
     //=====================================BEHAVIOUR========================================
@@ -128,6 +131,7 @@ public class PatientHomeFragment extends Fragment
     {
         ((PatientHomeActivity) this.getActivity()).getPatient(this.patientId);
     }
+
     //======================================================================================
 
 }
