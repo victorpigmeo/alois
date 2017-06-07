@@ -3,6 +3,7 @@ package br.com.alois.aloismobile.ui.view.memory.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +40,6 @@ import br.com.alois.domain.entity.user.Patient;
  * A simple {@link Fragment} subclass.
  */
 @EFragment(R.layout.fragment_memory_list)
-@OptionsMenu(R.menu.home_patient_menu)
 public class MemoryListFragment extends Fragment {
     //=====================================ATTRIBUTES=======================================
     @ViewById(R.id.memoryList)
@@ -54,6 +54,7 @@ public class MemoryListFragment extends Fragment {
     @Bean
     MemoryListAdapter memoryListAdapter;
 
+    public MemoryDetailFragment memoryDetailFragment;
     //======================================================================================
 
     //====================================CONSTRUCTORS======================================
@@ -79,6 +80,19 @@ public class MemoryListFragment extends Fragment {
 
     public void setPatientMemoryList(List<Memory> patientMemoryList) {
         this.memoryListAdapter.setMemories(patientMemoryList);
+    }
+
+    @ItemClick(R.id.memoryList)
+    public void onClickButtonMyMemories(Memory memory)
+    {
+        this.memoryDetailFragment = MemoryDetailFragment_.builder().memory(memory).build();
+
+        this.getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.patient_home_frame_layout, memoryDetailFragment)
+                .addToBackStack("memory_detail_fragment")
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .commit();
     }
 
     public void onAddMemory(Memory memory) {

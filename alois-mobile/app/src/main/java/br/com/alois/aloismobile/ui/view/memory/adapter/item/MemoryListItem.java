@@ -2,7 +2,9 @@ package br.com.alois.aloismobile.ui.view.memory.adapter.item;
 
 import android.content.Context;
 
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import org.androidannotations.annotations.EViewGroup;
@@ -19,8 +21,8 @@ public class MemoryListItem extends LinearLayout {
 
     //=====================================ATTRIBUTES=======================================
 
-    @ViewById(R.id.memoryName)
-    TextView memoryName;
+    @ViewById(R.id.icon_memory)
+    ImageView icon_memory;
 
     Memory memory;
 
@@ -45,7 +47,7 @@ public class MemoryListItem extends LinearLayout {
     //=====================================BEHAVIOUR========================================
     public void bind(Memory memory, AppCompatActivity activity) {
         this.memory = memory;
-        this.memoryName.setText(memory.getDescription());
+        this.icon_memory.setImageBitmap(BitmapFactory.decodeByteArray(memory.getThumbnail(), 0, memory.getThumbnail().length));
         this.activity = activity;
     }
     //======================================================================================

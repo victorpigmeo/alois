@@ -2,12 +2,9 @@ package br.com.alois.solution.domain.service;
 
 import java.util.List;
 
-import javax.validation.ConstraintViolationException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-
 import br.com.alois.domain.entity.memory.Memory;
 import br.com.alois.solution.domain.repository.IMemoryRepository;
 
@@ -24,67 +21,42 @@ public class MemoryService {
 	//======================================================================================
 
 	//=====================================BEHAVIOUR========================================
-	public List<Memory> listMemoryByPatient(Long patientId) 
+	public List<Memory> listMemoryByPatient(Long patientId)
 	{
-		return this.memoryRepository.listMemoryByPatientId(patientId);
+		List<Memory> l = this.memoryRepository.listMemoryByPatientId(patientId);
+		for(Memory m : l){
+			m.generateBase64PhotoThumbnail();
+		}
+		return l;
 	}
 	
-	/*public Patient findById(Long patientId) 
+	public Memory findById(Long memoryId) 
 	{
-		Patient patient = new Patient();
-		patient = this.patientRepository.findById(patientId);
+		Memory memory = new Memory();
+		memory = this.memoryRepository.findById(memoryId);
 		
-		return patient;
+		return memory;
 	}
 
-	public Patient insert(Patient patient) 
+	public Memory insert(Memory memory) 
 	{
-		Assert.notNull(patient);
-		patient.setUserType(UserType.PATIENT);
-		if(this.userRepository.findByUsername(patient.getUsername()) == null)
-		{
-			try
-			{
-				return this.patientRepository.save(patient);
-			}
-			catch(ConstraintViolationException e)
-			{
-				e.printStackTrace();
-				return null;
-			}
+		Assert.notNull(memory);
+		if(this.memoryRepository.findByTitle(memory.getTitle()) == null){
+			memory = this.memoryRepository.save(memory);
 		}
-		else
-		{
-			return null;
-		}
+		return memory;
+	}
+	
+	public Memory update(Memory memory) 
+	{
+		Memory mem = this.memoryRepository.save(memory);
+		mem.setPatient(memory.getPatient());
+		return mem;
 	}
 
-	public void updateLastLocation(Point lastLocation, Long patientId) 
+	/*public void requestDeleteMemory(Memory memory)
 	{
-		Assert.notNull(lastLocation);
-		Assert.notNull(patientId);
-		
-		Patient patient = this.patientRepository.findOne(patientId);
-		
-		Point oldLastLocation = patient.getLastLocation();
-		
-		patient.setLastLocation(lastLocation);
-		this.patientRepository.save(patient);
-		
-		if(oldLastLocation != null)
-		{
-			this.pointRepository.delete(oldLastLocation);
-		}
-	}
-
-	public Patient updatePatient(Patient patient) 
-	{
-		return this.patientRepository.save(patient);
-	}
-
-	public void deletePatient(Patient patient)
-	{
-		this.patientRepository.delete(patient);
+		this.memoryRepository.requestDelete(memory);
 	}*/
 	//======================================================================================
 

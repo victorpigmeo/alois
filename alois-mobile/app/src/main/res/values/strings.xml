@@ -132,6 +132,15 @@
     <string name="once">Only once</string>
     <string name="loading_patient">Loading Patient...</string>
     <string name="loading_memories">Loading Memories...</string>
+    <string name="loading_memory">Loading Memory...</string>
     <string name="processingReminder">Processing reminder, it will be available after processed</string>
+    <string name="memory_title_is_required">Memory title is required</string>
+    <string name="memory_description_is_required">Memory description is required</string>
+    <string name="saving_memory">Saving memory</string>
+    <string name="memory_title">Memory Title</string>
+    <string name="memory_description">Memory Description</string>
+    <string name="edit_memory">Edit</string>
+    <string name="request_delete_memory">Request Delete</string>
+    <string name="memory_creation_date">Creation Date</string>
 
 </resources>
