@@ -65,6 +65,7 @@ public class CaregiverHomeFragment extends Fragment
     @ItemClick(R.id.patientList)
     public void onPatientListItemClick(Patient patient)
     {
+        patient.setMemories(null);
         Intent patientDetailActivity = PatientDetailActivity_
                 .intent(this.getActivity().getApplicationContext())
                 .patient(patient)
