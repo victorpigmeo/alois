@@ -1,18 +1,15 @@
 package br.com.alois.aloismobile.ui.view.home.fragment;
 
 
-import android.app.ProgressDialog;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ListView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.ItemClick;
 import org.androidannotations.annotations.ViewById;
+
 
 import java.util.List;
 
@@ -39,15 +36,18 @@ public class AdministratorHomeFragment extends Fragment
     //======================================================================================
 
     //====================================CONSTRUCTORS======================================
-        public AdministratorHomeFragment()
-        {
+    public AdministratorHomeFragment()
+    {
             // Required empty public constructor
-        }
+    }
 
     //======================================================================================
 
     //==================================GETTERS/SETTERS=====================================
-
+    public void setCaregiverList(List<Caregiver> caregiverList)
+    {
+        this.caregiverListAdapter.setCaregiverList(caregiverList);
+    }
     //======================================================================================
 
     //=====================================BEHAVIOUR========================================
@@ -58,9 +58,19 @@ public class AdministratorHomeFragment extends Fragment
         this.administratorHomeCaregiverList.setAdapter(this.caregiverListAdapter);
     }
 
-    public void setCaregiverList(List<Caregiver> caregiverList)
+    @ItemClick(R.id.administratorHomeCaregiverList)
+    public void onCaregiverListItemClick(Caregiver caregiver)
     {
-        this.caregiverListAdapter.setCaregiverList(caregiverList);
+        //TODO Chamar o fragment de detalhe do cuidador
+    }
+
+    public void onUpdateCaregiver(Caregiver caregiver) {
+        this.caregiverListAdapter.onUpdateCaregiver(caregiver);
+    }
+
+    public void onDeleteCaregiver(Caregiver caregiver)
+    {
+        this.caregiverListAdapter.onDeleteCaregiver(caregiver);
     }
     //======================================================================================
 

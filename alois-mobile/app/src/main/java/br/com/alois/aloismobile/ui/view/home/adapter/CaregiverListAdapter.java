@@ -13,6 +13,7 @@ import java.util.List;
 import br.com.alois.aloismobile.ui.view.home.adapter.row.CaregiverListRow;
 import br.com.alois.aloismobile.ui.view.home.adapter.row.CaregiverListRow_;
 import br.com.alois.domain.entity.user.Caregiver;
+import br.com.alois.domain.entity.user.Patient;
 
 /**
  * Created by sarah on 3/23/17.
@@ -74,7 +75,7 @@ public class CaregiverListAdapter extends BaseAdapter
             caregiverListRow = (CaregiverListRow) convertView;
         }
 
-            caregiverListRow.bind(this.caregiverList.get(position));
+        caregiverListRow.bind(this.caregiverList.get(position));
 
         return caregiverListRow;
     }
@@ -84,6 +85,25 @@ public class CaregiverListAdapter extends BaseAdapter
         this.caregiverList = caregiverList;
         this.notifyDataSetChanged();
     }
+
+    public void onUpdateCaregiver(Caregiver caregiver) {
+        for(Caregiver listCaregiver: this.caregiverList)
+        {
+            if( listCaregiver.getId().equals( caregiver.getId() ) )
+            {
+                listCaregiver = caregiver;
+            }
+        }
+
+        this.notifyDataSetChanged();
+    }
+
+    public void onDeleteCaregiver(Caregiver caregiver)
+    {
+        this.caregiverList.remove(caregiver);
+        this.notifyDataSetChanged();
+    }
     //======================================================================================
 
 }
+

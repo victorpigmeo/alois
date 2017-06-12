@@ -1,0 +1,90 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="br.com.alois.aloismobile.ui.view.caregiver.fragment.CaregiverDetailFragment">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/caregiverDetails">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/caregiverDetailNameLabel"
+            android:layout_alignParentStart="true"
+            android:text="@string/nameDot"
+            android:layout_marginRight="@dimen/marg_10"
+            android:textSize="@dimen/title_text_size"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/caregiverDetailName"
+            android:text="CaregiverName"
+            android:layout_alignTop="@+id/caregiverDetailNameLabel"
+            android:layout_toRightOf="@+id/caregiverDetailNameLabel"
+            android:textSize="@dimen/title_text_size"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/caregiverDetailEmailLabel"
+            android:text="Email:"
+            android:layout_below="@+id/caregiverDetailNameLabel"
+            android:layout_marginRight="@dimen/marg_10" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/caregiverDetailEmail"
+            android:text="CaregiverEmail"
+            android:layout_alignTop="@+id/caregiverDetailEmailLabel"
+            android:layout_toRightOf="@+id/caregiverDetailEmailLabel" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/caregiverDetailGenderLabel"
+            android:text="Gender:"
+            android:layout_below="@+id/caregiverDetailEmailLabel"
+            android:layout_marginRight="@dimen/marg_10"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/caregiverDetailGender"
+            android:text="CaregiverGender"
+            android:layout_alignTop="@+id/caregiverDetailGenderLabel"
+            android:layout_toRightOf="@+id/caregiverDetailGenderLabel" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/caregiverDetailUsernameLabel"
+            android:text="Username:"
+            android:layout_below="@+id/caregiverDetailGenderLabel"
+            android:layout_marginRight="@dimen/marg_10"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/caregiverDetailUsername"
+            android:text="CaregiverUsername"
+            android:layout_alignTop="@+id/caregiverDetailUsernameLabel"
+            android:layout_toRightOf="@+id/caregiverDetailUsernameLabel" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/caregiverDetailPasswordLabel"
+            android:text="Password:"
+            android:layout_below="@+id/caregiverDetailUsernameLabel"
+            android:layout_marginRight="@dimen/marg_10"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/caregiverDetailPassword"
+            android:text="CaregiverPassword"
+            android:layout_alignTop="@+id/caregiverDetailPasswordLabel"
+            android:layout_toRightOf="@+id/caregiverDetailPasswordLabel" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -70,6 +70,7 @@ public class CaregiverListRow extends LinearLayout
                 switch (id)
                 {
                     case R.id.caregiverListMenuEditButton:
+                        //TODO Chamar o fragment de ediçao de cuidador
                         Toast.makeText(getContext(), "Edit caregiver: "+caregiver.getName(), Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.caregiverListMenuDeleteButton:
