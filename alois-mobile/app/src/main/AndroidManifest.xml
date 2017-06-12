@@ -40,10 +40,12 @@
             android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".ui.view.home.AdministratorHomeActivity_"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".ui.view.patient.PatientDetailActivity_"
             android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

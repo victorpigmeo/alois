@@ -19,5 +19,6 @@
         android:id="@+id/administratorHomeCaregiverList">
 
     </ListView>
-
+    <!-- TODO Adicionar o FAB para criar cuidador -->
+    <!-- criar o metodo que chama o fragment de criaçao de cuidador -->
 </RelativeLayout>
