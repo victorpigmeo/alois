@@ -2,6 +2,7 @@ package br.com.alois.aloismobile.ui.view.route.fragment;
 
 
 import android.support.v4.app.Fragment;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -9,13 +10,13 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
+import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,12 @@ import br.com.alois.domain.entity.route.Step;
 public class RouteDetailFragment extends Fragment implements OnMapReadyCallback
 {
     //=====================================ATTRIBUTES=======================================
+    @ViewById(R.id.routeDetailName)
+    TextView routeDetailName;
+
+    @ViewById(R.id.routeDetailDescription)
+    TextView routeDetailDescription;
+
     GoogleMap map;
 
     //======================================================================================
@@ -57,6 +64,9 @@ public class RouteDetailFragment extends Fragment implements OnMapReadyCallback
     @AfterViews
     public void onAfterViews()
     {
+        this.routeDetailName.setText(this.route.getName());
+        this.routeDetailDescription.setText(this.route.getDescription());
+
         ((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.routeDetailMap)).getMapAsync(this);
 
         try

@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/routeDetailDescription"
-            android:text="RouteDescriptiondasdasmasnkdasnksnfds;fadsn;vsndaoimfdsjfiosd;jfiosdjfiosajiofjsdifsidofjiosdjfiosdjfiosdajiofjsadiofjisodajfoasjfodajfiosdjfoisdjfoiajsoifsjadio;fsdajfiso;dfnsdi;ofnsiofnsido;fnaio;fnsido;f;asndfioasndfionsadoifnsd"
+            android:text="RouteDescription"
             android:layout_below="@+id/routeDetailDescriptionLabel"/>
     </RelativeLayout>
 
