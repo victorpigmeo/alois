@@ -50,6 +50,7 @@ import br.com.alois.aloismobile.R;
 import br.com.alois.aloismobile.application.api.memory.MemoryTasks;
 import br.com.alois.aloismobile.application.api.patient.PatientTasks;
 import br.com.alois.aloismobile.application.api.request.RequestTasks;
+import br.com.alois.aloismobile.application.api.route.RouteTasks;
 import br.com.alois.aloismobile.application.preference.GeneralPreferences_;
 import br.com.alois.aloismobile.application.service.LastLocationService;
 import br.com.alois.aloismobile.application.service.LastLocationService_;
@@ -67,6 +68,7 @@ import br.com.alois.aloismobile.ui.view.patient.fragment.PatientDetailFragment_;
 import br.com.alois.aloismobile.ui.view.patient.fragment.PatientFormFragment;
 import br.com.alois.aloismobile.ui.view.patient.fragment.PatientFormFragment_;
 import br.com.alois.domain.entity.memory.Memory;
+import br.com.alois.domain.entity.route.Route;
 import br.com.alois.domain.entity.user.Patient;
 import br.com.alois.domain.entity.user.Request;
 
@@ -100,7 +102,11 @@ public class PatientHomeActivity extends AppCompatActivity
     @NonConfigurationInstance
     @Bean
     RequestTasks requestTasks;
-    
+
+    @NonConfigurationInstance
+    @Bean
+    RouteTasks routeTasks;
+
     @SystemService
     LocationManager locationManager;
 
@@ -350,6 +356,23 @@ public class PatientHomeActivity extends AppCompatActivity
         returnIntent.putExtra("action", "logoff");
         this.setResult(Activity.RESULT_OK, returnIntent);
         this.finish();
+    }
+
+    public void listPatientRoutes(Long patientId)
+    {
+        this.progressDialog = ProgressDialog.show(this,
+                super.getString(R.string.loading_routes),
+                super.getString(R.string.please_wait),
+                true,//is indeterminate
+                true//is cancelable
+        );
+        
+        this.routeTasks.listRoutesByPatientId(patientId, this);
+    }
+
+    public void setPatientRouteList(List<Route> patientRouteList)
+    {
+        this.patientHomeFragment.setPatientRoutes(patientRouteList);
     }
     //======================================================================================
 }

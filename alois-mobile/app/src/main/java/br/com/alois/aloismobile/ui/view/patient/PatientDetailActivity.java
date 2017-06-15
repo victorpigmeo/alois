@@ -79,6 +79,7 @@ public class PatientDetailActivity extends AppCompatActivity
     @NonConfigurationInstance
     @Bean
     RequestTasks requestTasks;
+    private List<Route> patientList;
 
     //======================================================================================
 
@@ -210,7 +211,7 @@ public class PatientDetailActivity extends AppCompatActivity
                 true//is cancelable
         );
 
-        this.routeTasks.listRoutesByPatientId(patientId);
+        this.routeTasks.listRoutesByPatientId(patientId, null);
     }
 
     public void setPatientRouteList(List<Route> patientRouteList)

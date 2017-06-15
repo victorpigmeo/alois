@@ -14,12 +14,15 @@ import android.widget.TextView;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import br.com.alois.aloismobile.R;
+import br.com.alois.aloismobile.application.preference.GeneralPreferences_;
 import br.com.alois.aloismobile.ui.view.patient.PatientDetailActivity;
 import br.com.alois.aloismobile.ui.view.route.fragment.RouteFormFragment;
 import br.com.alois.aloismobile.ui.view.route.fragment.RouteFormFragment_;
 import br.com.alois.domain.entity.route.Route;
+import br.com.alois.domain.entity.user.UserType;
 
 /**
  * Created by victor on 3/24/17.
@@ -33,6 +36,9 @@ public class RouteListRow extends LinearLayout
 
     @ViewById(R.id.routeRowMenuButton)
     ImageButton routeRowMenuButton;
+
+    @Pref
+    GeneralPreferences_ generalPreferences;
 
     Route route;
     private AppCompatActivity activity;
@@ -59,6 +65,11 @@ public class RouteListRow extends LinearLayout
     {
         this.routeRowName.setText(route.getName());
         this.route = route;
+
+        if(this.generalPreferences.loggedUserType().get().equals(UserType.PATIENT.ordinal()))
+        {
+            this.routeRowMenuButton.setVisibility(INVISIBLE);
+        }
 
         this.activity = activity;
     }

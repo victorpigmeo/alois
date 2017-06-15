@@ -14,11 +14,15 @@ import org.androidannotations.annotations.ViewById;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 import br.com.alois.aloismobile.R;
 import br.com.alois.aloismobile.ui.view.home.PatientHomeActivity;
 import br.com.alois.aloismobile.ui.view.memory.fragment.MemoryListFragment;
 import br.com.alois.aloismobile.ui.view.memory.fragment.MemoryListFragment_;
+import br.com.alois.aloismobile.ui.view.route.fragment.RouteListFragment;
+import br.com.alois.aloismobile.ui.view.route.fragment.RouteListFragment_;
+import br.com.alois.domain.entity.route.Route;
 import br.com.alois.domain.entity.user.Patient;
 import br.com.alois.domain.entity.user.Request;
 import br.com.alois.domain.entity.user.RequestStatus;
@@ -28,9 +32,6 @@ import br.com.alois.domain.entity.user.RequestType;
 public class PatientHomeFragment extends Fragment
 {
     //=====================================ATTRIBUTES=======================================
-    @ViewById(R.id.buttonMyRoutes)
-    Button myRoutes;
-
     @ViewById(R.id.buttonMyMemories)
     Button myMemories;
 
@@ -65,6 +66,7 @@ public class PatientHomeFragment extends Fragment
 
     public MemoryListFragment memoryListFragment;
 
+    public RouteListFragment routeListFragment;
     //======================================================================================
 
     //=====================================INJECTIONS=======================================
@@ -144,6 +146,26 @@ public class PatientHomeFragment extends Fragment
     public void onPatientHomeLogoffButton()
     {
         ((PatientHomeActivity) this.getActivity()).onPatientLogoff(this.patient);
+    }
+
+    @Click(R.id.patientHomeRoutesButton)
+    public void onPatientHomeRoutesButton()
+    {
+        this.routeListFragment = RouteListFragment_.builder()
+                .patient(this.patient)
+                .build();
+
+        this.getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.patient_home_frame_layout, routeListFragment)
+                .addToBackStack("routeListFragment")
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .commit();
+    }
+
+    public void setPatientRoutes(List<Route> patientRoutes)
+    {
+        this.routeListFragment.setPatientRouteList(patientRoutes);
     }
     //======================================================================================
 

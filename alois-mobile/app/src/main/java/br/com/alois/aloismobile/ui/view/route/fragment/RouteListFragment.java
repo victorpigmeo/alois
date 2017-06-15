@@ -3,9 +3,11 @@ package br.com.alois.aloismobile.ui.view.route.fragment;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.github.clans.fab.FloatingActionButton;
 import com.google.android.gms.maps.model.LatLng;
 
 import org.androidannotations.annotations.AfterViews;
@@ -15,15 +17,19 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.ItemClick;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import java.util.List;
 
 import br.com.alois.aloismobile.R;
+import br.com.alois.aloismobile.application.preference.GeneralPreferences_;
+import br.com.alois.aloismobile.ui.view.home.PatientHomeActivity;
 import br.com.alois.aloismobile.ui.view.patient.PatientDetailActivity;
 import br.com.alois.aloismobile.ui.view.route.adapter.RouteListAdapter;
 import br.com.alois.domain.entity.route.Route;
 import br.com.alois.domain.entity.route.Step;
 import br.com.alois.domain.entity.user.Patient;
+import br.com.alois.domain.entity.user.UserType;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,12 +45,18 @@ public class RouteListFragment extends Fragment
     @FragmentArg("patient")
     Patient patient;
 
+    @ViewById(R.id.fab_add_route)
+    FloatingActionButton fabAddRoute;
+
     RouteFormFragment routeFormFragment;
     //======================================================================================
 
     //=====================================INJECTIONS=======================================
     @Bean
     RouteListAdapter routeListAdapter;
+
+    @Pref
+    GeneralPreferences_ generalPreferences;
 
     //======================================================================================
 
@@ -66,7 +78,15 @@ public class RouteListFragment extends Fragment
     {
         this.routeList.setAdapter(this.routeListAdapter);
 
-        ((PatientDetailActivity) this.getActivity()).listPatientroutes(this.patient.getId());
+        if(this.generalPreferences.loggedUserType().get().equals(UserType.CAREGIVER.ordinal()))
+        {
+            ((PatientDetailActivity) this.getActivity()).listPatientroutes(this.patient.getId());
+        }
+        else
+        {
+            ((PatientHomeActivity) this.getActivity()).listPatientRoutes(this.patient.getId());
+            this.fabAddRoute.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Click(R.id.fab_add_route)
@@ -92,12 +112,24 @@ public class RouteListFragment extends Fragment
                 .route(route)
                 .build();
 
-        this.getActivity().getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.patientDetailFrame, routeDetailFragment)
-                .addToBackStack("routeDetailFragment")
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                .commit();
+        if(this.generalPreferences.loggedUserType().get().equals(UserType.CAREGIVER.ordinal()))
+        {
+            this.getActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.patientDetailFrame, routeDetailFragment)
+                    .addToBackStack("routeDetailFragment")
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .commit();
+        }
+        else
+        {
+            this.getActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.patient_home_frame_layout, routeDetailFragment)
+                    .addToBackStack("routeDetailFragment")
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .commit();
+        }
     }
 
     public void setPatientRouteList(List<Route> patientRouteList)

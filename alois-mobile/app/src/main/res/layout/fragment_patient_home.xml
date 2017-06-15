@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="@string/myRoutes"
-        android:id="@+id/buttonMyRoutes"
+        android:id="@+id/patientHomeRoutesButton"
         android:layout_below="@id/buttonMyMemories"
         android:textSize="16sp"
         style="@style/Base.Widget.AppCompat.Button.Borderless"/>
@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:id="@+id/buttonMyReminders"
-        android:layout_below="@id/buttonMyRoutes"
+        android:layout_below="@id/patientHomeRoutesButton"
         android:text="@string/myReminders"
         android:textSize="16sp"
         style="@style/Base.Widget.AppCompat.Button.Borderless"

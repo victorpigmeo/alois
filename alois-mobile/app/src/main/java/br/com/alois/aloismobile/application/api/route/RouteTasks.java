@@ -21,12 +21,14 @@ import java.util.Map;
 import br.com.alois.aloismobile.R;
 import br.com.alois.aloismobile.application.preference.GeneralPreferences_;
 import br.com.alois.aloismobile.application.preference.ServerConfiguration;
+import br.com.alois.aloismobile.ui.view.home.PatientHomeActivity;
 import br.com.alois.aloismobile.ui.view.patient.PatientDetailActivity;
 import br.com.alois.api.jackson.JacksonDecoder;
 import br.com.alois.api.jackson.JacksonEncoder;
 import br.com.alois.domain.entity.route.Point;
 import br.com.alois.domain.entity.route.Route;
 import br.com.alois.domain.entity.route.Step;
+import br.com.alois.domain.entity.user.UserType;
 import feign.Feign;
 import feign.FeignException;
 
@@ -46,7 +48,7 @@ public class RouteTasks
 
     //=====================================BEHAVIOUR========================================
     @Background
-    public void listRoutesByPatientId(Long patientId)
+    public void listRoutesByPatientId(Long patientId, PatientHomeActivity patientHomeActivity)
     {
         RouteClient routeClient = Feign.builder()
                 .encoder(new JacksonEncoder())
@@ -55,7 +57,7 @@ public class RouteTasks
 
         try
         {
-            listRoutesByPatientIdHandleSuccess(routeClient.listRoutesByPatientId(patientId, this.generalPreferences.loggedUserAuthToken().get()));
+            listRoutesByPatientIdHandleSuccess(routeClient.listRoutesByPatientId(patientId, this.generalPreferences.loggedUserAuthToken().get()), patientHomeActivity);
         }
         catch (FeignException e)
         {
@@ -64,15 +66,24 @@ public class RouteTasks
     }
 
     @UiThread
-    public void listRoutesByPatientIdHandleSuccess(List<Route> routes)
+    public void listRoutesByPatientIdHandleSuccess(List<Route> routes, PatientHomeActivity patientHomeActivity)
     {
         if (routes.size() != 0)
         {
-            this.patientDetailActivity.setPatientRouteList(routes);
+            if(this.generalPreferences.loggedUserType().get().equals(UserType.CAREGIVER.ordinal()))
+            {
+                this.patientDetailActivity.setPatientRouteList(routes);
+                this.patientDetailActivity.progressDialog.dismiss();
+            }
+            else
+            {
+                patientHomeActivity.setPatientRouteList(routes);
+                patientHomeActivity.progressDialog.dismiss();
+            }
         }else{
             Toast.makeText(this.patientDetailActivity, this.patientDetailActivity.getResources().getString(R.string.patient_does_not_have_routes), Toast.LENGTH_SHORT).show();
         }
-        this.patientDetailActivity.progressDialog.dismiss();
+
     }
 
     @UiThread
