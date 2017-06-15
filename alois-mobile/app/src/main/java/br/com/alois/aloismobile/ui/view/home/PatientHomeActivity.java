@@ -49,6 +49,7 @@ import java.util.List;
 import br.com.alois.aloismobile.R;
 import br.com.alois.aloismobile.application.api.memory.MemoryTasks;
 import br.com.alois.aloismobile.application.api.patient.PatientTasks;
+import br.com.alois.aloismobile.application.api.request.RequestTasks;
 import br.com.alois.aloismobile.application.preference.GeneralPreferences_;
 import br.com.alois.aloismobile.application.service.LastLocationService;
 import br.com.alois.aloismobile.application.service.LastLocationService_;
@@ -67,6 +68,7 @@ import br.com.alois.aloismobile.ui.view.patient.fragment.PatientFormFragment;
 import br.com.alois.aloismobile.ui.view.patient.fragment.PatientFormFragment_;
 import br.com.alois.domain.entity.memory.Memory;
 import br.com.alois.domain.entity.user.Patient;
+import br.com.alois.domain.entity.user.Request;
 
 @EActivity(R.layout.activity_patient_home)
 @OptionsMenu(R.menu.home_patient_menu)
@@ -94,18 +96,24 @@ public class PatientHomeActivity extends AppCompatActivity
     @NonConfigurationInstance
     @Bean
     MemoryTasks memoryTasks;
+
+    @NonConfigurationInstance
+    @Bean
+    RequestTasks requestTasks;
     
     @SystemService
     LocationManager locationManager;
 
 
     //======================================================================================
-
+    //TODO SE FOR ATRIBUTOS COLOCAR NO LUGAR DE ATRIBUTOS
     Uri photoUri;
 
     byte[] photo;
     String photoPath;
     //=====================================BEHAVIOUR========================================
+
+    //TODO PORQUE TEM ESSE SUPRESS WARNINGS?
     @SuppressWarnings("WrongConstant")
     @AfterViews
     public void onAfterViews()
@@ -198,11 +206,13 @@ public class PatientHomeActivity extends AppCompatActivity
         this.memoryTasks.updateMemory(memory);
     }
 
+    //TODO SE NAO FOR MAIS USAR O METODO APAGA
     public void onInsertMemory(Memory memory)
     {
         //this.patientHomeFragment.onInsertPatient(patient);
     }
 
+    //TODO IDEM AO DE CIMA
     public void onUpdateMemory(Memory memory)
     {
         //this.patientHomeFragment.onInsertPatient(patient);
@@ -227,7 +237,7 @@ public class PatientHomeActivity extends AppCompatActivity
         }
     }
 
-    @OptionsItem(R.id.menu_archive)
+    @OptionsItem(R.id.menu_camera)
     public void openCameraClick()
     {
 
@@ -306,6 +316,40 @@ public class PatientHomeActivity extends AppCompatActivity
                 }
           });
         }
+    }
+
+    public void requestLogoff(Request request)
+    {
+        this.progressDialog = ProgressDialog.show(this,
+                super.getString(R.string.saving_memory),
+                super.getString(R.string.please_wait),
+                true,//is indeterminate
+                true//is cancelable
+        );
+
+        this.requestTasks.requestLogoff(request, this);
+    }
+
+    public void getPatientLogoffApprovedRequest(Long patientId)
+    {
+        this.requestTasks.getPatientLogoffApprovedRequest(patientId, this);
+    }
+
+    public void showLogoffButton()
+    {
+        this.patientHomeFragment.showLogoffButton();
+    }
+
+    public void onPatientLogoff(Patient patient)
+    {
+        LastLocationService_.intent(this.getApplicationContext()).stop();
+
+        this.requestTasks.updateUsedPatientLogoffRequest(patient.getId());
+
+        final Intent returnIntent = new Intent();
+        returnIntent.putExtra("action", "logoff");
+        this.setResult(Activity.RESULT_OK, returnIntent);
+        this.finish();
     }
     //======================================================================================
 }

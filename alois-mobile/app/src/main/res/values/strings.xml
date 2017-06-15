@@ -155,4 +155,7 @@
     <string name="edit_memory">Edit</string>
     <string name="request_delete_memory">Request Delete</string>
     <string name="memory_creation_date">Creation Date</string>
+    <string name="camera">Camera</string>
+    <string name="logoff_requested">Logoff request send</string>
+    <string name="request_logout">Request Logout</string>
 </resources>

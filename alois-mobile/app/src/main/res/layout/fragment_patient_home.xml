@@ -30,7 +30,6 @@
         android:textSize="16sp"
         style="@style/Base.Widget.AppCompat.Button.Borderless"
         />
->>>>>>> desenv
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -149,9 +148,21 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Solicitar Logoff"
+        android:text="@string/request_logout"
         android:layout_alignParentBottom="true"
+        android:id="@+id/patientHomeRequestLogoff"
         style="@style/Base.Widget.AppCompat.Button.Borderless"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/logout"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/patientHomeLogoffButton"
+        style="@style/Base.Widget.AppCompat.Button.Borderless"
+        android:visibility="invisible"
         />
 
 

@@ -1,44 +1,28 @@
 package br.com.alois.aloismobile.ui.view.home.fragment;
 
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
-import org.androidannotations.annotations.ItemClick;
-import org.androidannotations.annotations.NonConfigurationInstance;
-import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.ViewById;
 
 import java.text.SimpleDateFormat;
-import java.util.List;
+import java.util.Calendar;
 
 import br.com.alois.aloismobile.R;
-import br.com.alois.aloismobile.application.api.patient.PatientTasks;
 import br.com.alois.aloismobile.ui.view.home.PatientHomeActivity;
-import br.com.alois.aloismobile.ui.view.home.adapter.PatientListAdapter;
 import br.com.alois.aloismobile.ui.view.memory.fragment.MemoryListFragment;
 import br.com.alois.aloismobile.ui.view.memory.fragment.MemoryListFragment_;
-import br.com.alois.aloismobile.ui.view.patient.PatientDetailActivity_;
-import br.com.alois.aloismobile.ui.view.patient.fragment.PatientFormFragment;
-import br.com.alois.aloismobile.ui.view.patient.fragment.PatientFormFragment_;
 import br.com.alois.domain.entity.user.Patient;
+import br.com.alois.domain.entity.user.Request;
+import br.com.alois.domain.entity.user.RequestStatus;
+import br.com.alois.domain.entity.user.RequestType;
 
 @EFragment(R.layout.fragment_patient_home)
 public class PatientHomeFragment extends Fragment
@@ -73,6 +57,9 @@ public class PatientHomeFragment extends Fragment
 
     @ViewById(R.id.patientDetailNote)
     TextView patientDetailNote;
+
+    @ViewById(R.id.patientHomeLogoffButton)
+    Button patientHomeLogoffButton;
 
     private Patient patient;
 
@@ -109,6 +96,7 @@ public class PatientHomeFragment extends Fragment
         }
     }
 
+    //TODO ISSO NAO EH UM GETTER NEM UM SETTER
     @Click(R.id.buttonMyMemories)
     public void onClickButtonMyMemories()
     {
@@ -130,8 +118,33 @@ public class PatientHomeFragment extends Fragment
     public void onAfterViews()
     {
         ((PatientHomeActivity) this.getActivity()).getPatient(this.patientId);
+
+        ((PatientHomeActivity) this.getActivity()).getPatientLogoffApprovedRequest(this.patientId);
     }
 
+    @Click(R.id.patientHomeRequestLogoff)
+    public void onPatientHomeRequestLogoffClick()
+    {
+        Request request = new Request();
+        request.setPatient(this.patient);
+        request.setRequestStatus(RequestStatus.PENDING);
+        request.setTimeRequested(Calendar.getInstance());
+        request.setRequestType(RequestType.LOGOFF);
+
+        ((PatientHomeActivity) this.getActivity()).requestLogoff(request);
+    }
+
+    public void showLogoffButton()
+    {
+        this.patientHomeLogoffButton.setVisibility(View.VISIBLE);
+    }
+
+
+    @Click(R.id.patientHomeLogoffButton)
+    public void onPatientHomeLogoffButton()
+    {
+        ((PatientHomeActivity) this.getActivity()).onPatientLogoff(this.patient);
+    }
     //======================================================================================
 
 }

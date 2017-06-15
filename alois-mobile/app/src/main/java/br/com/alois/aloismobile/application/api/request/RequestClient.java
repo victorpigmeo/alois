@@ -2,6 +2,7 @@ package br.com.alois.aloismobile.application.api.request;
 
 import java.util.List;
 
+import br.com.alois.domain.entity.user.Patient;
 import br.com.alois.domain.entity.user.Request;
 import feign.Headers;
 import feign.Param;
@@ -24,4 +25,16 @@ public interface RequestClient
     @RequestLine("GET /request/discardLogoffRequest")
     @Headers({"Content-Type: application/json", "Authorization: Basic {basicAuthToken}"})
     Request discardLogoffRequest(Request request, @Param("basicAuthToken") String basicAuthToken);
+
+    @RequestLine("POST /request/requestLogoff")
+    @Headers({"Content-Type: application/json", "Authorization: Basic {basicAuthToken}"})
+    Request requestLogoff(Request patient, @Param("basicAuthToken") String basicAuthToken);
+
+    @RequestLine("GET /request/getPatientLogoffApprovedRequest/{patientId}")
+    @Headers({"Content-type: application/json", "Authorization: Basic {basicAuthToken}"})
+    Request getPatientLogoffApprovedRequest(@Param("patientId") Long patientId, @Param("basicAuthToken") String basicAuthToken);
+
+    @RequestLine("GET /request/updateUsedPatientLogoffRequest/{patientId}")
+    @Headers({"Content-type: application/json", "Authorization: Basic {basicAuthToken}"})
+    void updateUsedPatientLogoffRequest(@Param("patientId") Long patientId, @Param("basicAuthToken") String basicAuthToken);
 }

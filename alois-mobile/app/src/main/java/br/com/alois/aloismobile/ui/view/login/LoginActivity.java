@@ -178,6 +178,8 @@ public class LoginActivity extends AppCompatActivity
     public static void clearUserData()
     {
         generalPreferences.edit()
+                .loggedUserId()
+                .remove()
                 .loggedUsername()
                 .remove()
                 .loggedPassword()

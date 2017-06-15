@@ -175,19 +175,22 @@ public class LastLocationService extends IntentService implements
 
             Point lastLocationPoint = new Point(this.lastLocation.getLatitude(), this.lastLocation.getLongitude());
             String teste  = "LastKnow:"+this.lastLocation.getLatitude()+"|"+this.lastLocation.getLongitude();
-            try
+
+            if(this.generalPreferences.loggedUserId() != null && this.generalPreferences.loggedUserId().get() != 0)
             {
-                routeClient.updateLastLocation(
-                        lastLocationPoint,
-                        this.generalPreferences.loggedUserId().get(),
-                        this.generalPreferences.loggedUserAuthToken().get()
-                );
-                this.updateLastLocationHandleSuccess(teste);
-            }
-            catch (FeignException e)
-            {
-                e.printStackTrace();
-                this.updateLastLocationHandleFail();
+                try
+                {
+                    routeClient.updateLastLocation(
+                            lastLocationPoint,
+                            this.generalPreferences.loggedUserId().get(),
+                            this.generalPreferences.loggedUserAuthToken().get()
+                    );
+                    this.updateLastLocationHandleSuccess(teste);
+                } catch (FeignException e)
+                {
+                    e.printStackTrace();
+                    this.updateLastLocationHandleFail();
+                }
             }
         }
 

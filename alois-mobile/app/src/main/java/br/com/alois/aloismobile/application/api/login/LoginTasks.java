@@ -120,6 +120,18 @@ public class LoginTasks
 
     }
 
+    @UiThread
+    public void loginHandleResponseFail(String message)
+    {
+        //TODO if message so print it
+        this.loginActivity.progressDialog.dismiss();
+        Toast.makeText(
+                this.loginActivity,
+                this.loginActivity.getResources().getString(R.string.cannot_connect),
+                Toast.LENGTH_SHORT)
+                .show();
+    }
+
     @Background
     public void updateCaregiverNotificationToken(Long caregiverId)
     {
@@ -167,15 +179,5 @@ public class LoginTasks
         }
     }
 
-    @UiThread
-    public void loginHandleResponseFail(String message)
-    {
-        this.loginActivity.progressDialog.dismiss();
-        Toast.makeText(
-                this.loginActivity,
-                this.loginActivity.getResources().getString(R.string.cannot_connect),
-                Toast.LENGTH_SHORT)
-                .show();
-    }
 
 }

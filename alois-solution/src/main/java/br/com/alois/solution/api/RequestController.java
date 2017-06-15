@@ -42,6 +42,24 @@ public class RequestController {
 	{
 		return this.requestService.discardLogoffRequest(request);
 	}
+	
+	@RequestMapping(method = RequestMethod.POST, value="/requestLogoff")
+	public Request requestLogoff(@RequestBody Request request)
+	{
+		return this.requestService.requestLogoff( request );
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value="/getPatientLogoffApprovedRequest/{patientId}")
+	public Request getPatientLogoffApprovedRequest(@PathVariable("patientId") Long patientId)
+	{
+		return this.requestService.getPatientLogoffApprovedRequest(patientId);
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value="/updateUsedPatientLogoffRequest/{patientId}")
+	public void updateUsedPatientLogoffRequest(@PathVariable("patientId") Long patientId)
+	{
+		this.requestService.updateUsedPatientLogoffRequest(patientId);
+	}
 	//======================================================================================
 
 }
