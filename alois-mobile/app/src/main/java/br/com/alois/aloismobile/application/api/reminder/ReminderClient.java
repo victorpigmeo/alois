@@ -37,4 +37,8 @@ public interface ReminderClient
     @RequestLine("POST /reminder/updateAtivoReminder/{reminderId}/{reminderStatus}")
     @Headers({"Content-Type: application/json", "Authorization: Basic {basicAuthToken}"})
     void updateStatusReminder(@Param("reminderId") Long reminderId, @Param("reminderStatus") ReminderStatus reminderStatus, @Param("basicAuthToken") String loggedUserAuthToken);
+
+    @RequestLine("GET /reminder/listActiveRemindersByPatientId/{patientId}")
+    @Headers({"Content-Type: application/json", "Authorization: Basic {basicAuthToken}"})
+    List<Reminder> listActiveRemindersByPatientId(@Param("patientId") Long patientId, @Param("basicAuthToken") String loggedUserAuthToken);
 }

@@ -32,6 +32,12 @@ public class ReminderController {
 	{
 		return this.reminderService.insertReminder(reminder);
 	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/listActiveRemindersByPatientId/{patientId}")
+	public List<Reminder> listActiveRemindersByPatientId(@PathVariable("patientId") Long patientId)
+	{
+		return this.reminderService.listActiveReminderByPatientId(patientId);
+	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/update")
 	public Reminder updateReminder(@RequestBody Reminder reminder)

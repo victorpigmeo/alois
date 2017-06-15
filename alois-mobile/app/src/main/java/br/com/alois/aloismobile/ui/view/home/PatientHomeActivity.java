@@ -49,6 +49,7 @@ import java.util.List;
 import br.com.alois.aloismobile.R;
 import br.com.alois.aloismobile.application.api.memory.MemoryTasks;
 import br.com.alois.aloismobile.application.api.patient.PatientTasks;
+import br.com.alois.aloismobile.application.api.reminder.ReminderTasks;
 import br.com.alois.aloismobile.application.api.request.RequestTasks;
 import br.com.alois.aloismobile.application.api.route.RouteTasks;
 import br.com.alois.aloismobile.application.preference.GeneralPreferences_;
@@ -68,6 +69,7 @@ import br.com.alois.aloismobile.ui.view.patient.fragment.PatientDetailFragment_;
 import br.com.alois.aloismobile.ui.view.patient.fragment.PatientFormFragment;
 import br.com.alois.aloismobile.ui.view.patient.fragment.PatientFormFragment_;
 import br.com.alois.domain.entity.memory.Memory;
+import br.com.alois.domain.entity.reminder.Reminder;
 import br.com.alois.domain.entity.route.Route;
 import br.com.alois.domain.entity.user.Patient;
 import br.com.alois.domain.entity.user.Request;
@@ -107,6 +109,10 @@ public class PatientHomeActivity extends AppCompatActivity
     @Bean
     RouteTasks routeTasks;
 
+    @NonConfigurationInstance
+    @Bean
+    ReminderTasks reminderTasks;
+
     @SystemService
     LocationManager locationManager;
 
@@ -117,6 +123,7 @@ public class PatientHomeActivity extends AppCompatActivity
 
     byte[] photo;
     String photoPath;
+    private List<Reminder> patientReminderList;
     //=====================================BEHAVIOUR========================================
 
     //TODO PORQUE TEM ESSE SUPRESS WARNINGS?
@@ -373,6 +380,23 @@ public class PatientHomeActivity extends AppCompatActivity
     public void setPatientRouteList(List<Route> patientRouteList)
     {
         this.patientHomeFragment.setPatientRoutes(patientRouteList);
+    }
+
+    public void listRemindersByPatientId(Long patientId)
+    {
+        this.progressDialog = ProgressDialog.show(this,
+                super.getString(R.string.loading_routes),
+                super.getString(R.string.please_wait),
+                true,//is indeterminate
+                true//is cancelable
+        );
+
+        this.reminderTasks.listActiveRemindersByPatientId(patientId, this);
+    }
+
+    public void setPatientReminderList(List<Reminder> patientReminderList)
+    {
+        this.patientHomeFragment.setPatientReminderList(patientReminderList);
     }
     //======================================================================================
 }

@@ -13,12 +13,14 @@ import java.util.List;
 import br.com.alois.aloismobile.R;
 import br.com.alois.aloismobile.application.preference.GeneralPreferences_;
 import br.com.alois.aloismobile.application.preference.ServerConfiguration;
+import br.com.alois.aloismobile.ui.view.home.PatientHomeActivity;
 import br.com.alois.aloismobile.ui.view.patient.PatientDetailActivity;
 import br.com.alois.api.jackson.JacksonDecoder;
 import br.com.alois.api.jackson.JacksonEncoder;
 import br.com.alois.domain.entity.reminder.Reminder;
 import br.com.alois.domain.entity.reminder.ReminderStatus;
 import br.com.alois.domain.entity.user.Patient;
+import br.com.alois.domain.entity.user.UserType;
 import feign.Feign;
 import feign.FeignException;
 
@@ -79,7 +81,25 @@ public class ReminderTasks
 
         try
         {
-            listRemindersByPatientIdHandleSuccess( reminderClient.listRemindersByPatientId( patientId, this.generalPreferences.loggedUserAuthToken().get() ) );
+            listRemindersByPatientIdHandleSuccess( reminderClient.listRemindersByPatientId( patientId, this.generalPreferences.loggedUserAuthToken().get() ), null );
+        }
+        catch(FeignException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    @Background
+    public void listActiveRemindersByPatientId(Long patientId, PatientHomeActivity patientHomeActivity)
+    {
+        ReminderClient reminderClient = Feign.builder()
+                .encoder(new JacksonEncoder())
+                .decoder(new JacksonDecoder())
+                .target(ReminderClient.class, ServerConfiguration.API_ENDPOINT);
+
+        try
+        {
+            listRemindersByPatientIdHandleSuccess( reminderClient.listActiveRemindersByPatientId( patientId, this.generalPreferences.loggedUserAuthToken().get() ), patientHomeActivity );
         }
         catch(FeignException e)
         {
@@ -88,10 +108,18 @@ public class ReminderTasks
     }
 
     @UiThread
-    public void listRemindersByPatientIdHandleSuccess(List<Reminder> reminders)
+    public void listRemindersByPatientIdHandleSuccess(List<Reminder> reminders, PatientHomeActivity patientHomeActivity)
     {
-        this.patientDetailActivity.setReminderList( reminders );
-        this.patientDetailActivity.progressDialog.dismiss();
+        if(this.generalPreferences.loggedUserType().get().equals(UserType.CAREGIVER.ordinal()))
+        {
+            this.patientDetailActivity.setReminderList( reminders );
+            this.patientDetailActivity.progressDialog.dismiss();
+        }
+        else
+        {
+            patientHomeActivity.progressDialog.dismiss();
+            patientHomeActivity.setPatientReminderList( reminders );
+        }
     }
 
     @Background

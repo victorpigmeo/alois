@@ -141,6 +141,10 @@ public class ReminderService
 	{
 		this.reminderRepository.updateStatusReminder(reminderId, reminderStatus);
 	}
+
+	public List<Reminder> listActiveReminderByPatientId(Long patientId) {
+		return this.reminderRepository.listActiveReminderByPatientId(patientId);
+	}
 	
 	//======================================================================================
 

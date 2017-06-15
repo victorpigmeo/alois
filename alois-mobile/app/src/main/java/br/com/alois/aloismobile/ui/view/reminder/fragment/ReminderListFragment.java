@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.github.clans.fab.FloatingActionButton;
+
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
@@ -14,14 +16,18 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.ItemClick;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import java.util.List;
 
 import br.com.alois.aloismobile.R;
+import br.com.alois.aloismobile.application.preference.GeneralPreferences_;
+import br.com.alois.aloismobile.ui.view.home.PatientHomeActivity;
 import br.com.alois.aloismobile.ui.view.patient.PatientDetailActivity;
 import br.com.alois.aloismobile.ui.view.reminder.adapter.ReminderListAdapter;
 import br.com.alois.domain.entity.reminder.Reminder;
 import br.com.alois.domain.entity.user.Patient;
+import br.com.alois.domain.entity.user.UserType;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,6 +39,8 @@ public class ReminderListFragment extends Fragment
     @ViewById(R.id.reminderList)
     ListView reminderList;
 
+    @ViewById(R.id.fab_add_reminder)
+    FloatingActionButton fabAddReminder;
     //======================================================================================
 
     //=====================================INJECTIONS=======================================
@@ -41,6 +49,9 @@ public class ReminderListFragment extends Fragment
 
     @Bean
     ReminderListAdapter reminderListAdapter;
+
+    @Pref
+    GeneralPreferences_ generalPreferences;
     //======================================================================================
 
     //====================================CONSTRUCTORS======================================
@@ -57,7 +68,15 @@ public class ReminderListFragment extends Fragment
     {
         this.reminderList.setAdapter(this.reminderListAdapter);
 
-        ((PatientDetailActivity) this.getActivity()).listRemindersByPatientId(this.patient.getId());
+        if(this.generalPreferences.loggedUserType().get().equals(UserType.CAREGIVER.ordinal()))
+        {
+            ((PatientDetailActivity) this.getActivity()).listRemindersByPatientId(this.patient.getId());
+        }
+        else
+        {
+            ((PatientHomeActivity) this.getActivity()).listRemindersByPatientId(this.patient.getId());
+            this.fabAddReminder.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Click(R.id.fab_add_reminder)

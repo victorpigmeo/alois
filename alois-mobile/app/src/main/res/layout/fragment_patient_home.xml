@@ -24,7 +24,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:id="@+id/buttonMyReminders"
+        android:id="@+id/patientHomeRemindersButton"
         android:layout_below="@id/patientHomeRoutesButton"
         android:text="@string/myReminders"
         android:textSize="16sp"
@@ -34,7 +34,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/buttonMyReminders"
+        android:layout_below="@id/patientHomeRemindersButton"
         android:id="@+id/patientDetails">
 
         <TextView

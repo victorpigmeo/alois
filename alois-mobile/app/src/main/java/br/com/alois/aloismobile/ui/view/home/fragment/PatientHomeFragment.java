@@ -20,8 +20,11 @@ import br.com.alois.aloismobile.R;
 import br.com.alois.aloismobile.ui.view.home.PatientHomeActivity;
 import br.com.alois.aloismobile.ui.view.memory.fragment.MemoryListFragment;
 import br.com.alois.aloismobile.ui.view.memory.fragment.MemoryListFragment_;
+import br.com.alois.aloismobile.ui.view.reminder.fragment.ReminderListFragment;
+import br.com.alois.aloismobile.ui.view.reminder.fragment.ReminderListFragment_;
 import br.com.alois.aloismobile.ui.view.route.fragment.RouteListFragment;
 import br.com.alois.aloismobile.ui.view.route.fragment.RouteListFragment_;
+import br.com.alois.domain.entity.reminder.Reminder;
 import br.com.alois.domain.entity.route.Route;
 import br.com.alois.domain.entity.user.Patient;
 import br.com.alois.domain.entity.user.Request;
@@ -32,12 +35,6 @@ import br.com.alois.domain.entity.user.RequestType;
 public class PatientHomeFragment extends Fragment
 {
     //=====================================ATTRIBUTES=======================================
-    @ViewById(R.id.buttonMyMemories)
-    Button myMemories;
-
-    @ViewById(R.id.buttonMyReminders)
-    Button myReminders;
-
     @ViewById(R.id.patientDetailName)
     TextView patientDetailName;
 
@@ -64,14 +61,18 @@ public class PatientHomeFragment extends Fragment
 
     private Patient patient;
 
+    //TODO PORQUE ESTA PUBLICO? ALGUEM DE FORA PRECISA ACESSAR ISSO?
     public MemoryListFragment memoryListFragment;
 
-    public RouteListFragment routeListFragment;
+    private RouteListFragment routeListFragment;
+
+    private ReminderListFragment reminderListFragment;
     //======================================================================================
 
     //=====================================INJECTIONS=======================================
     @FragmentArg("patientId")
     Long patientId;
+    private List<Reminder> patientReminderList;
 
     //======================================================================================
 
@@ -149,7 +150,7 @@ public class PatientHomeFragment extends Fragment
     }
 
     @Click(R.id.patientHomeRoutesButton)
-    public void onPatientHomeRoutesButton()
+    public void onPatientHomeRoutesButtonClick()
     {
         this.routeListFragment = RouteListFragment_.builder()
                 .patient(this.patient)
@@ -166,6 +167,26 @@ public class PatientHomeFragment extends Fragment
     public void setPatientRoutes(List<Route> patientRoutes)
     {
         this.routeListFragment.setPatientRouteList(patientRoutes);
+    }
+
+    @Click(R.id.patientHomeRemindersButton)
+    public void onPatientHomeRemindersButtonClick()
+    {
+        this.reminderListFragment = ReminderListFragment_.builder()
+                .patient(this.patient)
+                .build();
+
+        this.getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.patient_home_frame_layout, reminderListFragment)
+                .addToBackStack("routeListFragment")
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .commit();
+    }
+
+    public void setPatientReminderList(List<Reminder> patientReminderList)
+    {
+        this.reminderListFragment.setReminderList(patientReminderList);
     }
     //======================================================================================
 

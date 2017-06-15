@@ -15,12 +15,16 @@ import android.widget.Toast;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import br.com.alois.aloismobile.R;
+import br.com.alois.aloismobile.application.preference.GeneralPreferences;
+import br.com.alois.aloismobile.application.preference.GeneralPreferences_;
 import br.com.alois.aloismobile.ui.view.patient.PatientDetailActivity;
 import br.com.alois.aloismobile.ui.view.reminder.fragment.ReminderFormFragment;
 import br.com.alois.aloismobile.ui.view.reminder.fragment.ReminderFormFragment_;
 import br.com.alois.domain.entity.reminder.Reminder;
+import br.com.alois.domain.entity.user.UserType;
 
 /**
  * Created by victor on 5/3/17.
@@ -45,6 +49,8 @@ public class ReminderListRow extends RelativeLayout
     //======================================================================================
 
     //=====================================INJECTIONS=======================================
+    @Pref
+    GeneralPreferences_ generalPreferences;
 
     //======================================================================================
 
@@ -94,6 +100,12 @@ public class ReminderListRow extends RelativeLayout
                     }
                 });
                 break;
+        }
+
+        if(this.generalPreferences.loggedUserType().get().equals(UserType.PATIENT.ordinal()))
+        {
+            this.reminderListRowPopUpMenu.setVisibility(INVISIBLE);
+            this.reminderListRowSign.setVisibility(INVISIBLE);
         }
     }
 

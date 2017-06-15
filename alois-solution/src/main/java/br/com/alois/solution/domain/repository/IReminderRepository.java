@@ -29,4 +29,10 @@ public interface IReminderRepository extends JpaRepository<Reminder, Long>{
 	@Modifying
 	@Query(value="UPDATE Reminder reminder SET reminder.reminderStatus = :status WHERE reminder.id = :reminderId ")
 	void updateStatusReminder(@Param("reminderId") Long reminderId, @Param("status") ReminderStatus reminderStatus);
+
+	@EntityGraph(attributePaths = {
+			"patient"
+	})
+	@Query(value = "FROM Reminder reminder WHERE reminder.patient.id = :patientId AND reminder.reminderStatus = 1")
+	List<Reminder> listActiveReminderByPatientId(@Param("patientId") Long patientId);
 }
