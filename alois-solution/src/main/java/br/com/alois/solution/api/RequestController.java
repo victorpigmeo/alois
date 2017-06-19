@@ -31,6 +31,13 @@ public class RequestController {
 		return this.requestService.listRequestByPatientId( patientId );
 	}
 	
+	@RequestMapping(method = RequestMethod.GET, value="/listMemoryRequestsByPatientId/{patientId}") 
+	public List<Request> listMemoryRequestsByPatientId( @PathVariable("patientId") Long patientId )
+	{
+		return this.requestService.listMemoryRequestsByPatientId( patientId );
+	}
+	
+	
 	@RequestMapping(method = RequestMethod.POST, value="/approveLogoffRequest")
 	public Request approveLogoffRequest(@RequestBody Request request)
 	{
@@ -41,6 +48,24 @@ public class RequestController {
 	public Request discardLogoffRequest(@RequestBody Request request)
 	{
 		return this.requestService.discardLogoffRequest(request);
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value="/memoryDeleteRequest")
+	public Request memoryDeleteRequest(@RequestBody Request request)
+	{
+		return this.requestService.memoryDeleteRequest(request);
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value="/approveMemoryRequest")
+	public void approveMemoryRequest(@RequestBody Request request)
+	{
+		this.requestService.approveMemoryRequest(request);
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value="/discardMemoryRequest")
+	public Request discardMemoryRequest(@RequestBody Request request)
+	{
+		return this.requestService.discardMemoryRequest(request);
 	}
 	//======================================================================================
 

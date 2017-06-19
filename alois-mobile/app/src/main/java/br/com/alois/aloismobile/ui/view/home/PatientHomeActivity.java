@@ -49,6 +49,7 @@ import java.util.List;
 import br.com.alois.aloismobile.R;
 import br.com.alois.aloismobile.application.api.memory.MemoryTasks;
 import br.com.alois.aloismobile.application.api.patient.PatientTasks;
+import br.com.alois.aloismobile.application.api.request.RequestTasks;
 import br.com.alois.aloismobile.application.preference.GeneralPreferences_;
 import br.com.alois.aloismobile.application.service.LastLocationService;
 import br.com.alois.aloismobile.application.service.LastLocationService_;
@@ -67,6 +68,9 @@ import br.com.alois.aloismobile.ui.view.patient.fragment.PatientFormFragment;
 import br.com.alois.aloismobile.ui.view.patient.fragment.PatientFormFragment_;
 import br.com.alois.domain.entity.memory.Memory;
 import br.com.alois.domain.entity.user.Patient;
+import br.com.alois.domain.entity.user.Request;
+import br.com.alois.domain.entity.user.RequestStatus;
+import br.com.alois.domain.entity.user.RequestType;
 
 @EActivity(R.layout.activity_patient_home)
 @OptionsMenu(R.menu.home_patient_menu)
@@ -94,7 +98,12 @@ public class PatientHomeActivity extends AppCompatActivity
     @NonConfigurationInstance
     @Bean
     MemoryTasks memoryTasks;
-    
+
+    @NonConfigurationInstance
+    @Bean
+    RequestTasks requestTasks;
+
+
     @SystemService
     LocationManager locationManager;
 
@@ -196,6 +205,20 @@ public class PatientHomeActivity extends AppCompatActivity
         );
 
         this.memoryTasks.updateMemory(memory);
+    }
+
+    public void requestDeleteMemory(Request request) {
+        this.progressDialog = ProgressDialog.show(this,
+                super.getString(R.string.requesting_delete_memory),
+                super.getString(R.string.please_wait),
+                true,//is indeterminate
+                true//is cancelable
+        );
+       request.setPatient(this.patientHomeFragment.getPatient());
+        request.getPatient().setMemories(null);
+        request.getMemory().setPatient(null);
+
+        this.requestTasks.memoryDeleteRequest(request, this);
     }
 
     public void onInsertMemory(Memory memory)

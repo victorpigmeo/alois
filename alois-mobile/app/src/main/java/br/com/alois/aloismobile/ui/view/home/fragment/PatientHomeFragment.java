@@ -109,6 +109,11 @@ public class PatientHomeFragment extends Fragment
         }
     }
 
+    public Patient getPatient(){
+        return this.patient;
+    }
+
+
     @Click(R.id.buttonMyMemories)
     public void onClickButtonMyMemories()
     {

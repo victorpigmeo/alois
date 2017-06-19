@@ -371,10 +371,10 @@ public class PatientDetailActivity extends AppCompatActivity
     public void listPatientLogoffRequests(Patient patient)
     {
         this.progressDialog = ProgressDialog.show(this,
-                this.getResources().getString(R.string.loading_logoff_requests),
+                this.getResources().getString(R.string.loading_requests),
                 this.getResources().getString(R.string.please_wait),
                 true,
-                false
+                true
         );
 
         this.requestTasks.listLogoffRequestsByPatientId( patient.getId() );
@@ -407,6 +407,51 @@ public class PatientDetailActivity extends AppCompatActivity
         );
 
         this.requestTasks.discardLogoffRequest(request);
+    }
+
+    public void listPatientMemoryRequests(Patient patient)
+    {
+        /*this.progressDialog = ProgressDialog.show(this,
+                this.getResources().getString(R.string.loading_memory_requests),
+                this.getResources().getString(R.string.please_wait),
+                true,
+                true
+        );*/
+
+        this.requestTasks.listMemoryRequestsByPatientId( patient.getId() );
+    }
+
+    public void setPatientMemoryRequests(List<Request> patientMemoryRequests)
+    {
+        this.requestListFragment.setPatientMemoryRequests(patientMemoryRequests);
+    }
+
+    public void approveMemoryRequest(Request request)
+    {
+        this.progressDialog = ProgressDialog.show(this,
+                this.getResources().getString(R.string.approving_request),
+                this.getResources().getString(R.string.please_wait),
+                true,
+                false
+        );
+
+        this.requestTasks.approveMemoryRequest(request);
+    }
+
+    public void discardMemoryRequest(Request request)
+    {
+        this.progressDialog = ProgressDialog.show(this,
+                this.getResources().getString(R.string.approving_request),
+                this.getResources().getString(R.string.please_wait),
+                true,
+                false
+        );
+
+        this.requestTasks.discardMemoryRequest(request);
+    }
+
+    public void onApproveMemoryRequest(Request request){
+        this.requestListFragment.onApproveMemoryRequest(request);
     }
     //======================================================================================
 }
