@@ -14,11 +14,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -27,19 +24,14 @@ import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListene
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
-import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.Extra;
-import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.InjectMenu;
-import org.androidannotations.annotations.ItemClick;
 import org.androidannotations.annotations.NonConfigurationInstance;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.SystemService;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -53,21 +45,11 @@ import br.com.alois.aloismobile.application.api.reminder.ReminderTasks;
 import br.com.alois.aloismobile.application.api.request.RequestTasks;
 import br.com.alois.aloismobile.application.api.route.RouteTasks;
 import br.com.alois.aloismobile.application.preference.GeneralPreferences_;
-import br.com.alois.aloismobile.application.service.LastLocationService;
 import br.com.alois.aloismobile.application.service.LastLocationService_;
-import br.com.alois.aloismobile.ui.view.home.fragment.CaregiverHomeFragment;
-import br.com.alois.aloismobile.ui.view.home.fragment.CaregiverHomeFragment_;
 import br.com.alois.aloismobile.ui.view.home.fragment.PatientHomeFragment;
 import br.com.alois.aloismobile.ui.view.home.fragment.PatientHomeFragment_;
-import br.com.alois.aloismobile.ui.view.login.LoginActivity;
 import br.com.alois.aloismobile.ui.view.memory.fragment.MemoryFormFragment;
 import br.com.alois.aloismobile.ui.view.memory.fragment.MemoryFormFragment_;
-import br.com.alois.aloismobile.ui.view.memory.fragment.MemoryListFragment_;
-import br.com.alois.aloismobile.ui.view.patient.PatientDetailActivity_;
-import br.com.alois.aloismobile.ui.view.patient.fragment.PatientDetailFragment;
-import br.com.alois.aloismobile.ui.view.patient.fragment.PatientDetailFragment_;
-import br.com.alois.aloismobile.ui.view.patient.fragment.PatientFormFragment;
-import br.com.alois.aloismobile.ui.view.patient.fragment.PatientFormFragment_;
 import br.com.alois.domain.entity.memory.Memory;
 import br.com.alois.domain.entity.reminder.Reminder;
 import br.com.alois.domain.entity.route.Route;
@@ -159,6 +141,13 @@ public class PatientHomeActivity extends AppCompatActivity
                 .commit();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        menu.getItem(0).getIcon().setColorFilter(this.getResources().getColor(R.color.white), PorterDuff.Mode.SRC_IN);
+        return true;
+    }
+
     public void getPatient(Long patientId)
     {
         this.progressDialog = ProgressDialog.show(this,
@@ -173,7 +162,6 @@ public class PatientHomeActivity extends AppCompatActivity
 
     public void getMemory(Long memoryId)
     {
-        System.out.println("Chegou aqui!!");
         this.progressDialog = ProgressDialog.show(this,
                 super.getString(R.string.loading_memory),
                 super.getString(R.string.please_wait),
@@ -308,9 +296,12 @@ public class PatientHomeActivity extends AppCompatActivity
 
             ImageSize targetSize = new ImageSize(400, 200);
 
-            this.progressDialog = ProgressDialog.show(this,
-                    "Aguarde!",
-                    "Carregando imagem..."
+            this.progressDialog = ProgressDialog.show(
+                    this,
+                    this.getResources().getString(R.string.loading_image),
+                    this.getResources().getString(R.string.please_wait),
+                    true,
+                    false
             );
 
             imageLoader.loadImage(photoPath, targetSize, null, new SimpleImageLoadingListener() {
@@ -334,7 +325,7 @@ public class PatientHomeActivity extends AppCompatActivity
     public void requestLogoff(Request request)
     {
         this.progressDialog = ProgressDialog.show(this,
-                super.getString(R.string.saving_memory),
+                this.getResources().getString(R.string.saving_request),
                 super.getString(R.string.please_wait),
                 true,//is indeterminate
                 true//is cancelable
@@ -385,7 +376,7 @@ public class PatientHomeActivity extends AppCompatActivity
     public void listRemindersByPatientId(Long patientId)
     {
         this.progressDialog = ProgressDialog.show(this,
-                super.getString(R.string.loading_routes),
+                super.getString(R.string.loading_reminders),
                 super.getString(R.string.please_wait),
                 true,//is indeterminate
                 true//is cancelable

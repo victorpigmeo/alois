@@ -112,13 +112,29 @@ public class ReminderTasks
     {
         if(this.generalPreferences.loggedUserType().get().equals(UserType.CAREGIVER.ordinal()))
         {
-            this.patientDetailActivity.setReminderList( reminders );
-            this.patientDetailActivity.progressDialog.dismiss();
+            if( reminders.size() != 0 )
+            {
+                this.patientDetailActivity.setReminderList( reminders );
+                this.patientDetailActivity.progressDialog.dismiss();
+            }
+            else
+            {
+                this.patientDetailActivity.progressDialog.dismiss();
+                Toast.makeText(this.patientDetailActivity, this.patientDetailActivity.getResources().getString(R.string.patient_does_not_have_reminders), Toast.LENGTH_SHORT).show();
+            }
         }
         else
         {
-            patientHomeActivity.progressDialog.dismiss();
-            patientHomeActivity.setPatientReminderList( reminders );
+            if( reminders.size() != 0 )
+            {
+                patientHomeActivity.progressDialog.dismiss();
+                patientHomeActivity.setPatientReminderList(reminders);
+            }
+            else
+            {
+                patientHomeActivity.progressDialog.dismiss();
+                Toast.makeText(patientHomeActivity, patientHomeActivity.getResources().getString(R.string.patient_does_not_have_reminders), Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

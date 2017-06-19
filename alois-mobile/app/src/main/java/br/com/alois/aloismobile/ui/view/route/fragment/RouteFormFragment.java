@@ -1,24 +1,17 @@
 package br.com.alois.aloismobile.ui.view.route.fragment;
 
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.gms.maps.model.LatLng;
-import com.mobsandgeeks.saripaar.AnnotationRule;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
-import com.mobsandgeeks.saripaar.annotation.ValidateUsing;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -46,6 +39,9 @@ import br.com.alois.domain.entity.user.Patient;
 public class RouteFormFragment extends Fragment implements Validator.ValidationListener
 {
     //=====================================ATTRIBUTES=======================================
+    @ViewById(R.id.routeFormTitle)
+    TextView routeFormTitle;
+
     @ViewById(R.id.routeFormEditName)
     @NotEmpty(messageResId = R.string.route_name_is_required)
     EditText routeFormEditName;
@@ -82,6 +78,8 @@ public class RouteFormFragment extends Fragment implements Validator.ValidationL
     @AfterViews
     public void onAfterViews()
     {
+        this.routeFormTitle.setText(this.getActivity().getResources().getString(R.string.add_route));
+
         this.validator.setValidationListener(this);
 
         this.routeFormMapFragment = RouteFormMapFragment_.builder().build();
@@ -93,6 +91,8 @@ public class RouteFormFragment extends Fragment implements Validator.ValidationL
                 .commit();
 
         if(this.route != null){
+            this.routeFormTitle.setText(this.getActivity().getResources().getString(R.string.edit_route));
+
             this.routeFormEditName.setText(this.route.getName());
             this.routeFormEditDescription.setText(this.route.getDescription());
 

@@ -3,17 +3,10 @@ package br.com.alois.aloismobile.ui.view.memory.fragment;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,17 +27,17 @@ import java.util.List;
 
 import br.com.alois.aloismobile.R;
 import br.com.alois.aloismobile.application.preference.GeneralPreferences_;
-import br.com.alois.aloismobile.ui.view.home.CaregiverHomeActivity;
 import br.com.alois.aloismobile.ui.view.home.PatientHomeActivity;
 import br.com.alois.domain.entity.memory.Memory;
-import br.com.alois.domain.entity.user.Caregiver;
-import br.com.alois.domain.entity.user.Gender;
 import br.com.alois.domain.entity.user.Patient;
-import br.com.alois.domain.entity.user.User;
 
 @EFragment(R.layout.fragment_memory_form)
-public class MemoryFormFragment extends Fragment implements  Validator.ValidationListener{
+public class MemoryFormFragment extends Fragment implements  Validator.ValidationListener
+{
     //=====================================ATTRIBUTES=======================================
+    @ViewById(R.id.memoryFormTitle)
+    TextView memoryFormTitle;
+
     @ViewById(R.id.memoryFormTitleEdit)
     @NotEmpty(messageResId = R.string.memory_title_is_required)
     EditText memoryFormTitleEdit;
@@ -55,8 +48,6 @@ public class MemoryFormFragment extends Fragment implements  Validator.Validatio
 
     @ViewById(R.id.memoryFormImageView)
     ImageView memoryFormImageView;
-
-    private Patient patient;
 
     Validator validator = new Validator(this);
     //======================================================================================
@@ -83,9 +74,11 @@ public class MemoryFormFragment extends Fragment implements  Validator.Validatio
     @AfterViews
     public void onAfterViews()
     {
+        this.memoryFormTitle.setText(this.getActivity().getResources().getString(R.string.add_memory));
         this.validator.setValidationListener(this);
         if(this.memory != null && this.memory.getId() != null)
         {
+            this.memoryFormTitle.setText(this.getActivity().getResources().getString(R.string.edit_memory));
             this.memoryFormTitleEdit.setText(this.memory.getTitle());
             this.memoryFormDescriptionEdit.setText(this.memory.getDescription());
             Bitmap bmp = BitmapFactory.decodeByteArray(this.memory.getFile(), 0, this.memory.getFile().length);
@@ -100,6 +93,12 @@ public class MemoryFormFragment extends Fragment implements  Validator.Validatio
     public void onClickSaveButton()
     {
         this.validator.validate();
+    }
+
+    @Click(R.id.memoryFormCancelButton)
+    public void onMemoryFormCancelButtonclick()
+    {
+        this.getActivity().getSupportFragmentManager().popBackStack();
     }
 
     @Override

@@ -38,6 +38,7 @@ import br.com.alois.aloismobile.application.preference.ServerConfiguration;
 import br.com.alois.api.jackson.JacksonDecoder;
 import br.com.alois.api.jackson.JacksonEncoder;
 import br.com.alois.domain.entity.route.Point;
+import br.com.alois.domain.entity.user.UserType;
 import feign.Feign;
 import feign.FeignException;
 
@@ -174,9 +175,11 @@ public class LastLocationService extends IntentService implements
                     .target(PatientClient.class, ServerConfiguration.API_ENDPOINT);
 
             Point lastLocationPoint = new Point(this.lastLocation.getLatitude(), this.lastLocation.getLongitude());
-            String teste  = "LastKnow:"+this.lastLocation.getLatitude()+"|"+this.lastLocation.getLongitude();
+            String lastKnow  = "LastKnow:"+this.lastLocation.getLatitude()+"|"+this.lastLocation.getLongitude();
 
-            if(this.generalPreferences.loggedUserId() != null && this.generalPreferences.loggedUserId().get() != 0)
+            if(this.generalPreferences.loggedUserId() != null &&
+                    this.generalPreferences.loggedUserId().get() != 0 &&
+                    this.generalPreferences.loggedUserType().get().equals(UserType.PATIENT.ordinal()))
             {
                 try
                 {
@@ -185,7 +188,7 @@ public class LastLocationService extends IntentService implements
                             this.generalPreferences.loggedUserId().get(),
                             this.generalPreferences.loggedUserAuthToken().get()
                     );
-                    this.updateLastLocationHandleSuccess(teste);
+                    this.updateLastLocationHandleSuccess(lastKnow);
                 } catch (FeignException e)
                 {
                     e.printStackTrace();
@@ -197,10 +200,9 @@ public class LastLocationService extends IntentService implements
     }
 
     @UiThread
-    public void updateLastLocationHandleSuccess(String teste)
+    public void updateLastLocationHandleSuccess(String lastKnow)
     {
-        Log.i("ALOIS-LOCATION", "Alois patient last location updated!");
-        Toast.makeText(this.getApplicationContext(), teste, Toast.LENGTH_SHORT).show();
+        Log.i("ALOIS-LOCATION", this.getResources().getString(R.string.patient_location_updated, lastKnow));
     }
 
     @UiThread
@@ -212,19 +214,19 @@ public class LastLocationService extends IntentService implements
     @Override
     public void onConnected(@Nullable Bundle bundle)
     {
-        Toast.makeText(this.getApplicationContext(), this.getResources().getString(R.string.google_play_services_connected), Toast.LENGTH_SHORT).show();
+        Log.i("ALOIS-LOCATION", this.getResources().getString(R.string.google_play_services_connected));
     }
 
     @Override
     public void onConnectionSuspended(int i)
     {
-        Toast.makeText(this.getApplicationContext(), this.getResources().getString(R.string.google_play_services_suspended), Toast.LENGTH_SHORT).show();
+        Log.i("ALOIS-LOCATION", this.getResources().getString(R.string.google_play_services_suspended));
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult)
     {
-        Toast.makeText(this.getApplicationContext(), this.getResources().getString(R.string.google_play_services_connection_failed), Toast.LENGTH_SHORT).show();
+        Log.i("ALOIS-LOCATION", this.getResources().getString(R.string.google_play_services_connection_failed));
     }
     //======================================================================================
 

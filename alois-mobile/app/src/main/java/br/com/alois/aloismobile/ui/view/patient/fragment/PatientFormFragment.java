@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Checked;
+import com.mobsandgeeks.saripaar.annotation.Max;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
@@ -44,6 +45,9 @@ public class PatientFormFragment extends Fragment implements
 {
     //=====================================ATTRIBUTES=======================================
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+    @ViewById(R.id.patientFormTitle)
+    TextView patientFormTitle;
 
     @ViewById(R.id.patientFormEditName)
     @NotEmpty(messageResId = R.string.name_is_required_field)
@@ -81,6 +85,7 @@ public class PatientFormFragment extends Fragment implements
     EditText patientFormEditEmergencyPhone;
 
     @ViewById(R.id.patientFormEditNotes)
+    @Max(value = 255)
     EditText patientFormEditNotes;
 
     @ViewById(R.id.patientFormEditUsername)
@@ -117,10 +122,12 @@ public class PatientFormFragment extends Fragment implements
     @AfterViews
     public void onAfterViews()
     {
+        this.patientFormTitle.setText(this.getActivity().getResources().getString(R.string.add_patient));
         this.validator.setValidationListener(this);
 
         if(this.patient != null && this.patient.getId() != null)
         {
+            this.patientFormTitle.setText(this.getActivity().getResources().getString(R.string.edit_patient));
             this.patientFormEditName.setText(this.patient.getName());
             this.patientFormEditPhone.setText(this.patient.getPhone());
 
@@ -178,6 +185,9 @@ public class PatientFormFragment extends Fragment implements
                 now.get(Calendar.MONTH),
                 now.get(Calendar.DAY_OF_MONTH)
         );
+
+        datePickerDialog.setAccentColor(this.getActivity().getResources().getColor(R.color.colorPrimaryDark));
+
         datePickerDialog.show(this.getActivity().getFragmentManager(), "DatePickerdialog");
     }
 

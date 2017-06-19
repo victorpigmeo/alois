@@ -1,12 +1,11 @@
 package br.com.alois.aloismobile.ui.view.memory.adapter.item;
 
 import android.content.Context;
-
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
+
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
 

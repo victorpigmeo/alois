@@ -42,6 +42,9 @@ public class ReminderFormFragment extends Fragment implements
         Validator.ValidationListener
 {
     //=====================================ATTRIBUTES=======================================
+    @ViewById(R.id.reminderFormTitle)
+    TextView reminderFormTitle;
+
     @NotEmpty(messageResId = R.string.reminder_title_is_required)
     @ViewById(R.id.reminderFormTitleEdit)
     EditText reminderFormTitleEdit;
@@ -100,10 +103,14 @@ public class ReminderFormFragment extends Fragment implements
     @AfterViews
     public void onAfterViews()
     {
+        this.reminderFormTitle.setText(this.getActivity().getResources().getString(R.string.add_reminder));
+
         this.validator.setValidationListener(this);
 
         if(this.reminder != null && this.reminder.getId() != null)
         {
+            this.reminderFormTitle.setText(this.getActivity().getResources().getString(R.string.edit_reminder));
+
             this.patient = this.reminder.getPatient();
 
             this.reminderFormTitleEdit.setText( this.reminder.getTitle() );
@@ -159,6 +166,12 @@ public class ReminderFormFragment extends Fragment implements
         }
 
         this.validator.validate();
+    }
+
+    @Click(R.id.reminderFormButtonCancel)
+    public void onReminderFormButtonCancelClick()
+    {
+        this.getActivity().getSupportFragmentManager().popBackStack();
     }
 
     @Click(R.id.reminderFormButtonSelectDate)

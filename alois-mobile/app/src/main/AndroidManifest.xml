@@ -33,22 +33,21 @@
 
         <receiver android:name=".application.service.AlarmReceiverService"/>
 
-
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="br.com.alois.aloismobile.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
-            android:name="android.support.FILE_PROVIDER_PATHS"
-            android:resource="@xml/paths" />
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/paths" />
         </provider>
 
 
         <activity
             android:name=".ui.view.login.LoginActivity_"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:theme="@style/StatusBarSameColorWithoutActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -71,7 +70,7 @@
         <activity
             android:name=".ui.view.patient.PatientDetailActivity_"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+            android:theme="@style/StatusBarSameColorWithoutActionBar"/>
     </application>
 
 </manifest>

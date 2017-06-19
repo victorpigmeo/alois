@@ -1,22 +1,28 @@
 package br.com.alois.aloismobile.ui.view.home.adapter.row;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
 
 import br.com.alois.aloismobile.R;
+import br.com.alois.aloismobile.ui.view.caregiver.fragment.CaregiverFormFragment;
+import br.com.alois.aloismobile.ui.view.caregiver.fragment.CaregiverFormFragment_;
+import br.com.alois.aloismobile.ui.view.home.AdministratorHomeActivity;
 import br.com.alois.domain.entity.user.Caregiver;
 
 /**
- * Created by sarah on 3/23/17.
+ * Created by victor on 15/06/17.
  */
 @EViewGroup(R.layout.caregiver_list_row)
 public class CaregiverListRow extends LinearLayout
@@ -33,6 +39,7 @@ public class CaregiverListRow extends LinearLayout
     //======================================================================================
 
     //=====================================INJECTIONS=======================================
+    AppCompatActivity activity;
 
     //======================================================================================
 
@@ -49,10 +56,11 @@ public class CaregiverListRow extends LinearLayout
     //======================================================================================
 
     //=====================================BEHAVIOUR========================================
-    public void bind(Caregiver caregiver)
+    public void bind(Caregiver caregiver, AppCompatActivity activity)
     {
         this.caregiverRowName.setText(caregiver.getName());
         this.caregiver = caregiver;
+        this.activity = activity;
     }
 
     @Click(R.id.caregiverRowMenuButton)
@@ -70,11 +78,40 @@ public class CaregiverListRow extends LinearLayout
                 switch (id)
                 {
                     case R.id.caregiverListMenuEditButton:
-                        //TODO Chamar o fragment de ediçao de cuidador
-                        Toast.makeText(getContext(), "Edit caregiver: "+caregiver.getName(), Toast.LENGTH_SHORT).show();
+                        CaregiverFormFragment caregiverFormFragment = CaregiverFormFragment_.builder()
+                                .caregiver(caregiver)
+                                .build();
+
+                        activity.getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.administratorHomeFrame, caregiverFormFragment)
+                                .addToBackStack("caregiverFormFragment")
+                                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                                .commit();
+
                         break;
                     case R.id.caregiverListMenuDeleteButton:
-                        Toast.makeText(getContext(), "Delete caregiver: "+caregiver.getName(), Toast.LENGTH_SHORT).show();
+                        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext())
+                                .setTitle(R.string.confirm_delete_caregiver)
+                                .setMessage(R.string.delete_caregiver_consequences)
+                                .setPositiveButton(R.string.mdtp_ok, new DialogInterface.OnClickListener()
+                                {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which)
+                                    {
+                                        ((AdministratorHomeActivity) activity).removeCaregiver(caregiver);
+                                    }
+                                })
+                                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener()
+                                {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which)
+                                    {
+                                        return;
+                                    }
+                                });
+
+                        alertDialog.show();
                         break;
                 }
                 return true;

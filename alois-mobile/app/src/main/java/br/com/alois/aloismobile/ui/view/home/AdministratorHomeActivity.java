@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.widget.FrameLayout;
 
@@ -22,7 +21,6 @@ import java.util.List;
 
 import br.com.alois.aloismobile.R;
 import br.com.alois.aloismobile.application.api.caregiver.CaregiverTasks;
-import br.com.alois.aloismobile.application.service.NotificationService;
 import br.com.alois.aloismobile.ui.view.home.fragment.AdministratorHomeFragment;
 import br.com.alois.aloismobile.ui.view.home.fragment.AdministratorHomeFragment_;
 import br.com.alois.aloismobile.ui.view.login.LoginActivity;
@@ -32,31 +30,31 @@ import br.com.alois.domain.entity.user.Caregiver;
 @OptionsMenu(R.menu.home_caregiver_menu)
 public class AdministratorHomeActivity extends AppCompatActivity
 {
-//=====================================ATTRIBUTES=======================================
+    //=====================================ATTRIBUTES=======================================
     @ViewById(R.id.administratorHomeFrame)
     FrameLayout administratorHomeFrame;
 
     public ProgressDialog progressDialog;
 
     AdministratorHomeFragment administratorHomeFragment;
-//======================================================================================
+    //======================================================================================
 
-//=====================================INJECTIONS=======================================
+    //=====================================INJECTIONS=======================================
     @NonConfigurationInstance
     @Bean
     CaregiverTasks caregiverTasks;
-    private List<Caregiver> caregiverList;
-//======================================================================================
 
-//====================================CONSTRUCTORS======================================
+    //======================================================================================
 
-//======================================================================================
+    //====================================CONSTRUCTORS======================================
 
-//==================================GETTERS/SETTERS=====================================
+    //======================================================================================
 
-//======================================================================================
+    //==================================GETTERS/SETTERS=====================================
 
-//=====================================BEHAVIOUR========================================
+    //======================================================================================
+
+    //=====================================BEHAVIOUR========================================
 
     // executa toda vez que a activity é criada
     @AfterViews
@@ -104,7 +102,6 @@ public class AdministratorHomeActivity extends AppCompatActivity
     @OptionsItem(R.id.menu_logoff)
     public void logoff()
     {
-        //TODO FAZER UM CONFIRM DIALOG AQUI PRA VER SE O CARA REALMENTE QUER DESLOGAR
         LoginActivity.clearUserData();
 
         final Intent returnIntent = new Intent();
@@ -129,6 +126,54 @@ public class AdministratorHomeActivity extends AppCompatActivity
             this.setResult(Activity.RESULT_OK, returnIntent);
             finish();
         }
+    }
+
+    public void addCaregiver(Caregiver caregiver)
+    {
+        this.progressDialog = ProgressDialog.show(this,
+                this.getResources().getString(R.string.saving_caregiver),
+                this.getResources().getString(R.string.please_wait),
+                true,
+                true);
+
+        this.caregiverTasks.addCaregiver( caregiver );
+    }
+
+    public void onAddCaregiver(Caregiver caregiver)
+    {
+        this.administratorHomeFragment.onAddCaregiver(caregiver);
+    }
+
+    public void removeCaregiver(Caregiver caregiver)
+    {
+        this.progressDialog = ProgressDialog.show(this,
+                this.getResources().getString(R.string.deleting_caregiver),
+                this.getResources().getString(R.string.please_wait),
+                true,
+                false);
+
+        this.caregiverTasks.deleteCaregiver(caregiver);
+    }
+
+    public void onDeleteCaregiver(Caregiver caregiver)
+    {
+        this.administratorHomeFragment.onDeleteCaregiver(caregiver);
+    }
+
+    public void editCaregiver(Caregiver caregiver)
+    {
+        this.progressDialog = ProgressDialog.show(this,
+                this.getResources().getString(R.string.saving_caregiver),
+                this.getResources().getString(R.string.please_wait),
+                true,
+                true);
+
+        this.caregiverTasks.editCaregiver(caregiver);
+    }
+
+    public void onUpdateCaregiver(Caregiver caregiver)
+    {
+        this.administratorHomeFragment.onUpdateCaregiver(caregiver);
     }
 
     //======================================================================================

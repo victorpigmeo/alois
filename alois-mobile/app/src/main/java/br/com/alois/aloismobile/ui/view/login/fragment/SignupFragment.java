@@ -15,7 +15,6 @@ import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Password;
 
 import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.SystemService;
@@ -25,7 +24,6 @@ import java.util.List;
 
 import br.com.alois.aloismobile.R;
 import br.com.alois.aloismobile.ui.view.login.LoginActivity;
-import br.com.alois.aloismobile.ui.view.login.adapter.GenderSpinnerAdapter;
 import br.com.alois.domain.entity.user.Caregiver;
 import br.com.alois.domain.entity.user.Gender;
 import br.com.alois.domain.entity.user.User;
@@ -57,9 +55,6 @@ public class SignupFragment extends Fragment implements Validator.ValidationList
     @ViewById(R.id.radioFemale)
     RadioButton radioFemale;
 
-    @Bean
-    GenderSpinnerAdapter genderSpinnerAdapter;
-
     Validator validator = new Validator(this);
 
     //=====================================INJECTIONS=======================================
@@ -83,7 +78,6 @@ public class SignupFragment extends Fragment implements Validator.ValidationList
         if(this.connectivityManager.getActiveNetworkInfo() != null &&
                 this.connectivityManager.getActiveNetworkInfo().isConnected())
         {
-
             this.validator.validate();
         }
         else

@@ -1,7 +1,6 @@
 package br.com.alois.aloismobile.ui.view.caregiver.fragment;
 
 import android.support.v4.app.Fragment;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import org.androidannotations.annotations.AfterViews;
@@ -9,13 +8,11 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.ViewById;
 
-import java.text.SimpleDateFormat;
-
 import br.com.alois.aloismobile.R;
 import br.com.alois.domain.entity.user.Caregiver;
 
 /**
- * Created by sarahso on 28/05/17.
+ * Created by victor on 15/06/17.
  */
 @EFragment(R.layout.fragment_caregiver_detail)
 public class CaregiverDetailFragment extends Fragment
@@ -32,10 +29,6 @@ public class CaregiverDetailFragment extends Fragment
 
     @ViewById(R.id.caregiverDetailUsername)
     TextView caregiverDetailUsername;
-
-    //@ViewById(R.id.caregiverDetailPassword)
-    //TextView caregiverDetailPassword;
-
 
     //======================================================================================
 
@@ -61,13 +54,10 @@ public class CaregiverDetailFragment extends Fragment
     @AfterViews
     public void onAfterViews()
     {
-
         this.caregiverDetailName.setText(this.caregiver.getName());
         this.caregiverDetailEmail.setText(this.caregiver.getEmail());
         this.caregiverDetailGender.setText(this.caregiver.getGender().toString());
         this.caregiverDetailUsername.setText(this.caregiver.getUsername());
-        //this.caregiverDetailPassword.setText(this.caregiver.getPassword());
-
     }
 
     //======================================================================================

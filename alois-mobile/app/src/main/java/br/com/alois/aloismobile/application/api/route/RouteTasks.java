@@ -68,22 +68,32 @@ public class RouteTasks
     @UiThread
     public void listRoutesByPatientIdHandleSuccess(List<Route> routes, PatientHomeActivity patientHomeActivity)
     {
-        if (routes.size() != 0)
+        if(this.generalPreferences.loggedUserType().get().equals(UserType.CAREGIVER.ordinal()))
         {
-            if(this.generalPreferences.loggedUserType().get().equals(UserType.CAREGIVER.ordinal()))
+            if (routes.size() != 0)
             {
                 this.patientDetailActivity.setPatientRouteList(routes);
                 this.patientDetailActivity.progressDialog.dismiss();
             }
             else
             {
+                this.patientDetailActivity.progressDialog.dismiss();
+                Toast.makeText(this.patientDetailActivity, this.patientDetailActivity.getResources().getString(R.string.patient_does_not_have_routes), Toast.LENGTH_SHORT).show();
+            }
+        }
+        else
+        {
+            if (routes.size() != 0)
+            {
                 patientHomeActivity.setPatientRouteList(routes);
                 patientHomeActivity.progressDialog.dismiss();
             }
-        }else{
-            Toast.makeText(this.patientDetailActivity, this.patientDetailActivity.getResources().getString(R.string.patient_does_not_have_routes), Toast.LENGTH_SHORT).show();
+            else
+            {
+                patientHomeActivity.progressDialog.dismiss();
+                Toast.makeText(patientHomeActivity, patientHomeActivity.getResources().getString(R.string.patient_does_not_have_routes), Toast.LENGTH_SHORT).show();
+            }
         }
-
     }
 
     @UiThread

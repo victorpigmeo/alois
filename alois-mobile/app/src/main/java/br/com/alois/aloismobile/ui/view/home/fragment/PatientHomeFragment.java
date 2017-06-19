@@ -82,20 +82,32 @@ public class PatientHomeFragment extends Fragment
     //======================================================================================
 
     //==================================GETTERS/SETTERS=====================================
-    public void setPatient(Patient _patient)
+    public void setPatient(Patient patient)
     {
-        this.patient = _patient;
+        this.patient = patient;
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         if (this.patient != null)
         {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+            int genderStringId = 0;
+            switch (patient.getGender())
+            {
+                case MALE:
+                    genderStringId = R.string.MALE;
+                    break;
+                case FEMALE:
+                    genderStringId = R.string.FEMALE;
+                    break;
+            }
+
             this.patientDetailName.setText(this.patient.getName());
             this.patientDetailPhone.setText(this.patient.getPhone());
-            this.patientDetailGender.setText(this.patient.getGender().toString());
+            this.patientDetailGender.setText(this.getActivity().getResources().getString(genderStringId));
             this.patientDetailDateOfBirth.setText(simpleDateFormat.format(this.patient.getBirthDate().getTime()));
             this.patientDetailAddress.setText(this.patient.getAddress());
             this.patientDetailEmergencyPhone.setText(this.patient.getEmergencyPhone());
-            this.patientDetailNote.setText(this.patient.getNote());
+//            this.patientDetailNote.setText(this.patient.getNote());
         }
     }
 

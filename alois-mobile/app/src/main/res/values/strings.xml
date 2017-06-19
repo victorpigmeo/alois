@@ -52,14 +52,6 @@
     <string name="patient_insert_error">Insert failed due some error, contact the system administrator</string>
     <string name="address_is_required">Address is required</string>
 
-    <string name="nameDot">Name:</string>
-    <string name="phoneDot">Phone:</string>
-    <string name="genderDot">Gender:</string>
-
-    <string name="date_of_birth_dot">Date of birth:</string>
-    <string name="address_dot">Address:</string>
-    <string name="emergency_phone_dot">Emergency Phone:</string>
-    <string name="note_dot">Note:</string>
     <string name="patient_without_last_location">This patient doesn\'t have a last location yet</string>
     <string name="last_location">Last location</string>
     <string name="caregiver_list">Caregiver List</string>
@@ -96,10 +88,6 @@
     <string name="you_really_want_delete_route">You really want to delete this route?</string>
     <string name="deleting_route">Deleting route</string>
 
-    <string name="myMemories">Minhas Memórias</string>
-    <string name="myRoutes">Minhas Rotas Seguras</string>
-    <string name="myReminders">Meus Lembretes</string>
-
     <string name="back">Back</string>
     <string name="alois">Alois</string>
     <string name="alois_tracking_active">Alois tracking is active</string>
@@ -115,7 +103,7 @@
 
     <string name="reminders">Reminders</string>
     <string name="warning_patient_out_of_route">Warning! Patient: %1$s is out of his secure routes!</string>
-    <string name="add_reminder">Add new reminder</string>
+    <string name="add_reminder">Add reminder</string>
     <string name="reminder_title">Title</string>
     <string name="daily">Daily</string>
     <string name="hourly">Hourly</string>
@@ -150,12 +138,35 @@
     <string name="memory_title_is_required">Memory title is required</string>
     <string name="memory_description_is_required">Memory description is required</string>
     <string name="saving_memory">Saving memory</string>
-    <string name="memory_title">Memory Title</string>
     <string name="memory_description">Memory Description</string>
-    <string name="edit_memory">Edit</string>
+    <string name="edit_memory">Edit Memory</string>
     <string name="request_delete_memory">Request Delete</string>
     <string name="memory_creation_date">Creation Date</string>
     <string name="camera">Camera</string>
     <string name="logoff_requested">Logoff request send</string>
     <string name="request_logout">Request Logout</string>
+    <string name="add_caregiver">Add Caregiver</string>
+    <string name="saving_caregiver">Saving caregiver</string>
+    <string name="confirm_delete_caregiver">Are you sure?</string>
+    <string name="delete_caregiver_consequences">Deleting this caregive all his patients will be deleted to and he cannot log in anymore.</string>
+    <string name="patient_does_not_have_reminders">This patient does not have any reminder</string>
+    <string name="detail_of">Details of:</string>
+    <string name="MALE">Male</string>
+    <string name="FEMALE">Female</string>
+    <string name="patient_location_updated">Patient last location updated - %s</string>
+    <string name="reminder">Reminder</string>
+    <string name="view_reminder">View reminder</string>
+    <string name="only_once">Only once</string>
+    <string name="view_route">View route</string>
+    <string name="my_memories">My memories</string>
+    <string name="view_memory">View memory</string>
+    <string name="memory_title">Title</string>
+    <string name="add_memory">Add memory</string>
+    <string name="loading_image">Loading image</string>
+    <string name="saving_request">Saving request</string>
+    <string name="deleting_caregiver">Deleting caregiver</string>
+    <string name="patient_details">Patient details</string>
+    <string name="add_route">Add route</string>
+    <string name="my_routes">My routes</string>
+    <string name="my_reminders">My reminders</string>
 </resources>

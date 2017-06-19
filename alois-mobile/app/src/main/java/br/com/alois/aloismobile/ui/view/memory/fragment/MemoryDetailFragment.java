@@ -3,20 +3,13 @@ package br.com.alois.aloismobile.ui.view.memory.fragment;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
@@ -26,22 +19,18 @@ import java.text.SimpleDateFormat;
 
 import br.com.alois.aloismobile.R;
 import br.com.alois.aloismobile.ui.view.home.PatientHomeActivity;
-import br.com.alois.aloismobile.ui.view.memory.adapter.MemoryListAdapter;
-import br.com.alois.aloismobile.ui.view.patient.fragment.PatientFormFragment;
-import br.com.alois.aloismobile.ui.view.patient.fragment.PatientFormFragment_;
 import br.com.alois.domain.entity.memory.Memory;
-import br.com.alois.domain.entity.user.Patient;
 
 @EFragment(R.layout.fragment_memory_detail)
 public class MemoryDetailFragment extends Fragment {
     //=====================================ATTRIBUTES=======================================
-    @ViewById(R.id.memoryDetailTitleLabel)
+    @ViewById(R.id.memoryDetailMemoryTitle)
     TextView memoryDetailTitle;
 
-    @ViewById(R.id.memoryDetailDescriptionLabel)
+    @ViewById(R.id.memoryDetailDescription)
     TextView memoryDetailDescription;
 
-    @ViewById(R.id.memoryDetailCreationDateLabel)
+    @ViewById(R.id.memoryDetailCreationDate)
     TextView memoryDetailCreationDate;
 
     @ViewById(R.id.memoryDetailImageView)
@@ -71,7 +60,7 @@ public class MemoryDetailFragment extends Fragment {
     public void setMemory(Memory memory){
         this.memory = memory;
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
         this.memoryDetailCreationDate.setText(simpleDateFormat.format(this.memory.getCreationDate().getTime()));
         this.memoryDetailDescription.setText(this.memory.getDescription());

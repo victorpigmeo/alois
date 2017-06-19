@@ -14,6 +14,8 @@ import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.sharedpreferences.Pref;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import br.com.alois.aloismobile.R;
 import br.com.alois.aloismobile.application.api.caregiver.CaregiverClient;
@@ -123,13 +125,49 @@ public class LoginTasks
     @UiThread
     public void loginHandleResponseFail(String message)
     {
-        //TODO if message so print it
-        this.loginActivity.progressDialog.dismiss();
-        Toast.makeText(
-                this.loginActivity,
-                this.loginActivity.getResources().getString(R.string.cannot_connect),
-                Toast.LENGTH_SHORT)
-                .show();
+        if(message != null && !message.equals(""))
+        {
+            if(message.contains("failed to connect to"))
+            {
+                this.loginActivity.progressDialog.dismiss();
+                Toast.makeText(
+                        this.loginActivity,
+                        this.loginActivity.getResources().getString(R.string.cannot_connect),
+                        Toast.LENGTH_SHORT)
+                        .show();
+            }
+            else
+            {
+                String contentString = message.split("content:\n")[1];
+                try
+                {
+                    JSONObject content = new JSONObject(contentString);
+                    String status = content.getString("status");
+                    if(status.equals("401"))
+                    {
+                        this.loginActivity.progressDialog.dismiss();
+                        Toast.makeText(
+                                this.loginActivity,
+                                this.loginActivity.getResources().getString(R.string.wrong_username_or_password),
+                                Toast.LENGTH_SHORT)
+                                .show();
+                    }
+                }
+                catch (JSONException e1)
+                {
+                    e1.printStackTrace();
+                }
+            }
+        }
+        else
+        {
+            this.loginActivity.progressDialog.dismiss();
+            Toast.makeText(
+                    this.loginActivity,
+                    this.loginActivity.getResources().getString(R.string.cannot_connect),
+                    Toast.LENGTH_SHORT)
+                    .show();
+        }
     }
 
     @Background

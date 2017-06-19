@@ -18,7 +18,6 @@ import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import br.com.alois.aloismobile.R;
-import br.com.alois.aloismobile.application.preference.GeneralPreferences;
 import br.com.alois.aloismobile.application.preference.GeneralPreferences_;
 import br.com.alois.aloismobile.ui.view.patient.PatientDetailActivity;
 import br.com.alois.aloismobile.ui.view.reminder.fragment.ReminderFormFragment;
@@ -86,7 +85,7 @@ public class ReminderListRow extends RelativeLayout
                     @Override
                     public void onClick(View v)
                     {
-                        Toast.makeText(activity, activity.getResources().getString(R.string.reminder_pending), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(activity, activity.getResources().getString(R.string.reminder_pending), Toast.LENGTH_LONG).show();
                     }
                 });
                 break;
@@ -96,7 +95,7 @@ public class ReminderListRow extends RelativeLayout
                     @Override
                     public void onClick(View v)
                     {
-                        Toast.makeText(activity, activity.getResources().getString(R.string.reminder_inactive), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(activity, activity.getResources().getString(R.string.reminder_inactive), Toast.LENGTH_LONG).show();
                     }
                 });
                 break;

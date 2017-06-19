@@ -1,0 +1,144 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="fill_parent"
+    android:layout_width="fill_parent">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:context="br.com.alois.aloismobile.ui.view.home.AdministratorHomeActivity_">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/TitleBar"
+            android:id="@+id/caregiverFormTitleBar">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/add_caregiver"
+                android:id="@+id/caregiverFormTitle"
+                style="@style/TitleBarText"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:layout_below="@+id/caregiverFormTitleBar">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/name"
+                style="@style/LabelStyle"
+                android:id="@+id/caregiverFormLabelName"
+                android:layout_alignParentStart="true"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/caregiverFormName"
+                android:layout_below="@+id/caregiverFormLabelName"
+                android:inputType="textPersonName"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/email"
+                android:id="@+id/caregiverFormLabelEmail"
+                style="@style/LabelStyle"
+                android:layout_below="@+id/caregiverFormName"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/caregiverFormEmail"
+                android:layout_below="@+id/caregiverFormLabelEmail"
+                android:inputType="textEmailAddress"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/gender"
+                android:id="@+id/caregiverFormLabelGender"
+                style="@style/LabelStyle"
+                android:layout_below="@+id/caregiverFormEmail"/>
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/caregiverFormLabelGender"
+                android:id="@+id/caregiverFormGenderRadio"
+                android:orientation="horizontal">
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/male"
+                    android:tag="MALE"
+                    android:id="@+id/caregiverFormRadioMale"
+                    android:buttonTint="@color/colorPrimaryDark"
+                    android:layout_weight="1"/>
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/female"
+                    android:tag="FEMALE"
+                    android:id="@+id/caregiverFormRadioFemale"
+                    android:buttonTint="@color/colorPrimaryDark"
+                    android:layout_weight="1"/>
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/username"
+                android:id="@+id/caregiverFormLabelUsername"
+                style="@style/LabelStyle"
+                android:layout_below="@+id/caregiverFormGenderRadio"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/caregiverFormUsername"
+                android:layout_below="@+id/caregiverFormLabelUsername"
+                android:inputType="textEmailAddress"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/password"
+                style="@style/LabelStyle"
+                android:id="@+id/caregiverFormLabelPassword"
+                android:layout_below="@+id/caregiverFormUsername"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/caregiverFormPassword"
+                android:layout_below="@+id/caregiverFormLabelPassword"
+                android:inputType="textPassword"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@+id/caregiverFormPassword">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/caregiverFormButtonCancel"
+                    android:text="@string/cancel"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toLeftOf="@+id/caregiverFormButtonSave"/>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/caregiverFormButtonSave"
+                    android:text="@string/save"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"/>
+            </RelativeLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

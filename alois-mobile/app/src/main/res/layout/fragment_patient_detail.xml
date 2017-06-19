@@ -2,12 +2,28 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context="br.com.alois.aloismobile.ui.view.patient.fragment.PatientDetailFragment"
-             android:padding="@dimen/pad_10">
+             tools:context="br.com.alois.aloismobile.ui.view.patient.fragment.PatientDetailFragment">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/patientDetails">
+        android:id="@+id/patientDetailTitleBar"
+        style="@style/TitleBar">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:id="@+id/patientDetailTitle"
+            android:text="@string/patient_details"
+            style="@style/TitleBarText"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/patientDetails"
+        android:padding="5dp"
+        android:layout_below="@+id/patientDetailTitleBar">
 
         <TableLayout
             android:layout_width="match_parent"
@@ -22,9 +38,8 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/patientDetailGenderLabel"
                         android:layout_marginRight="@dimen/marg_10"
-                        android:text="@string/genderDot"
-                        android:textSize="@dimen/labelSize"
-                        android:textColor="@color/labelColor"/>
+                        android:text="@string/gender"
+                        style="@style/LabelStyle"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -41,7 +56,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/patientDetailDateOfBirthLabel"
-                        android:text="@string/date_of_birth_dot"
+                        android:text="@string/date_of_birth"
                         android:textSize="@dimen/labelSize"
                         android:textColor="@color/labelColor"/>
                     <TextView
@@ -62,7 +77,7 @@
                         android:id="@+id/patientDetailPhoneLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/phoneDot"
+                        android:text="@string/phone"
                         android:textSize="@dimen/labelSize"
                         android:textColor="@color/labelColor"/>
                     <TextView
@@ -82,7 +97,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/patientDetailEmergencyPhoneLabel"
-                        android:text="@string/emergency_phone_dot"
+                        android:text="@string/emergency_phone"
                         android:textSize="@dimen/labelSize"
                         android:textColor="@color/labelColor"/>
                     <TextView
@@ -103,7 +118,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/patientDetailAddressLabel"
-                        android:text="@string/address_dot"
+                        android:text="@string/address"
                         android:layout_marginRight="@dimen/marg_10"
                         android:textSize="@dimen/labelSize"
                         android:textColor="@color/labelColor"/>
@@ -117,35 +132,40 @@
             </TableRow>
 
             <TableRow>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/patientDetailNoteLabel"
-                        android:text="@string/note_dot"
-                        android:layout_marginRight="@dimen/marg_10"
-                        android:textSize="@dimen/labelSize"
-                        android:textColor="@color/labelColor"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/patientDetailNote"
-                        android:text="PatientNote"
-                        android:layout_below="@+id/patientDetailNoteLabel"/>
-                </RelativeLayout>
+
             </TableRow>
         </TableLayout>
     </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/patientNote"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:layout_below="@+id/patientDetails">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/patientDetailNoteLabel"
+            android:text="@string/notes"
+            android:layout_marginRight="@dimen/marg_10"
+            android:textSize="@dimen/labelSize"
+            android:textColor="@color/labelColor"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/patientDetailNote"
+            android:text="PatientNote"
+            android:layout_below="@+id/patientDetailNoteLabel"/>
+    </RelativeLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/patientDetails"
-        android:orientation="vertical">
-
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/patientNote"
+        android:orientation="vertical"
+        android:padding="5dp">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

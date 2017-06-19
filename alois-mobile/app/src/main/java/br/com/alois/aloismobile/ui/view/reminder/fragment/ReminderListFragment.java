@@ -18,6 +18,7 @@ import org.androidannotations.annotations.ItemClick;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import br.com.alois.aloismobile.R;
@@ -101,10 +102,29 @@ public class ReminderListFragment extends Fragment
 
         View reminderDetailView = this.getActivity().getLayoutInflater().inflate(R.layout.reminder_detail_view, null);
 
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
+        int recurrencyStringId = 0;
+        switch (reminder.getFrequency())
+        {
+            case ONCE:
+                recurrencyStringId = R.string.only_once;
+                break;
+            case HOURLY:
+                recurrencyStringId = R.string.hourly;
+                break;
+            case DAILY:
+                recurrencyStringId = R.string.daily;
+                break;
+            case WEEKLY:
+                recurrencyStringId = R.string.weekly;
+                break;
+        }
+
         ( ( TextView ) reminderDetailView.findViewById( R.id.reminderDetailReminderTitle ) ).setText( reminder.getTitle() );
         ( ( TextView ) reminderDetailView.findViewById( R.id.reminderDetailReminderDescription ) ).setText( reminder.getDescription() );
-        ( ( TextView ) reminderDetailView.findViewById( R.id.reminderDetailReminderDateTime ) ).setText( reminder.getDateTime().getTime().toString() );
-        ( ( TextView ) reminderDetailView.findViewById( R.id.reminderDetailReminderRecurrency) ).setText( reminder.getFrequency().toString() );
+        ( ( TextView ) reminderDetailView.findViewById( R.id.reminderDetailReminderDateTime ) ).setText( simpleDateFormat.format( reminder.getDateTime().getTime() ) );
+        ( ( TextView ) reminderDetailView.findViewById( R.id.reminderDetailReminderRecurrency) ).setText( this.getActivity().getResources().getString( recurrencyStringId ) );
 
         reminderDetailDialog.setView(reminderDetailView);
         reminderDetailDialog.show();

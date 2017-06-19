@@ -5,20 +5,25 @@
              xmlns:app="http://schemas.android.com/apk/res-auto"
              tools:context="br.com.alois.aloismobile.ui.view.reminder.fragment.ReminderListFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/remindersListLabel"
-        android:layout_alignParentStart="true"
-        android:textSize="@dimen/title_text_size"
-        android:layout_margin="@dimen/title_margin"
-        android:text="@string/reminders"/>
+        android:id="@+id/remindersListTitleBar"
+        style="@style/TitleBar">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/remindersListLabel"
+            android:layout_alignParentStart="true"
+            android:text="@string/reminders"
+            style="@style/TitleBarText"/>
+    </RelativeLayout>
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/reminderList"
-        android:layout_below="@+id/remindersListLabel"></ListView>
+        android:layout_below="@+id/remindersListTitleBar"></ListView>
 
     <com.github.clans.fab.FloatingActionButton
         android:layout_width="wrap_content"

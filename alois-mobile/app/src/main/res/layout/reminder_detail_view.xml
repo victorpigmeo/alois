@@ -2,54 +2,111 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/reminderDetailReminderTitleLabel"
-        android:text="@string/reminder_title"
-        android:layout_alignParentStart="true"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/reminderDetailReminderTitle"
-        android:text="ReminderTitle"
-        android:layout_below="@+id/reminderDetailReminderTitleLabel"/>
+        android:id="@+id/reminderDetailTitleBar"
+        style="@style/TitleBar">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/reminderDetailTitle"
+            android:layout_alignParentStart="true"
+            android:text="@string/view_reminder"
+            style="@style/TitleBarText"/>
+    </RelativeLayout>
 
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/reminderDetailReminderDescriptionLabel"
-        android:text="@string/reminder_description"
-        android:layout_below="@+id/reminderDetailReminderTitle"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/reminderDetailReminderDescription"
-        android:text="ReminderDescription"
-        android:layout_below="@+id/reminderDetailReminderDescriptionLabel"/>
+        android:layout_below="@+id/reminderDetailTitleBar"
+        android:id="@+id/reminderDetailsLayout"
+        android:padding="10dp">
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/reminderDetailTableLayout"
+            >
+            <TableRow>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/reminderDetailReminderTitleLabel"
+                        android:text="@string/reminder_title"
+                        android:layout_alignParentStart="true"
+                        style="@style/LabelStyle"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/reminderDetailReminderTitle"
+                        android:text="ReminderTitle"
+                        android:layout_below="@+id/reminderDetailReminderTitleLabel"/>
+                </RelativeLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/reminderDetailReminderDateTimeLabel"
-        android:text="@string/reminder_date_time"
-        android:layout_below="@+id/reminderDetailReminderDescription"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/reminderDetailReminderDateTime"
-        android:text="ReminderDateTime"
-        android:layout_below="@+id/reminderDetailReminderDateTimeLabel"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/reminderDetailReminderRecurrencyLabel"
-        android:text="@string/reminder_recurrency"
-        android:layout_below="@+id/reminderDetailReminderDateTime"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/reminderDetailReminderRecurrency"
-        android:text="ReminderRecurrency"
-        android:layout_below="@+id/reminderDetailReminderRecurrencyLabel"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/reminderDetailReminderDateTimeLabel"
+                        android:text="@string/reminder_date_time"
+                        style="@style/LabelStyle"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/reminderDetailReminderDateTime"
+                        android:text="ReminderDateTime"
+                        android:layout_below="@+id/reminderDetailReminderDateTimeLabel"/>
+                </RelativeLayout>
+            </TableRow>
+
+            <TableRow>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/reminderDetailReminderRecurrencyLabel"
+                        android:text="@string/reminder_recurrency"
+                        style="@style/LabelStyle"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/reminderDetailReminderRecurrency"
+                        android:text="ReminderRecurrency"
+                        android:layout_below="@+id/reminderDetailReminderRecurrencyLabel"/>
+                </RelativeLayout>
+
+            </TableRow>
+
+        </TableLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/reminderDetailTableLayout">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/reminderDetailReminderDescriptionLabel"
+                android:text="@string/reminder_description"
+                style="@style/LabelStyle"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/reminderDetailReminderDescription"
+                android:text="ReminderDescription"
+                android:layout_below="@+id/reminderDetailReminderDescriptionLabel"/>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
 </RelativeLayout>

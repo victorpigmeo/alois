@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.google.android.gms.maps.model.LatLng;
@@ -38,7 +37,6 @@ import br.com.alois.domain.entity.user.UserType;
 public class RouteListFragment extends Fragment
 {
     //=====================================ATTRIBUTES=======================================
-
     @ViewById(R.id.routeList)
     ListView routeList;
 
@@ -49,12 +47,14 @@ public class RouteListFragment extends Fragment
     FloatingActionButton fabAddRoute;
 
     RouteFormFragment routeFormFragment;
+
+    private boolean fromBackStack;
+
     //======================================================================================
 
     //=====================================INJECTIONS=======================================
     @Bean
     RouteListAdapter routeListAdapter;
-
     @Pref
     GeneralPreferences_ generalPreferences;
 
@@ -80,13 +80,24 @@ public class RouteListFragment extends Fragment
 
         if(this.generalPreferences.loggedUserType().get().equals(UserType.CAREGIVER.ordinal()))
         {
-            ((PatientDetailActivity) this.getActivity()).listPatientroutes(this.patient.getId());
+            if(!this.fromBackStack)
+            {
+                ((PatientDetailActivity) this.getActivity()).listPatientroutes(this.patient.getId());
+            }
+
         }
         else
         {
             ((PatientHomeActivity) this.getActivity()).listPatientRoutes(this.patient.getId());
             this.fabAddRoute.setVisibility(View.INVISIBLE);
         }
+    }
+
+    @Override
+    public void onDestroyView()
+    {
+        super.onDestroyView();
+        this.fromBackStack = true;
     }
 
     @Click(R.id.fab_add_route)

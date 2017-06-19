@@ -1,23 +1,15 @@
 package br.com.alois.aloismobile.ui.view.memory.fragment;
 
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.GridView;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
-import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.ItemClick;
-import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.List;
@@ -25,15 +17,7 @@ import java.util.List;
 import br.com.alois.aloismobile.R;
 import br.com.alois.aloismobile.ui.view.home.PatientHomeActivity;
 import br.com.alois.aloismobile.ui.view.memory.adapter.MemoryListAdapter;
-import br.com.alois.aloismobile.ui.view.patient.PatientDetailActivity;
-import br.com.alois.aloismobile.ui.view.route.adapter.RouteListAdapter;
-import br.com.alois.aloismobile.ui.view.route.fragment.RouteDetailFragment;
-import br.com.alois.aloismobile.ui.view.route.fragment.RouteDetailFragment_;
-import br.com.alois.aloismobile.ui.view.route.fragment.RouteFormFragment;
-import br.com.alois.aloismobile.ui.view.route.fragment.RouteFormFragment_;
 import br.com.alois.domain.entity.memory.Memory;
-import br.com.alois.domain.entity.route.Route;
-import br.com.alois.domain.entity.route.Step;
 import br.com.alois.domain.entity.user.Patient;
 
 /**

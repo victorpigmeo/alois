@@ -53,4 +53,82 @@ public class CaregiverTasks
         this.administratorHomeActivity.progressDialog.dismiss();
         this.administratorHomeActivity.setCaregiverList(caregiverList);
     }
+
+    @Background
+    public void addCaregiver(Caregiver caregiver)
+    {
+        CaregiverClient caregiverClient = Feign.builder()
+                .encoder(new JacksonEncoder())
+                .decoder(new JacksonDecoder())
+                .target(CaregiverClient.class, ServerConfiguration.API_ENDPOINT);
+
+        try
+        {
+            addCaregiverHandleSucces(caregiverClient.addCaregiver(caregiver, this.generalPreferences.loggedUserAuthToken().get()));
+        }
+        catch (FeignException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    @UiThread
+    public void addCaregiverHandleSucces(Caregiver caregiver)
+    {
+        this.administratorHomeActivity.progressDialog.dismiss();
+        this.administratorHomeActivity.onAddCaregiver(caregiver);
+        this.administratorHomeActivity.getSupportFragmentManager().popBackStack();
+    }
+
+    @Background
+    public void deleteCaregiver(Caregiver caregiver)
+    {
+        CaregiverClient caregiverClient = Feign.builder()
+                .encoder(new JacksonEncoder())
+                .decoder(new JacksonDecoder())
+                .target(CaregiverClient.class, ServerConfiguration.API_ENDPOINT);
+
+        try
+        {
+            caregiverClient.deleteCaregiver(caregiver.getId(), this.generalPreferences.loggedUserAuthToken().get());
+            deleteCaregiverHandleSucces(caregiver);
+        }
+        catch (FeignException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    @UiThread
+    public void deleteCaregiverHandleSucces(Caregiver caregiver)
+    {
+        this.administratorHomeActivity.progressDialog.dismiss();
+        this.administratorHomeActivity.onDeleteCaregiver(caregiver);
+    }
+
+    @Background
+    public void editCaregiver(Caregiver caregiver)
+    {
+        CaregiverClient caregiverClient = Feign.builder()
+                .encoder(new JacksonEncoder())
+                .decoder(new JacksonDecoder())
+                .target(CaregiverClient.class, ServerConfiguration.API_ENDPOINT);
+
+        try
+        {
+            this.editCaregiverHandleSucces(caregiverClient.updateCaregiver(caregiver, this.generalPreferences.loggedUserAuthToken().get()));
+        }
+        catch (FeignException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    @UiThread
+    public void editCaregiverHandleSucces(Caregiver caregiver)
+    {
+        this.administratorHomeActivity.progressDialog.dismiss();
+        this.administratorHomeActivity.getSupportFragmentManager().popBackStack();
+        this.administratorHomeActivity.onUpdateCaregiver(caregiver);
+    }
 }

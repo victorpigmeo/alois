@@ -1,11 +1,12 @@
 package br.com.alois.aloismobile.ui.view.home.adapter;
 
-import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import org.androidannotations.annotations.EBean;
+import org.androidannotations.annotations.RootContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,10 +14,9 @@ import java.util.List;
 import br.com.alois.aloismobile.ui.view.home.adapter.row.CaregiverListRow;
 import br.com.alois.aloismobile.ui.view.home.adapter.row.CaregiverListRow_;
 import br.com.alois.domain.entity.user.Caregiver;
-import br.com.alois.domain.entity.user.Patient;
 
 /**
- * Created by sarah on 3/23/17.
+ * Created by victor on 15/06/17.
  */
 @EBean
 public class CaregiverListAdapter extends BaseAdapter
@@ -25,7 +25,8 @@ public class CaregiverListAdapter extends BaseAdapter
     //=====================================ATTRIBUTES=======================================
     List<Caregiver> caregiverList = new ArrayList<Caregiver>();
 
-    Context context;
+    @RootContext
+    AppCompatActivity activity;
     //======================================================================================
 
     //=====================================INJECTIONS=======================================
@@ -33,10 +34,7 @@ public class CaregiverListAdapter extends BaseAdapter
     //======================================================================================
 
     //====================================CONSTRUCTORS======================================
-    public CaregiverListAdapter(Context context)
-    {
-        this.context = context;
-    }
+
     //======================================================================================
 
     //==================================GETTERS/SETTERS=====================================
@@ -68,14 +66,14 @@ public class CaregiverListAdapter extends BaseAdapter
         CaregiverListRow caregiverListRow;
         if (convertView == null)
         {
-            caregiverListRow = CaregiverListRow_.build(this.context);
+            caregiverListRow = CaregiverListRow_.build(this.activity);
         }
         else
         {
             caregiverListRow = (CaregiverListRow) convertView;
         }
 
-        caregiverListRow.bind(this.caregiverList.get(position));
+        caregiverListRow.bind(this.caregiverList.get(position), this.activity);
 
         return caregiverListRow;
     }
@@ -101,7 +99,13 @@ public class CaregiverListAdapter extends BaseAdapter
     public void onDeleteCaregiver(Caregiver caregiver)
     {
         this.caregiverList.remove(caregiver);
-        this.notifyDataSetChanged();
+        notifyDataSetChanged();
+    }
+
+    public void onAddCaregiver(Caregiver caregiver)
+    {
+        this.caregiverList.add(caregiver);
+        notifyDataSetChanged();
     }
     //======================================================================================
 

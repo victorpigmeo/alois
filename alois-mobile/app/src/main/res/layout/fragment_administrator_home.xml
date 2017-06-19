@@ -1,24 +1,44 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context="br.com.alois.aloismobile.ui.view.home.fragment.AdministratorHomeFragment">
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                tools:context="br.com.alois.aloismobile.ui.view.home.fragment.AdministratorHomeFragment">
 
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:id="@+id/administratorHomeTitleList"
-        android:text="@string/caregiver_list"
-        android:textSize="@dimen/title_text_size"/>
+        android:id="@+id/caregiverListTitleBar"
+        style="@style/TitleBar">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:id="@+id/administratorHomeTitle"
+            android:text="@string/caregiver_list"
+            style="@style/TitleBarText"/>
+    </RelativeLayout>
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/administratorHomeTitleList"
-        android:id="@+id/administratorHomeCaregiverList">
-
+        android:layout_height="wrap_content"
+        android:id="@+id/administratorHomeCaregiverList"
+        android:layout_below="@+id/caregiverListTitleBar">
     </ListView>
-    <!-- TODO Adicionar o FAB para criar cuidador -->
-    <!-- criar o metodo que chama o fragment de criaçao de cuidador -->
+
+    <com.github.clans.fab.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fabAddCaregiver"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/ic_add_white_24dp"
+        app:menu_colorNormal="@color/colorPrimary"
+        app:menu_colorRipple="@color/colorPrimaryDark"
+        app:menu_colorPressed="@color/colorPrimaryDark"
+        android:layout_marginEnd="13dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="13dp">
+    </com.github.clans.fab.FloatingActionButton>
 </RelativeLayout>

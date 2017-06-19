@@ -5,20 +5,26 @@
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 tools:context="br.com.alois.aloismobile.ui.view.route.fragment.RouteListFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/routeListLabel"
-        android:layout_alignParentStart="true"
-        android:textSize="@dimen/title_text_size"
-        android:layout_margin="@dimen/title_margin"
-        android:text="@string/safe_routes"/>
+        android:id="@+id/routeListTitleBar"
+        style="@style/TitleBar">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:id="@+id/routeListTitle"
+            android:text="@string/safe_routes"
+            style="@style/TitleBarText"/>
+    </RelativeLayout>
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/routeList"
-        android:layout_below="@+id/routeListLabel"></ListView>
+        android:layout_below="@+id/routeListTitleBar"></ListView>
 
     <com.github.clans.fab.FloatingActionButton
         android:layout_width="wrap_content"

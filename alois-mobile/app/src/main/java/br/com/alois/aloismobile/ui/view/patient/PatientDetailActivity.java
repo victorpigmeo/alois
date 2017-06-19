@@ -3,10 +3,10 @@ package br.com.alois.aloismobile.ui.view.patient;
 import android.app.ProgressDialog;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
-import android.support.v7.widget.Toolbar;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -79,7 +79,6 @@ public class PatientDetailActivity extends AppCompatActivity
     @NonConfigurationInstance
     @Bean
     RequestTasks requestTasks;
-    private List<Route> patientList;
 
     //======================================================================================
 
@@ -100,8 +99,7 @@ public class PatientDetailActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-
-                if(getSupportFragmentManager().getBackStackEntryCount() >= 1)
+                if(getSupportFragmentManager().getBackStackEntryCount() > 1)
                 {
                     for(int i = 1; i < getSupportFragmentManager().getBackStackEntryCount(); i++)
                     {
@@ -111,6 +109,11 @@ public class PatientDetailActivity extends AppCompatActivity
                 else
                 {
                     finish();
+                }
+
+                if( progressDialog != null )
+                {
+                    progressDialog.dismiss();
                 }
             }
         });
