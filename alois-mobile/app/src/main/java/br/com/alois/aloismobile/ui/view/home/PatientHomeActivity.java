@@ -55,6 +55,8 @@ import br.com.alois.domain.entity.reminder.Reminder;
 import br.com.alois.domain.entity.route.Route;
 import br.com.alois.domain.entity.user.Patient;
 import br.com.alois.domain.entity.user.Request;
+import br.com.alois.domain.entity.user.RequestStatus;
+import br.com.alois.domain.entity.user.RequestType;
 
 @EActivity(R.layout.activity_patient_home)
 @OptionsMenu(R.menu.home_patient_menu)
@@ -66,6 +68,14 @@ public class PatientHomeActivity extends AppCompatActivity
     public PatientHomeFragment patientHomeFragment;
 
     public MemoryFormFragment memoryFormFragment;
+
+    private Uri photoUri;
+
+    private byte[] photo;
+
+    private String photoPath;
+
+    private List<Reminder> patientReminderList;
     //======================================================================================
 
     //=====================================INJECTIONS=======================================
@@ -100,12 +110,6 @@ public class PatientHomeActivity extends AppCompatActivity
 
 
     //======================================================================================
-    //TODO SE FOR ATRIBUTOS COLOCAR NO LUGAR DE ATRIBUTOS
-    Uri photoUri;
-
-    byte[] photo;
-    String photoPath;
-    private List<Reminder> patientReminderList;
     //=====================================BEHAVIOUR========================================
 
     //TODO PORQUE TEM ESSE SUPRESS WARNINGS?
@@ -207,7 +211,21 @@ public class PatientHomeActivity extends AppCompatActivity
         this.memoryTasks.updateMemory(memory);
     }
 
-    //TODO SE NAO FOR MAIS USAR O METODO APAGA
+    public void requestDeleteMemory(Request request) {
+        this.progressDialog = ProgressDialog.show(this,
+                super.getString(R.string.requesting_delete_memory),
+                super.getString(R.string.please_wait),
+                true,//is indeterminate
+                true//is cancelable
+        );
+       request.setPatient(this.patientHomeFragment.getPatient());
+        request.getPatient().setMemories(null);
+        request.getMemory().setPatient(null);
+
+        this.requestTasks.memoryDeleteRequest(request, this);
+    }
+
+    //TODO SE NAO FOR USAR O METODO APAGA
     public void onInsertMemory(Memory memory)
     {
         //this.patientHomeFragment.onInsertPatient(patient);

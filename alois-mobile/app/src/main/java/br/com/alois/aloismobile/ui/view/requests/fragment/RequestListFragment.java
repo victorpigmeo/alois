@@ -49,6 +49,15 @@ public class RequestListFragment extends Fragment
 
     //==================================GETTERS/SETTERS=====================================
 
+    public void setPatientLogoffRequests(List<Request> patientLogoffRequests)
+    {
+        this.logoffRequestListFragment.setPatientLogoffRequests( patientLogoffRequests );
+    }
+
+    public void setPatientMemoryRequests(List<Request> patientMemoryRequests)
+    {
+        this.memoryRequestListFragment.setPatientMemoryRequests( patientMemoryRequests );
+    }
     //======================================================================================
 
     //=====================================BEHAVIOUR========================================
@@ -61,6 +70,7 @@ public class RequestListFragment extends Fragment
                 .build();
 
         this.memoryRequestListFragment = MemoryRequestListFragment_.builder()
+                .patient(this.patient)
                 .build();
 
         RequestsPagerAdapter requestsPagerAdapter = new RequestsPagerAdapter(getChildFragmentManager());
@@ -74,9 +84,8 @@ public class RequestListFragment extends Fragment
 
     }
 
-    public void setPatientLogoffRequests(List<Request> patientLogoffRequests)
-    {
-        this.logoffRequestListFragment.setPatientLogoffRequests( patientLogoffRequests );
+    public void onApproveMemoryRequest(Request request){
+        this.memoryRequestListFragment.memoryRequestListAdapter.onDeleteRequest(request);
     }
     //======================================================================================
 

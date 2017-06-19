@@ -130,7 +130,7 @@
     <string name="saving_reminder">Saving reminder</string>
     <string name="loading_reminders">Loading reminders</string>
     <string name="deleting_reminder">Deleting reminder</string>
-    <string name="loading_logoff_requests">Loading loggoff requests</string>
+    <string name="loading_requests">Loading requests</string>
     <string name="aprove_request">Aprove request</string>
     <string name="discard_request">Discard request</string>
     <string name="approving_request">Approving request</string>
@@ -169,4 +169,6 @@
     <string name="add_route">Add route</string>
     <string name="my_routes">My routes</string>
     <string name="my_reminders">My reminders</string>
+    <string name="requesting_delete_memory">Requesting memory delete</string>
+    <string name="memory_delete_requested">Memory delete requested</string>
 </resources>

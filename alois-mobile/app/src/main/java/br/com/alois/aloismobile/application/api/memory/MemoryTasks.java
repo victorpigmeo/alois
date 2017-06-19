@@ -77,7 +77,6 @@ public class MemoryTasks {
         try
         {
             String jsonMemory = objectMapper.writeValueAsString(memory);
-            System.out.println(jsonMemory);
             this.addMemoryHandleSuccess( memoryClient.addMemory( memory, this.generalPreferences.loggedUserAuthToken().get() ) );
         }
         catch(Exception e)
@@ -108,7 +107,6 @@ public class MemoryTasks {
     {
         this.patientHomeActivity.progressDialog.dismiss();
         Toast.makeText(this.patientHomeActivity, "Erro", Toast.LENGTH_SHORT).show();
-        System.out.println(message);
     }
 
     @Background
@@ -141,7 +139,6 @@ public class MemoryTasks {
     public void findHandleFail(String message)
     {
         this.patientHomeActivity.progressDialog.dismiss();
-        System.out.println(message);
     }
 
     @Background
@@ -181,6 +178,5 @@ public class MemoryTasks {
     {
         this.patientHomeActivity.progressDialog.dismiss();
         Toast.makeText(this.patientHomeActivity, this.patientHomeActivity.getResources().getString(R.string.patient_update_error), Toast.LENGTH_SHORT).show();
-        System.out.println(message);
     }
 }

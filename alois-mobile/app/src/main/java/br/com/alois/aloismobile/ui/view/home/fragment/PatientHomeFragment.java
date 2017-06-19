@@ -111,20 +111,9 @@ public class PatientHomeFragment extends Fragment
         }
     }
 
-    //TODO ISSO NAO EH UM GETTER NEM UM SETTER
-    @Click(R.id.buttonMyMemories)
-    public void onClickButtonMyMemories()
-    {
-        this.memoryListFragment = MemoryListFragment_.builder().patient(patient).build();
-
-        this.getActivity().getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.patient_home_frame_layout, memoryListFragment)
-                .addToBackStack("memory_list_fragment")
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                .commit();
+    public Patient getPatient(){
+        return this.patient;
     }
-
 
     //======================================================================================
 
@@ -199,6 +188,19 @@ public class PatientHomeFragment extends Fragment
     public void setPatientReminderList(List<Reminder> patientReminderList)
     {
         this.reminderListFragment.setReminderList(patientReminderList);
+    }
+
+     @Click(R.id.buttonMyMemories)
+    public void onClickButtonMyMemories()
+    {
+        this.memoryListFragment = MemoryListFragment_.builder().patient(patient).build();
+
+        this.getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.patient_home_frame_layout, memoryListFragment)
+                .addToBackStack("memory_list_fragment")
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .commit();
     }
     //======================================================================================
 

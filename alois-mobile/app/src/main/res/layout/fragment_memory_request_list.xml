@@ -4,9 +4,12 @@
              android:layout_height="match_parent"
              tools:context="br.com.alois.aloismobile.ui.view.requests.fragment.MemoryRequestListFragment">
 
-    <TextView
+    <ListView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="MEMORIES"/>
+        android:layout_height="wrap_content"
+        android:id="@+id/memoryRequestListView">
+
+    </ListView>
+
 
 </FrameLayout>

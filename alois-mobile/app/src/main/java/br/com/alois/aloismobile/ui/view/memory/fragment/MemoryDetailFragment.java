@@ -16,10 +16,15 @@ import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.ViewById;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import br.com.alois.aloismobile.R;
 import br.com.alois.aloismobile.ui.view.home.PatientHomeActivity;
 import br.com.alois.domain.entity.memory.Memory;
+import br.com.alois.domain.entity.user.Patient;
+import br.com.alois.domain.entity.user.Request;
+import br.com.alois.domain.entity.user.RequestStatus;
+import br.com.alois.domain.entity.user.RequestType;
 
 @EFragment(R.layout.fragment_memory_detail)
 public class MemoryDetailFragment extends Fragment {
@@ -90,6 +95,17 @@ public class MemoryDetailFragment extends Fragment {
                 .addToBackStack("memoryFormFragment")
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .commit();
+    }
+
+    @Click(R.id.memoryDetailRequestDelete)
+    public void requestDeleteMemory(){
+                Request request = new Request();
+                request.setMemory(this.memory);
+                request.setRequestStatus(RequestStatus.PENDING);
+                request.setTimeRequested(Calendar.getInstance());
+                request.setRequestType(RequestType.MEMORY_DELETE);
+
+        ((PatientHomeActivity) this.getActivity()).requestDeleteMemory(request);
     }
 
 }
