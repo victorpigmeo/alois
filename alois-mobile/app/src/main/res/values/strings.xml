@@ -171,4 +171,5 @@
     <string name="my_reminders">My reminders</string>
     <string name="requesting_delete_memory">Requesting memory delete</string>
     <string name="memory_delete_requested">Memory delete requested</string>
+    <string name="max_patient_note_length">Notes must have 255 characters max</string>
 </resources>

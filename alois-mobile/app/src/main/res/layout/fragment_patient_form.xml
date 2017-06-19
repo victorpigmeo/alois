@@ -161,6 +161,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/patientFormEditNotes"
                 android:layout_below="@+id/patientFormNotesLabel"
+                android:maxLength="255"
                 android:inputType="textMultiLine"/>
 
             <TableLayout

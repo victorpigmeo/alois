@@ -85,7 +85,6 @@ public class PatientFormFragment extends Fragment implements
     EditText patientFormEditEmergencyPhone;
 
     @ViewById(R.id.patientFormEditNotes)
-    @Max(value = 255)
     EditText patientFormEditNotes;
 
     @ViewById(R.id.patientFormEditUsername)

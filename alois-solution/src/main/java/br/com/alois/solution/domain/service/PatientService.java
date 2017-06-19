@@ -14,6 +14,7 @@ import br.com.alois.domain.entity.user.Patient;
 import br.com.alois.domain.entity.user.UserType;
 import br.com.alois.solution.configuration.NotificationServerConfiguration;
 import br.com.alois.solution.domain.client.NotificationClient;
+import br.com.alois.solution.domain.repository.IMemoryRepository;
 import br.com.alois.solution.domain.repository.IPatientRepository;
 import br.com.alois.solution.domain.repository.IPointRepository;
 import br.com.alois.solution.domain.repository.IRouteRepository;
@@ -38,6 +39,9 @@ public class PatientService {
 	
 	@Autowired
 	IRouteRepository routeRepository;
+
+	@Autowired
+	IMemoryRepository memoryRepository;
 	//======================================================================================
 
 	//=====================================BEHAVIOUR========================================
@@ -115,6 +119,7 @@ public class PatientService {
 
 	public Patient updatePatient(Patient patient) 
 	{
+		patient.setMemories(this.memoryRepository.listMemoryByPatientId(patient.getId()));
 		return this.patientRepository.save(patient);
 	}
 
