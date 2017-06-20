@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Alois</string>
     <string name="login">Login</string>
     <string name="password">Password</string>
     <string name="sign_in">Sign In</string>
-    <string name="no_account">No account?</string>
     <string name="register">Register</string>
     <string name="not_member_yet">Not a member yet?</string>
-    <string name="know_more">Know More</string>
+    <string name="know_more">Know more</string>
     <string name="dont_know_service_yet">Don\'t know the service yet?</string>
 
-    <string name="siging_in">Signing in</string>
+    <string name="siging_in">Signing in...</string>
     <string name="sign_up_to_alois">Sign Up to Alois</string>
     <string name="name">Name</string>
     <string name="all_fields_are_required">All fields are required</string>
     <string name="email">Email</string>
-    <string name="invalid_email">Invalid Email</string>
+    <string name="invalid_email">Invalid email</string>
     <string name="wrong_username_or_password">Wrong username or password</string>
     <string name="username">Username</string>
     <string name="name_is_required_field">Name is a required field</string>
@@ -24,22 +22,20 @@
     <string name="password_is_required_field">Password is a required field and has to be at least 6 characters long</string>
     <string name="need_internet_connection">You need an active internet connection to do this</string>
     <string name="creating_account">Creating account</string>
-    <string name="please_wait">Please wait...</string>
+    <string name="please_wait">Please wait</string>
     <string name="registration_successful">Registration Successful</string>
     <string name="registration_error">Registration failed due some error, contact the system administrator.</string>
     <string name="logout">Logout</string>
     <string name="gender">Gender</string>
     <string name="gender_is_required">Gender is a required field</string>
-    <string name="male">Male</string>
-    <string name="female">Female</string>
     <string name="username_already_exists">Username already exists.</string>
-    <string name="my_patients">My Patients</string>
+    <string name="my_patients">My patients</string>
     <string name="cannot_connect">Cannot conect, try again later</string>
-    <string name="loading_patients">Loading patients</string>
-    <string name="edit_patient">Edit Patient</string>
+    <string name="loading_patients">Loading patients...</string>
+    <string name="edit_patient">Edit patient</string>
     <string name="delete_patient">Delete Patient</string>
 
-    <string name="add_patient">Add Patient</string>
+    <string name="add_patient">Add patient</string>
     <string name="phone">Phone</string>
     <string name="date_of_birth">Date of birth</string>
     <string name="address">Address</string>
@@ -54,9 +50,9 @@
 
     <string name="patient_without_last_location">This patient doesn\'t have a last location yet</string>
     <string name="last_location">Last location</string>
-    <string name="caregiver_list">Caregiver List</string>
-    <string name="edit_caregiver">Edit Caregiver</string>
-    <string name="delete_caregiver">Delete Caregiver</string>
+    <string name="caregiver_list">Caregiver list</string>
+    <string name="edit_caregiver">Edit caregiver</string>
+    <string name="delete_caregiver">Delete caregiver</string>
     <string name="patient_routes">Patient routes</string>
     <string name="patient_reminders">Patient reminders</string>
     <string name="patient_requests">Patient requests</string>
@@ -70,10 +66,10 @@
     <string name="route_path_with_hint">Path (Click and hold to add a point)</string>
     <string name="select_2_or_more_points">Select 2 or more points to create a route</string>
     <string name="clear">Clear</string>
-    <string name="loading_route">Loading route</string>
-    <string name="saving_route">Saving route</string>
+    <string name="loading_route">Loading route...</string>
+    <string name="saving_route">Saving route...</string>
     <string name="error_default">An error occurred, please contact an system administrator</string>
-    <string name="saving_patient">Saving patient</string>
+    <string name="saving_patient">Saving patient...</string>
 
 
     <string name="patient_update_error">Update failed due some error, contact the system administrator</string>
@@ -83,13 +79,13 @@
     <string name="you_really_want_delete_patient">You really want to delete this patient?</string>
     <string name="deleting_patient">Deleting patient</string>
     <string name="you_must_clear_map_before_edit">You must clear the map before edit the route</string>
-    <string name="loading_caregivers">Loading Caregivers</string>
+    <string name="loading_caregivers">Loading caregivers...</string>
 
     <string name="you_really_want_delete_route">You really want to delete this route?</string>
     <string name="deleting_route">Deleting route</string>
 
     <string name="back">Back</string>
-    <string name="alois">Alois</string>
+    <string name="alois" translatable="false">Alois</string>
     <string name="alois_tracking_active">Alois tracking is active</string>
     <string name="google_play_services_connected">Google Play Services connected</string>
     <string name="google_play_services_suspended">Google Play Services suspended</string>
@@ -115,39 +111,37 @@
     <string name="reminder_date_time"><![CDATA[Date & Time]]></string>
     <string name="recurrency_is_required">Recurrency is a require field</string>
     <string name="you_must_select_a_date_and_time">You must select a date and time to save a reminder</string>
-    <string name="once">Only once</string>
-    <string name="loading_patient">Loading Patient...</string>
-    <string name="loading_memories">Loading Memories...</string>
-    <string name="loading_memory">Loading Memory...</string>
+    <string name="loading_patient">Loading patient...</string>
+    <string name="loading_memories">Loading memories...</string>
+    <string name="loading_memory">Loading memory...</string>
     <string name="processingReminder">Processing reminder, it will be available after processed</string>
-    <string name="edit_reminder">Edit Reminder</string>
+    <string name="edit_reminder">Edit reminder</string>
     <string name="delete_reminder">Delete Reminder</string>
     <string name="reminder_pending">This reminder is pending, it is not in the patient device yet</string>
     <string name="reminder_inactive">This reminder is inactive, it does not rings at patient device</string>
     <string name="reminder_date_required">Reminder date is required</string>
     <string name="reminder_time_required">Reminder time is required</string>
-    <string name="loading_routes">Loading routes</string>
-    <string name="saving_reminder">Saving reminder</string>
-    <string name="loading_reminders">Loading reminders</string>
+    <string name="loading_routes">Loading routes...</string>
+    <string name="saving_reminder">Saving reminder...</string>
+    <string name="loading_reminders">Loading reminders...</string>
     <string name="deleting_reminder">Deleting reminder</string>
-    <string name="loading_requests">Loading requests</string>
-    <string name="aprove_request">Aprove request</string>
+    <string name="loading_requests">Loading requests...</string>
+    <string name="aprove_request">Approve request</string>
     <string name="discard_request">Discard request</string>
     <string name="approving_request">Approving request</string>
     <string name="request_time_label">Requested in:</string>
     <string name="memory_title_is_required">Memory title is required</string>
     <string name="memory_description_is_required">Memory description is required</string>
-    <string name="saving_memory">Saving memory</string>
-    <string name="memory_description">Memory Description</string>
-    <string name="edit_memory">Edit Memory</string>
-    <string name="request_delete_memory">Request Delete</string>
-    <string name="memory_creation_date">Creation Date</string>
+    <string name="saving_memory">Saving memory...</string>
+    <string name="memory_description">Memory description</string>
+    <string name="edit_memory">Edit memory</string>
+    <string name="request_delete_memory">Request delete</string>
+    <string name="memory_creation_date">Creation date</string>
     <string name="camera">Camera</string>
-    <string name="logoff_requested">Logoff request send</string>
-    <string name="request_logout">Request Logout</string>
-    <string name="add_caregiver">Add Caregiver</string>
-    <string name="saving_caregiver">Saving caregiver</string>
-    <string name="confirm_delete_caregiver">Are you sure?</string>
+    <string name="logoff_requested">Logout request sent</string>
+    <string name="request_logout">Request logout</string>
+    <string name="add_caregiver">Add caregiver</string>
+    <string name="saving_caregiver">Saving caregiver...</string>
     <string name="delete_caregiver_consequences">Deleting this caregive all his patients will be deleted to and he cannot log in anymore.</string>
     <string name="patient_does_not_have_reminders">This patient does not have any reminder</string>
     <string name="detail_of">Details of:</string>
@@ -162,14 +156,14 @@
     <string name="view_memory">View memory</string>
     <string name="memory_title">Title</string>
     <string name="add_memory">Add memory</string>
-    <string name="loading_image">Loading image</string>
-    <string name="saving_request">Saving request</string>
+    <string name="loading_image">Loading image...</string>
+    <string name="saving_request">Saving request...</string>
     <string name="deleting_caregiver">Deleting caregiver</string>
     <string name="patient_details">Patient details</string>
     <string name="add_route">Add route</string>
     <string name="my_routes">My routes</string>
     <string name="my_reminders">My reminders</string>
     <string name="requesting_delete_memory">Requesting memory delete</string>
-    <string name="memory_delete_requested">Memory delete requested</string>
+    <string name="memory_delete_requested">Memory delete request sent</string>
     <string name="max_patient_note_length">Notes must have 255 characters max</string>
 </resources>
