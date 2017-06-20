@@ -4,30 +4,12 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.net.Uri;
-import android.os.SystemClock;
-import android.preference.PreferenceManager;
 import android.util.Log;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EBean;
-import org.androidannotations.annotations.sharedpreferences.Pref;
-import org.json.JSONArray;
-import org.json.JSONException;
-
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 import br.com.alois.aloismobile.application.api.reminder.ReminderClient;
-import br.com.alois.aloismobile.application.preference.GeneralPreferences;
-import br.com.alois.aloismobile.application.preference.GeneralPreferences_;
 import br.com.alois.aloismobile.application.preference.ServerConfiguration;
 import br.com.alois.api.jackson.JacksonDecoder;
 import br.com.alois.api.jackson.JacksonEncoder;

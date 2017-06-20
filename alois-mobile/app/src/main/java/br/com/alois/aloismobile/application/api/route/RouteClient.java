@@ -1,7 +1,5 @@
 package br.com.alois.aloismobile.application.api.route;
 
-import org.androidannotations.api.sharedpreferences.StringPrefField;
-
 import java.util.List;
 import java.util.Map;
 

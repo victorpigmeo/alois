@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/memoryFormDescriptionLabel"
                 style="@style/LabelStyle"
-                android:text="@string/memory_title"
+                android:text="@string/memory_description"
                 android:layout_below="@+id/memoryFormTitleEdit"/>
             <EditText
                 android:layout_width="match_parent"

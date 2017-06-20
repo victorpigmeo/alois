@@ -55,8 +55,6 @@ import br.com.alois.domain.entity.reminder.Reminder;
 import br.com.alois.domain.entity.route.Route;
 import br.com.alois.domain.entity.user.Patient;
 import br.com.alois.domain.entity.user.Request;
-import br.com.alois.domain.entity.user.RequestStatus;
-import br.com.alois.domain.entity.user.RequestType;
 
 @EActivity(R.layout.activity_patient_home)
 @OptionsMenu(R.menu.home_patient_menu)
@@ -112,8 +110,6 @@ public class PatientHomeActivity extends AppCompatActivity
     //======================================================================================
     //=====================================BEHAVIOUR========================================
 
-    //TODO PORQUE TEM ESSE SUPRESS WARNINGS?
-    @SuppressWarnings("WrongConstant")
     @AfterViews
     public void onAfterViews()
     {
@@ -141,7 +137,7 @@ public class PatientHomeActivity extends AppCompatActivity
                 .beginTransaction()
                 .replace(R.id.patient_home_frame_layout, patientHomeFragment)
                 .addToBackStack("patient_home_fragment")
-                .setTransition(FragmentTransaction.TRANSIT_ENTER_MASK)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .commit();
     }
 
@@ -225,18 +221,15 @@ public class PatientHomeActivity extends AppCompatActivity
         this.requestTasks.memoryDeleteRequest(request, this);
     }
 
-    //TODO SE NAO FOR USAR O METODO APAGA
     public void onInsertMemory(Memory memory)
     {
-        //this.patientHomeFragment.onInsertPatient(patient);
+        this.patientHomeFragment.onInsertMemory(memory);
     }
 
-    //TODO IDEM AO DE CIMA
     public void onUpdateMemory(Memory memory)
     {
-        //this.patientHomeFragment.onInsertPatient(patient);
+        this.patientHomeFragment.onUpdateMemory(memory);
     }
-
 
     @Override
     public void onBackPressed()
@@ -406,6 +399,16 @@ public class PatientHomeActivity extends AppCompatActivity
     public void setPatientReminderList(List<Reminder> patientReminderList)
     {
         this.patientHomeFragment.setPatientReminderList(patientReminderList);
+    }
+
+    public void setPatientMemoryList(List<Memory> memoryList)
+    {
+        this.patientHomeFragment.setPatientMemoryList(memoryList);
+    }
+
+    public void setPatientMemory(Memory memory)
+    {
+        this.patientHomeFragment.setPatientMemory(memory);
     }
     //======================================================================================
 }

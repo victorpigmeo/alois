@@ -13,17 +13,14 @@ import org.androidannotations.annotations.sharedpreferences.Pref;
 import java.util.List;
 
 import br.com.alois.aloismobile.R;
-import br.com.alois.aloismobile.application.api.caregiver.CaregiverClient;
-import br.com.alois.aloismobile.application.api.patient.PatientClient;
 import br.com.alois.aloismobile.application.preference.GeneralPreferences_;
 import br.com.alois.aloismobile.application.preference.ServerConfiguration;
+import br.com.alois.aloismobile.ui.view.home.PatientHomeActivity;
+import br.com.alois.aloismobile.ui.view.memory.fragment.MemoryListFragment;
+import br.com.alois.aloismobile.ui.view.memory.fragment.MemoryListFragment_;
 import br.com.alois.api.jackson.JacksonDecoder;
 import br.com.alois.api.jackson.JacksonEncoder;
-import br.com.alois.aloismobile.ui.view.home.AdministratorHomeActivity;
-import br.com.alois.aloismobile.ui.view.home.PatientHomeActivity;
 import br.com.alois.domain.entity.memory.Memory;
-import br.com.alois.domain.entity.user.Caregiver;
-import br.com.alois.domain.entity.user.Patient;
 import feign.Feign;
 import feign.FeignException;
 
@@ -61,7 +58,7 @@ public class MemoryTasks {
     public void getMemoryListHandleSuccess(List<Memory> memoryList)
     {
         this.patientHomeActivity.progressDialog.dismiss();
-        this.patientHomeActivity.patientHomeFragment.memoryListFragment.setPatientMemoryList(memoryList);
+        this.patientHomeActivity.setPatientMemoryList(memoryList);
     }
 
     @Background
@@ -92,7 +89,11 @@ public class MemoryTasks {
         this.patientHomeActivity.progressDialog.dismiss();
         if(memory != null)
         {
-            this.patientHomeActivity.onInsertMemory(memory);
+            int aux = this.patientHomeActivity.getSupportFragmentManager().getBackStackEntryCount();
+            for(int i=0;i<aux;i++){
+                if(this.patientHomeActivity.getSupportFragmentManager().getBackStackEntryAt(i).equals("memory_list_fragment"))
+                    this.patientHomeActivity.onInsertMemory(memory);
+            }
             this.patientHomeActivity.getSupportFragmentManager()
                     .popBackStack();
         }
@@ -131,7 +132,7 @@ public class MemoryTasks {
     @UiThread
     public void findHandleSuccess(Memory memory)
     {
-        this.patientHomeActivity.patientHomeFragment.memoryListFragment.memoryDetailFragment.setMemory(memory);
+        this.patientHomeActivity.setPatientMemory(memory);
         this.patientHomeActivity.progressDialog.dismiss();
     }
 

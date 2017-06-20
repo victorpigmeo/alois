@@ -91,12 +91,6 @@ public class MemoryListAdapter extends BaseAdapter {
 
         this.notifyDataSetChanged();
     }
-
-    public void onDeleteMemory(Memory memory)
-    {
-        this.memories.remove(memory);
-        this.notifyDataSetChanged();
-    }
     //======================================================================================
 
 }

@@ -27,7 +27,6 @@ public class AlarmReceiverService extends WakefulBroadcastReceiver
     @Override
     public void onReceive(Context context, Intent intent)
     {
-        //TODO preciso testar os reminder recorrentes!
         Log.i("ALOIS-REMINDER", "Alois reminder ringing");
 
         Reminder reminder = (Reminder) intent.getExtras().get("reminder");

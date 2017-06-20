@@ -2,8 +2,6 @@ package br.com.alois.aloismobile.application.preference;
 
 import org.androidannotations.annotations.sharedpreferences.SharedPref;
 
-import java.util.List;
-
 /**
  * Created by victor on 3/4/17.
  */

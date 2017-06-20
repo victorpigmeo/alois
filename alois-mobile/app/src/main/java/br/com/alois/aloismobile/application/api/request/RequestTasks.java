@@ -1,6 +1,5 @@
 package br.com.alois.aloismobile.application.api.request;
 
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import org.androidannotations.annotations.Background;
@@ -8,7 +7,6 @@ import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.sharedpreferences.Pref;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -22,10 +20,6 @@ import br.com.alois.aloismobile.ui.view.login.LoginActivity;
 import br.com.alois.aloismobile.ui.view.patient.PatientDetailActivity;
 import br.com.alois.api.jackson.JacksonDecoder;
 import br.com.alois.api.jackson.JacksonEncoder;
-import br.com.alois.api.jackson.JacksonDecoder;
-import br.com.alois.api.jackson.JacksonEncoder;
-import br.com.alois.domain.entity.memory.Memory;
-import br.com.alois.domain.entity.user.Patient;
 import br.com.alois.domain.entity.user.Request;
 import feign.Feign;
 import feign.FeignException;

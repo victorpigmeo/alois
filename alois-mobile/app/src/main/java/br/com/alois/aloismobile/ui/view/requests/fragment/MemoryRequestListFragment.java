@@ -1,7 +1,6 @@
 package br.com.alois.aloismobile.ui.view.requests.fragment;
 
 
-
 import android.support.v4.app.Fragment;
 import android.widget.ListView;
 
@@ -16,7 +15,6 @@ import java.util.List;
 import br.com.alois.aloismobile.R;
 import br.com.alois.aloismobile.ui.view.patient.PatientDetailActivity;
 import br.com.alois.aloismobile.ui.view.requests.adapter.MemoryRequestListAdapter;
-import br.com.alois.domain.entity.memory.Memory;
 import br.com.alois.domain.entity.user.Patient;
 import br.com.alois.domain.entity.user.Request;
 

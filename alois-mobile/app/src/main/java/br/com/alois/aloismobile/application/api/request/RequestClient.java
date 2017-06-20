@@ -1,8 +1,7 @@
 package br.com.alois.aloismobile.application.api.request;
 
 import java.util.List;
-import br.com.alois.domain.entity.memory.Memory;
-import br.com.alois.domain.entity.user.Patient;
+
 import br.com.alois.domain.entity.user.Request;
 import feign.Headers;
 import feign.Param;

@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import br.com.alois.domain.entity.memory.Memory;
 import br.com.alois.domain.entity.user.Request;
 import br.com.alois.domain.entity.user.RequestType;
 

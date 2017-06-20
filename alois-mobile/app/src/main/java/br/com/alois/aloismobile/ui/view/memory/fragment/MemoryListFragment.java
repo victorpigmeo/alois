@@ -1,6 +1,8 @@
 package br.com.alois.aloismobile.ui.view.memory.fragment;
 
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.GridView;
@@ -50,15 +52,18 @@ public class MemoryListFragment extends Fragment {
     //======================================================================================
 
     //==================================GETTERS/SETTERS=====================================
-
+    public void setPatientMemory(Memory memory)
+    {
+        this.memoryDetailFragment.setMemory(memory);
+    }
     //======================================================================================
 
     //=====================================BEHAVIOUR========================================
+
     @AfterViews
     public void onAfterViews()
     {
         this.memoryList.setAdapter(this.memoryListAdapter);
-
         ((PatientHomeActivity) this.getActivity()).getMemoriesByPatientId(this.patient.getId());
     }
 
@@ -79,18 +84,14 @@ public class MemoryListFragment extends Fragment {
                 .commit();
     }
 
-    public void onAddMemory(Memory memory) {
+    public void onInsertMemory(Memory memory)
+    {
         this.memoryListAdapter.onInsertMemory(memory);
     }
 
     public void onUpdateMemory(Memory memory)
     {
         this.memoryListAdapter.onUpdateMemory(memory);
-    }
-
-    public void onDeleteMemory(Memory memory)
-    {
-        this.memoryListAdapter.onDeleteMemory(memory);
     }
     //======================================================================================
 

@@ -3,7 +3,6 @@ package br.com.alois.aloismobile.application.api.memory;
 import java.util.List;
 
 import br.com.alois.domain.entity.memory.Memory;
-import br.com.alois.domain.entity.user.Patient;
 import feign.Headers;
 import feign.Param;
 import feign.RequestLine;

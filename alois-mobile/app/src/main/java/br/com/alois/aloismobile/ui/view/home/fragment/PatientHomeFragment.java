@@ -24,6 +24,7 @@ import br.com.alois.aloismobile.ui.view.reminder.fragment.ReminderListFragment;
 import br.com.alois.aloismobile.ui.view.reminder.fragment.ReminderListFragment_;
 import br.com.alois.aloismobile.ui.view.route.fragment.RouteListFragment;
 import br.com.alois.aloismobile.ui.view.route.fragment.RouteListFragment_;
+import br.com.alois.domain.entity.memory.Memory;
 import br.com.alois.domain.entity.reminder.Reminder;
 import br.com.alois.domain.entity.route.Route;
 import br.com.alois.domain.entity.user.Patient;
@@ -61,8 +62,7 @@ public class PatientHomeFragment extends Fragment
 
     private Patient patient;
 
-    //TODO PORQUE ESTA PUBLICO? ALGUEM DE FORA PRECISA ACESSAR ISSO?
-    public MemoryListFragment memoryListFragment;
+    private MemoryListFragment memoryListFragment;
 
     private RouteListFragment routeListFragment;
 
@@ -190,17 +190,36 @@ public class PatientHomeFragment extends Fragment
         this.reminderListFragment.setReminderList(patientReminderList);
     }
 
-     @Click(R.id.buttonMyMemories)
+    @Click(R.id.buttonMyMemories)
     public void onClickButtonMyMemories()
     {
         this.memoryListFragment = MemoryListFragment_.builder().patient(patient).build();
-
         this.getActivity().getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.patient_home_frame_layout, memoryListFragment)
                 .addToBackStack("memory_list_fragment")
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .commit();
+    }
+
+    public void setPatientMemoryList(List<Memory> memoryList)
+    {
+        this.memoryListFragment.setPatientMemoryList(memoryList);
+    }
+
+    public void setPatientMemory(Memory memory)
+    {
+        this.memoryListFragment.setPatientMemory(memory);
+    }
+
+    public void onInsertMemory(Memory memory)
+    {
+        this.memoryListFragment.onInsertMemory(memory);
+    }
+
+    public void onUpdateMemory(Memory memory)
+    {
+        this.memoryListFragment.onUpdateMemory(memory);
     }
     //======================================================================================
 
