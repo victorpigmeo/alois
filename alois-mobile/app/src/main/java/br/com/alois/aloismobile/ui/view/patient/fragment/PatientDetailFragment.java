@@ -73,7 +73,19 @@ public class PatientDetailFragment extends Fragment
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         this.patientDetailPhone.setText(this.patient.getPhone());
-        this.patientDetailGender.setText(this.patient.getGender().toString());
+
+        int genderStringId = 0;
+        switch (this.patient.getGender())
+        {
+            case MALE:
+                genderStringId = R.string.male;
+                break;
+            case FEMALE:
+                genderStringId = R.string.female;
+                break;
+        }
+        this.patientDetailGender.setText(this.getActivity().getResources().getString(genderStringId));
+
         this.patientDetailDateOfBirth.setText(simpleDateFormat.format(this.patient.getBirthDate().getTime()));
         this.patientDetailAddress.setText(this.patient.getAddress());
         this.patientDetailEmergencyPhone.setText(this.patient.getEmergencyPhone());
