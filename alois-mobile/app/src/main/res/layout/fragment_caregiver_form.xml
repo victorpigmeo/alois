@@ -71,7 +71,7 @@
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/male"
+                    android:text="@string/MALE"
                     android:tag="MALE"
                     android:id="@+id/caregiverFormRadioMale"
                     android:buttonTint="@color/colorPrimaryDark"
@@ -80,7 +80,7 @@
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/female"
+                    android:text="@string/FEMALE"
                     android:tag="FEMALE"
                     android:id="@+id/caregiverFormRadioFemale"
                     android:buttonTint="@color/colorPrimaryDark"

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Alois</string>
     <string name="FEMALE">Feminino</string>
     <string name="MALE">Masculino</string>
     <string name="add_caregiver">Adicionar cuidador</string>

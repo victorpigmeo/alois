@@ -78,10 +78,10 @@ public class PatientDetailFragment extends Fragment
         switch (this.patient.getGender())
         {
             case MALE:
-                genderStringId = R.string.male;
+                genderStringId = R.string.MALE;
                 break;
             case FEMALE:
-                genderStringId = R.string.female;
+                genderStringId = R.string.FEMALE;
                 break;
         }
         this.patientDetailGender.setText(this.getActivity().getResources().getString(genderStringId));

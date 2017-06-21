@@ -109,7 +109,7 @@
                 android:layout_height="match_parent"
                 android:id="@+id/reminderFormRadioOnce"
                 android:tag="ONCE"
-                android:text="@string/once"/>
+                android:text="@string/only_once"/>
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"

@@ -92,7 +92,7 @@ public class CaregiverListRow extends LinearLayout
                         break;
                     case R.id.caregiverListMenuDeleteButton:
                         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext())
-                                .setTitle(R.string.confirm_delete_caregiver)
+                                .setTitle(R.string.are_you_sure)
                                 .setMessage(R.string.delete_caregiver_consequences)
                                 .setPositiveButton(R.string.mdtp_ok, new DialogInterface.OnClickListener()
                                 {
