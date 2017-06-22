@@ -62,8 +62,6 @@ public class RequestTasks
     public void listRequestsByPatientIdHandleSuccess(List<Request> requests)
     {
         this.patientDetailActivity.setPatientLogoffRequests( requests );
-
-        this.patientDetailActivity.progressDialog.dismiss();
     }
 
     @Background
@@ -88,8 +86,6 @@ public class RequestTasks
     public void listMemoryRequestsByPatientIdHandleSuccess(List<Request> requests)
     {
         this.patientDetailActivity.setPatientMemoryRequests( requests );
-
-        this.patientDetailActivity.progressDialog.dismiss();
     }
 
     @Background

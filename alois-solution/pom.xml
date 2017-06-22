@@ -11,7 +11,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
 		<!-- Versions -->
-		<alois-common.version>0.0.1-SNAPSHOT</alois-common.version>
+		<alois-common.version>1.0.0-RELEASE</alois-common.version>
 		<google-maps-services.version>0.1.17</google-maps-services.version>
 		<java.version>1.8</java.version>
 

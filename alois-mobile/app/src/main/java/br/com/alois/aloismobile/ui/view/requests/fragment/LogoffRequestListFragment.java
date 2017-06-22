@@ -1,6 +1,7 @@
 package br.com.alois.aloismobile.ui.view.requests.fragment;
 
 
+import android.app.ProgressDialog;
 import android.support.v4.app.Fragment;
 import android.widget.ListView;
 
@@ -37,6 +38,8 @@ public class LogoffRequestListFragment extends Fragment
     @Bean
     LogoffRequestListAdapter logoffRequestListAdapter;
 
+    private ProgressDialog progressDialog;
+
     //======================================================================================
 
     //====================================CONSTRUCTORS======================================
@@ -57,11 +60,20 @@ public class LogoffRequestListFragment extends Fragment
     {
         this.logoffRequestListView.setAdapter(this.logoffRequestListAdapter);
 
+        this.progressDialog = ProgressDialog.show(this.getActivity(),
+                this.getResources().getString(R.string.loading_requests),
+                this.getResources().getString(R.string.please_wait),
+                true,
+                true
+        );
+
         ((PatientDetailActivity) this.getActivity()).listPatientLogoffRequests(this.patient);
     }
 
     public void setPatientLogoffRequests(List<Request> patientLogoffRequests)
     {
+        this.progressDialog.dismiss();
+
         if(this.logoffRequestListAdapter == null)
         {
             this.logoffRequestListAdapter = new LogoffRequestListAdapter();

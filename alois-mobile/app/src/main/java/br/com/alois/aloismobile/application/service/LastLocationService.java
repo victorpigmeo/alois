@@ -115,9 +115,10 @@ public class LastLocationService extends IntentService implements
             {
                 this.updateLastLocation();
                 //Sets the time between verifications
-                TimeUnit.SECONDS.sleep(30);
+                TimeUnit.MINUTES.sleep(5);
             }
-        } catch (InterruptedException e)
+        }
+        catch (InterruptedException e)
         {
             e.printStackTrace();
         }
@@ -158,7 +159,8 @@ public class LastLocationService extends IntentService implements
                                             try
                                             {
                                                 LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, locationListener);
-                                            }catch (SecurityException e)
+                                            }
+                                            catch (SecurityException e)
                                             {
                                                 e.printStackTrace();
                                             }

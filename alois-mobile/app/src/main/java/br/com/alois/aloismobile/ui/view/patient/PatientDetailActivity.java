@@ -374,13 +374,6 @@ public class PatientDetailActivity extends AppCompatActivity
 
     public void listPatientLogoffRequests(Patient patient)
     {
-        this.progressDialog = ProgressDialog.show(this,
-                this.getResources().getString(R.string.loading_requests),
-                this.getResources().getString(R.string.please_wait),
-                true,
-                true
-        );
-
         this.requestTasks.listLogoffRequestsByPatientId( patient.getId() );
     }
 
@@ -415,13 +408,6 @@ public class PatientDetailActivity extends AppCompatActivity
 
     public void listPatientMemoryRequests(Patient patient)
     {
-        /*this.progressDialog = ProgressDialog.show(this,
-                this.getResources().getString(R.string.loading_memory_requests),
-                this.getResources().getString(R.string.please_wait),
-                true,
-                true
-        );*/
-
         this.requestTasks.listMemoryRequestsByPatientId( patient.getId() );
     }
 

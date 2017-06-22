@@ -1,6 +1,7 @@
 package br.com.alois.aloismobile.ui.view.requests.fragment;
 
 
+import android.app.ProgressDialog;
 import android.support.v4.app.Fragment;
 import android.widget.ListView;
 
@@ -36,6 +37,8 @@ public class MemoryRequestListFragment extends Fragment {
     @Bean
     MemoryRequestListAdapter memoryRequestListAdapter;
 
+    private ProgressDialog progressDialog;
+
     //======================================================================================
 
     //====================================CONSTRUCTORS======================================
@@ -51,13 +54,24 @@ public class MemoryRequestListFragment extends Fragment {
 
     //=====================================BEHAVIOUR========================================
     @AfterViews
-    public void onAfterViews() {
+    public void onAfterViews()
+    {
         this.memoryRequestListView.setAdapter(this.memoryRequestListAdapter);
+
+        this.progressDialog = ProgressDialog.show(this.getActivity(),
+                this.getResources().getString(R.string.loading_requests),
+                this.getResources().getString(R.string.please_wait),
+                true,
+                true
+        );
 
         ((PatientDetailActivity) this.getActivity()).listPatientMemoryRequests(this.patient);
     }
 
-    public void setPatientMemoryRequests(List<Request> patientMemoryRequests) {
+    public void setPatientMemoryRequests(List<Request> patientMemoryRequests)
+    {
+        this.progressDialog.dismiss();
+
         if(this.memoryRequestListView == null)
         {
             this.memoryRequestListAdapter = new MemoryRequestListAdapter();
