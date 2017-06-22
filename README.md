@@ -3,7 +3,7 @@
 ##### Resumo Rapido #####
 ###### Repositório criado para versionar o codigo da fase de desenvolvimento do aplicativo Alois ######
 ##### Versão #####
-###### 0.0.1-SNAPSHOT ######
+###### 1.0.0-RELEASE Dirce ######
 
 ### Como eu faço para rodar o alois? ###
 #### Configuração ####
@@ -34,7 +34,7 @@
 * Selecione a opção 'Run As' e depois a opção "Spring Boot App";
 * Aguarde até que uma mensagem "Application Started in..." seja exibida;
 * Nesse momento o webservice estará rodando e aguardando solicitações;
-* No Android Studio apenas clique no botão 'Run' e selecione o dispositivo no qual rodar o app;
+* No Android Studio altere a constante SERVER_ADDRESS para o endereço de ip do seu webservice(iniciado a cima), e depois clique no botão 'Run' e selecione o dispositivo no qual rodar o app;
   * É altamente recomendado o uso de um dispositivo fisico para testes para que o teste fique mais proximo da experiencia final.
 
 ### Guia para alterações ###
